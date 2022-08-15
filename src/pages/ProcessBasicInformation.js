@@ -22,7 +22,7 @@ export default function ProcessBasicInformation() {
   const changDate = useRef();
   const changeDescription = useRef();
 
-  //TODO fix quill css + send changes + fetch at start info + try add back button
+  //TODO send changes + fetch at start info
   return (
     <>
       <MyAppBar />
@@ -133,15 +133,9 @@ export default function ProcessBasicInformation() {
             </Typography>
           </Grid>
           <Grid item xs={12}>
-            <TextField
-              margin={"normal"}
-              inputRef={changeDescription}
-              multiline
-              rows={5}
-              fullWidth
-            />
+            <ReactQuill theme="snow" ref={changeDescription} />
           </Grid>
-          <Grid item xs={12} marginBottom={5}>
+          <Grid item xs={12} marginTop={2} marginBottom={5}>
             <Button onClick={saveChanges} size={"large"} variant="contained">
               Save
             </Button>

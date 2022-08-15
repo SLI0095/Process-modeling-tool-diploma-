@@ -1,10 +1,14 @@
 import * as React from "react";
 import BottomNavigation from "@mui/material/BottomNavigation";
 import BottomNavigationAction from "@mui/material/BottomNavigationAction";
-import FolderIcon from "@mui/icons-material/Folder";
-import RestoreIcon from "@mui/icons-material/Restore";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import LocationOnIcon from "@mui/icons-material/LocationOn";
+import {
+  AccountTree,
+  FormatListNumbered,
+  History,
+  Info,
+  Person,
+  Straighten,
+} from "@mui/icons-material";
 
 export default function ProcessSubMenuFooter() {
   const [value, setValue] = React.useState("recents");
@@ -13,28 +17,34 @@ export default function ProcessSubMenuFooter() {
     setValue(newValue);
   };
 
-  //TODO change icons and names + set routing + accept props
+  //TODO set routing + accept props
   return (
     <BottomNavigation value={value} onChange={handleChange}>
+      <BottomNavigationAction label="Main info" value="main" icon={<Info />} />
       <BottomNavigationAction
-        label="Recents"
-        value="recents"
-        icon={<RestoreIcon />}
+        label="Metrics"
+        value="metrics"
+        icon={<Straighten />}
       />
       <BottomNavigationAction
-        label="Favorites"
-        value="favorites"
-        icon={<FavoriteIcon />}
+        label="Workflow"
+        value="workflow"
+        icon={<AccountTree />}
       />
       <BottomNavigationAction
-        label="Nearby"
-        value="nearby"
-        icon={<LocationOnIcon />}
+        label="Activities"
+        value="activities"
+        icon={<FormatListNumbered />}
       />
       <BottomNavigationAction
-        label="Folder"
-        value="folder"
-        icon={<FolderIcon />}
+        label="History"
+        value="history"
+        icon={<History />}
+      />
+      <BottomNavigationAction
+        label="User settings"
+        value="settings"
+        icon={<Person />}
       />
     </BottomNavigation>
   );

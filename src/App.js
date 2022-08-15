@@ -5,6 +5,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import StartPage from "./pages/StartPage";
 import UserMainPage from "./pages/UserMainPage";
 import ProcessBasicInformation from "./pages/ProcessBasicInformation";
+import NewProcess from "./pages/NewProcess";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
             path="/user/:userId/processes/:processId"
             element={<ProcessBasicInformation />}
           />
+          <Route path="/user/:userId/newProcess" element={<NewProcess />} />
         </Route>
       </Routes>
     </BrowserRouter>
