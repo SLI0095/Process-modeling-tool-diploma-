@@ -1,7 +1,7 @@
 import MyAppBar from "../modules/MyAppBar";
 import { Container, Grid } from "@mui/material";
-import ProcessPaper from "../modules/ProcessPaper";
-import NewProcessButton from "../modules/NewProcessButton";
+import NewProcessButton from "../modules/Process/NewProcessButton";
+import PaperElement from "../modules/PaperElement";
 
 export default function UserMainPage() {
   return (
@@ -16,11 +16,11 @@ export default function UserMainPage() {
           alignItems="center"
         >
           <NewProcessButton />
-          <ProcessPaper />
-          <ProcessPaper />
-          <ProcessPaper />
-          <ProcessPaper />
-          <ProcessPaper />
+          <PaperElement />
+          <PaperElement />
+          <PaperElement />
+          <PaperElement />
+          <PaperElement />
         </Grid>
       </Container>
     </>

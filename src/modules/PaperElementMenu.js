@@ -3,10 +3,12 @@ import IconButton from "@mui/material/IconButton";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
+import DeleteModal from "./DeleteModal";
 
 const ITEM_HEIGHT = 48;
 
-export default function ProcessPaperMenu() {
+//TODO in props get id of element and type of element
+export default function PaperElementMenu() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -16,9 +18,6 @@ export default function ProcessPaperMenu() {
     setAnchorEl(null);
   };
   const handleTemplate = () => {
-    setAnchorEl(null);
-  };
-  const handleDelete = () => {
     setAnchorEl(null);
   };
 
@@ -55,9 +54,7 @@ export default function ProcessPaperMenu() {
         <MenuItem key={"newVersion"} onClick={handleTemplate}>
           Use as template
         </MenuItem>
-        <MenuItem key={"delete"} onClick={handleDelete}>
-          Delete
-        </MenuItem>
+        <DeleteModal />
       </Menu>
     </div>
   );

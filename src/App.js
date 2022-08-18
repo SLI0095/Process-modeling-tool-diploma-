@@ -4,8 +4,9 @@ import "./quill.snow.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import StartPage from "./pages/StartPage";
 import UserMainPage from "./pages/UserMainPage";
-import ProcessBasicInformation from "./pages/ProcessBasicInformation";
-import NewProcess from "./pages/NewProcess";
+import ProcessBasicInformation from "./pages/Process/ProcessBasicInformation";
+import NewProcess from "./pages/Process/NewProcess";
+import NewWorkItem from "./pages/WorkItem/NewWorkItem";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
             element={<ProcessBasicInformation />}
           />
           <Route path="/user/:userId/newProcess" element={<NewProcess />} />
+          <Route path="/test" element={<NewWorkItem />} />
         </Route>
       </Routes>
     </BrowserRouter>

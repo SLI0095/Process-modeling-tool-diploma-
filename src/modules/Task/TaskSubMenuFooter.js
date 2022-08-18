@@ -2,16 +2,16 @@ import * as React from "react";
 import BottomNavigation from "@mui/material/BottomNavigation";
 import BottomNavigationAction from "@mui/material/BottomNavigationAction";
 import {
-  AccountTree,
+  FilePresent,
   FormatListNumbered,
   History,
   Info,
-  Person,
-  Straighten,
+  People,
+  Settings,
 } from "@mui/icons-material";
 
-export default function ProcessSubMenuFooter() {
-  const [value, setValue] = React.useState("recents");
+export default function TaskSubMenuFooter() {
+  const [value, setValue] = React.useState("main");
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -22,29 +22,25 @@ export default function ProcessSubMenuFooter() {
     <BottomNavigation value={value} onChange={handleChange}>
       <BottomNavigationAction label="Main info" value="main" icon={<Info />} />
       <BottomNavigationAction
-        label="Metrics"
-        value="metrics"
-        icon={<Straighten />}
-      />
-      <BottomNavigationAction
-        label="Workflow"
-        value="workflow"
-        icon={<AccountTree />}
-      />
-      <BottomNavigationAction
-        label="Activities"
-        value="activities"
+        label="Steps"
+        value="steps"
         icon={<FormatListNumbered />}
       />
+      <BottomNavigationAction
+        label="Work items"
+        value="workItems"
+        icon={<FilePresent />}
+      />
+      <BottomNavigationAction label="RASCI" value="rasci" icon={<People />} />
       <BottomNavigationAction
         label="History"
         value="history"
         icon={<History />}
       />
       <BottomNavigationAction
-        label="User settings"
+        label="Settings"
         value="settings"
-        icon={<Person />}
+        icon={<Settings />}
       />
     </BottomNavigation>
   );

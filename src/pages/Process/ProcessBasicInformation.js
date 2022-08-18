@@ -1,10 +1,10 @@
-import MyAppBar from "../modules/MyAppBar";
+import MyAppBar from "../../modules/MyAppBar";
 import { Button, Container, Grid, Paper, TextField } from "@mui/material";
 import { useRef } from "react";
 import Typography from "@mui/material/Typography";
 import * as React from "react";
 import ReactQuill from "react-quill";
-import ProcessSubMenuFooter from "../modules/ProcessSubMenuFooter";
+import ProcessSubMenuFooter from "../../modules/Process/ProcessSubMenuFooter";
 
 export default function ProcessBasicInformation() {
   const saveChanges = () => {};

@@ -11,7 +11,6 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import { AccountCircle, Construction } from "@mui/icons-material";
-import { useEffect } from "react";
 import { useNavigate } from "react-router";
 
 const pages = ["Processes", "Tasks", "Work Items", "Roles"];
@@ -43,6 +42,8 @@ const MyAppBar = () => {
     setAnchorElUser(null);
   };
 
+  //TODO Uncomment after testing
+  /*
   useEffect(() => {
     let loggedIn = sessionStorage.getItem("isLoggedIn");
     let userId = sessionStorage.getItem("userName");
@@ -50,6 +51,7 @@ const MyAppBar = () => {
       navigate("/");
     }
   });
+  */
 
   return (
     <AppBar position="sticky">

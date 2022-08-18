@@ -1,9 +1,9 @@
 import { Grid, Paper } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import ProcessPaperMenu from "./ProcessPaperMenu";
+import PaperElementMenu from "./PaperElementMenu";
 
-export default function ProcessPaper() {
+export default function PaperElement() {
   return (
     <>
       <Grid item xs={3}>
@@ -25,9 +25,9 @@ export default function ProcessPaper() {
                 paddingY: 2,
               }}
             >
-              Process name
+              Name
             </Typography>
-            <ProcessPaperMenu />
+            <PaperElementMenu />
           </Box>
 
           <Typography
@@ -38,8 +38,8 @@ export default function ProcessPaper() {
               paddingBottom: 2,
             }}
           >
-            Process description - Sed ut perspiciatis, unde omnis iste natus
-            error sit voluptatem accusantium doloremque laudantium.
+            Description - Sed ut perspiciatis, unde omnis iste natus error sit
+            voluptatem accusantium doloremque laudantium.
           </Typography>
         </Paper>
       </Grid>
