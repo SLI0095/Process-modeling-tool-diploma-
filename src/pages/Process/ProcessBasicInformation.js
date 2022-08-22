@@ -1,5 +1,5 @@
 import MyAppBar from "../../modules/MyAppBar";
-import { Button, Container, Grid, Paper, TextField } from "@mui/material";
+import { Button, Container, Grid, TextField } from "@mui/material";
 import { useRef } from "react";
 import Typography from "@mui/material/Typography";
 import * as React from "react";
@@ -141,12 +141,7 @@ export default function ProcessBasicInformation() {
             </Button>
           </Grid>
         </Grid>
-        <Paper
-          sx={{ position: "fixed", bottom: 0, left: 0, right: 0 }}
-          elevation={3}
-        >
-          <ProcessSubMenuFooter />
-        </Paper>
+        <ProcessSubMenuFooter />
       </Container>
     </>
   );
