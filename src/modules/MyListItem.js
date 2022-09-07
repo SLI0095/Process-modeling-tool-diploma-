@@ -1,7 +1,15 @@
-import { ListItem, ListItemText, Paper } from "@mui/material";
-import ListItemMenu from "./ListItemMenu";
+import {
+  ListItem,
+  ListItemSecondaryAction,
+  ListItemText,
+  Paper,
+} from "@mui/material";
+import IconButton from "@mui/material/IconButton";
+import { Delete, Edit } from "@mui/icons-material";
 
 export default function MyListItem() {
+  const handleEdit = () => {};
+
   return (
     <>
       <Paper
@@ -10,9 +18,32 @@ export default function MyListItem() {
           marginBottom: 2,
         }}
       >
-        <ListItem secondaryAction={<ListItemMenu />}>
+        <ListItem>
           <ListItemText primary="Name" secondary="Description" />
+          <ListItemSecondaryAction>
+            <IconButton
+              edge="end"
+              aria-label="edit"
+              id="edit-button"
+              onClick={() => handleEdit()}
+            >
+              <Edit />
+            </IconButton>
+            <IconButton
+              aria-label="remove"
+              id="remove-button"
+              onClick={() => handleEdit()}
+              sx={{
+                marginLeft: 2,
+              }}
+            >
+              <Delete />
+            </IconButton>
+          </ListItemSecondaryAction>
         </ListItem>
+        {/* <ListItem secondaryAction={<ListItemMenu />}>
+          <ListItemText primary="Name" secondary="Description" />
+        </ListItem>*/}
       </Paper>
     </>
   );

@@ -6,7 +6,7 @@ import StartPage from "./pages/StartPage";
 import UserMainPage from "./pages/UserMainPage";
 import ProcessBasicInformation from "./pages/Process/ProcessBasicInformation";
 import NewProcess from "./pages/Process/NewProcess";
-import ProcessMetrics from "./pages/Process/ProcessMetrics";
+import TaskRasci from "./pages/Task/TaskRasci";
 
 function App() {
   return (
@@ -20,7 +20,7 @@ function App() {
             element={<ProcessBasicInformation />}
           />
           <Route path="/user/:userId/newProcess" element={<NewProcess />} />
-          <Route path="/test" element={<ProcessMetrics />} />
+          <Route path="/test" element={<TaskRasci />} />
         </Route>
       </Routes>
     </BrowserRouter>
