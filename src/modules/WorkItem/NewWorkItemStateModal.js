@@ -1,12 +1,12 @@
 import * as React from "react";
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
-import Modal from "@mui/material/Modal";
-import { Grid, TextField } from "@mui/material";
 import { useRef } from "react";
+import Button from "@mui/material/Button";
 import { Add } from "@mui/icons-material";
+import Modal from "@mui/material/Modal";
+import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
+import { Grid, TextField } from "@mui/material";
+import Typography from "@mui/material/Typography";
 
 const style = {
   position: "absolute",
@@ -20,18 +20,18 @@ const style = {
   p: 4,
 };
 
-export default function NewMetricModal() {
+export default function NewWorkItemStateModal() {
   const [open, setOpen] = React.useState(false);
-  const addMetric = () => setOpen(false);
+  const addState = () => setOpen(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const metricName = useRef();
-  const metricDescription = useRef();
+  const stateName = useRef();
+  const stateDescription = useRef();
 
   return (
     <>
       <Button variant="contained" startIcon={<Add />} onClick={handleOpen}>
-        Add new metric
+        Add new state
       </Button>
       <div>
         <Modal
@@ -46,7 +46,7 @@ export default function NewMetricModal() {
                 <Grid container spacing={1}>
                   <Grid textAlign={"center"} xs={12}>
                     <Typography variant="h6" component="h2">
-                      Adding new metric
+                      Adding new state
                     </Typography>
                   </Grid>
                   <Grid textAlign={"center"} xs={12}>
@@ -54,15 +54,15 @@ export default function NewMetricModal() {
                       margin={"normal"}
                       fullWidth
                       required
-                      inputRef={metricName}
-                      label="Metric name"
+                      inputRef={stateName}
+                      label="State name"
                     />
                   </Grid>
                   <Grid textAlign={"center"} xs={12}>
                     <TextField
                       margin={"normal"}
-                      inputRef={metricDescription}
-                      label="Metric description"
+                      inputRef={stateDescription}
+                      label="State description"
                       multiline
                       fullWidth
                       rows={5}
@@ -71,12 +71,12 @@ export default function NewMetricModal() {
                   <Grid textAlign={"center"} xs={12}>
                     <Button
                       type="submit"
-                      onClick={addMetric}
+                      onClick={addState}
                       size={"large"}
                       variant="contained"
                       sx={{ marginRight: 1 }}
                     >
-                      Save metric
+                      Save state
                     </Button>
                     <Button
                       type="submit"

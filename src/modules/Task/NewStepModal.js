@@ -20,18 +20,18 @@ const style = {
   p: 4,
 };
 
-export default function NewMetricModal() {
+export default function NewStepModal() {
   const [open, setOpen] = React.useState(false);
-  const addMetric = () => setOpen(false);
+  const addStep = () => setOpen(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const metricName = useRef();
-  const metricDescription = useRef();
+  const stepName = useRef();
+  const stepDescription = useRef();
 
   return (
     <>
       <Button variant="contained" startIcon={<Add />} onClick={handleOpen}>
-        Add new metric
+        Add new step
       </Button>
       <div>
         <Modal
@@ -46,7 +46,7 @@ export default function NewMetricModal() {
                 <Grid container spacing={1}>
                   <Grid textAlign={"center"} xs={12}>
                     <Typography variant="h6" component="h2">
-                      Adding new metric
+                      Adding new step to the task
                     </Typography>
                   </Grid>
                   <Grid textAlign={"center"} xs={12}>
@@ -54,15 +54,15 @@ export default function NewMetricModal() {
                       margin={"normal"}
                       fullWidth
                       required
-                      inputRef={metricName}
-                      label="Metric name"
+                      inputRef={stepName}
+                      label="Step name"
                     />
                   </Grid>
                   <Grid textAlign={"center"} xs={12}>
                     <TextField
                       margin={"normal"}
-                      inputRef={metricDescription}
-                      label="Metric description"
+                      inputRef={stepDescription}
+                      label="Step description"
                       multiline
                       fullWidth
                       rows={5}
@@ -71,12 +71,12 @@ export default function NewMetricModal() {
                   <Grid textAlign={"center"} xs={12}>
                     <Button
                       type="submit"
-                      onClick={addMetric}
+                      onClick={addStep}
                       size={"large"}
                       variant="contained"
                       sx={{ marginRight: 1 }}
                     >
-                      Save metric
+                      Save step
                     </Button>
                     <Button
                       type="submit"

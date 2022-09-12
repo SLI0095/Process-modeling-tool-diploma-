@@ -3,8 +3,9 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
-import MenuItem from "@mui/material/MenuItem";
 import { Grid } from "@mui/material";
+import { Delete } from "@mui/icons-material";
+import IconButton from "@mui/material/IconButton";
 
 const style = {
   position: "absolute",
@@ -18,7 +19,7 @@ const style = {
   p: 4,
 };
 
-export default function DeleteModal(props) {
+export default function DeleteModalListItem(props) {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => {
     setOpen(true);
@@ -29,10 +30,18 @@ export default function DeleteModal(props) {
 
   return (
     <>
-      <MenuItem key={"delete"} onClick={handleOpen}>
-        Delete
-      </MenuItem>
-      <div>
+      <IconButton
+        edge={"end"}
+        aria-label="remove"
+        id="remove-button"
+        onClick={() => handleOpen()}
+        sx={{
+          marginLeft: 2,
+        }}
+      >
+        <Delete />
+      </IconButton>
+      <div style={{ height: 0, width: 0, display: "inline-flex" }}>
         <Modal
           open={open}
           onClose={handleClose}

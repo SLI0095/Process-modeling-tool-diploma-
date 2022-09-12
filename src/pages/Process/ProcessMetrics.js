@@ -15,8 +15,8 @@ export default function ProcessMetrics() {
             backgroundColor: "background.paper",
           }}
         >
-          <MyListItem />
-          <MyListItem />
+          <MyListItem type="metric" />
+          <MyListItem type="metric" />
         </List>
         <NewMetricModal />
       </Container>

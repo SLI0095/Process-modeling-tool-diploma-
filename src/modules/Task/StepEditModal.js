@@ -5,8 +5,9 @@ import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import { Grid, TextField } from "@mui/material";
 import { useRef } from "react";
-import { Add } from "@mui/icons-material";
+import { Edit } from "@mui/icons-material";
 import Container from "@mui/material/Container";
+import IconButton from "@mui/material/IconButton";
 
 const style = {
   position: "absolute",
@@ -20,20 +21,25 @@ const style = {
   p: 4,
 };
 
-export default function NewMetricModal() {
+export default function StepEditModal() {
   const [open, setOpen] = React.useState(false);
-  const addMetric = () => setOpen(false);
+  const saveStep = () => setOpen(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const metricName = useRef();
-  const metricDescription = useRef();
+  const stepName = useRef();
+  const stepDescription = useRef();
 
   return (
     <>
-      <Button variant="contained" startIcon={<Add />} onClick={handleOpen}>
-        Add new metric
-      </Button>
-      <div>
+      <IconButton
+        edge="end"
+        aria-label="edit"
+        id="edit-button"
+        onClick={() => handleOpen()}
+      >
+        <Edit />
+      </IconButton>
+      <div style={{ height: 0, width: 0, display: "inline-flex" }}>
         <Modal
           open={open}
           onClose={handleClose}
@@ -46,7 +52,7 @@ export default function NewMetricModal() {
                 <Grid container spacing={1}>
                   <Grid textAlign={"center"} xs={12}>
                     <Typography variant="h6" component="h2">
-                      Adding new metric
+                      Editing task step
                     </Typography>
                   </Grid>
                   <Grid textAlign={"center"} xs={12}>
@@ -54,15 +60,15 @@ export default function NewMetricModal() {
                       margin={"normal"}
                       fullWidth
                       required
-                      inputRef={metricName}
-                      label="Metric name"
+                      inputRef={stepName}
+                      label="Step name"
                     />
                   </Grid>
                   <Grid textAlign={"center"} xs={12}>
                     <TextField
                       margin={"normal"}
-                      inputRef={metricDescription}
-                      label="Metric description"
+                      inputRef={stepDescription}
+                      label="Step description"
                       multiline
                       fullWidth
                       rows={5}
@@ -71,12 +77,12 @@ export default function NewMetricModal() {
                   <Grid textAlign={"center"} xs={12}>
                     <Button
                       type="submit"
-                      onClick={addMetric}
+                      onClick={saveStep}
                       size={"large"}
                       variant="contained"
                       sx={{ marginRight: 1 }}
                     >
-                      Save metric
+                      Save step
                     </Button>
                     <Button
                       type="submit"

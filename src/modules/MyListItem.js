@@ -4,11 +4,25 @@ import {
   ListItemText,
   Paper,
 } from "@mui/material";
-import IconButton from "@mui/material/IconButton";
-import { Delete, Edit } from "@mui/icons-material";
+import DeleteModalListItem from "./DeleteModalListItem";
+import MetricEditModal from "./Process/MetricEditModal";
+import WorkItemStateEditModal from "./WorkItem/WorkItemStateEditModal";
+import StepEditModal from "./Task/StepEditModal";
 
-export default function MyListItem() {
-  const handleEdit = () => {};
+export default function MyListItem(props) {
+  function getEdit(type) {
+    if (type === "WIState") {
+      return <WorkItemStateEditModal />;
+    }
+    if (type === "step") {
+      return <StepEditModal />;
+    }
+    if (type === "metric") {
+      return <MetricEditModal />;
+    }
+
+    return <></>;
+  }
 
   return (
     <>
@@ -21,29 +35,10 @@ export default function MyListItem() {
         <ListItem>
           <ListItemText primary="Name" secondary="Description" />
           <ListItemSecondaryAction>
-            <IconButton
-              edge="end"
-              aria-label="edit"
-              id="edit-button"
-              onClick={() => handleEdit()}
-            >
-              <Edit />
-            </IconButton>
-            <IconButton
-              aria-label="remove"
-              id="remove-button"
-              onClick={() => handleEdit()}
-              sx={{
-                marginLeft: 2,
-              }}
-            >
-              <Delete />
-            </IconButton>
+            {getEdit(props.type)}
+            <DeleteModalListItem />
           </ListItemSecondaryAction>
         </ListItem>
-        {/* <ListItem secondaryAction={<ListItemMenu />}>
-          <ListItemText primary="Name" secondary="Description" />
-        </ListItem>*/}
       </Paper>
     </>
   );
