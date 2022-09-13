@@ -20,7 +20,7 @@ export default function ProcessMetrics() {
         </List>
         <NewMetricModal />
       </Container>
-      <ProcessSubMenuFooter />
+      <ProcessSubMenuFooter state="metrics" />
     </>
   );
 }

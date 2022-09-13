@@ -4,8 +4,8 @@ import BottomNavigationAction from "@mui/material/BottomNavigationAction";
 import { History, Info, MultipleStop, Settings } from "@mui/icons-material";
 import { Paper } from "@mui/material";
 
-export default function WorkItemSubMenuFooter() {
-  const [value, setValue] = React.useState("main");
+export default function WorkItemSubMenuFooter(props) {
+  const [value, setValue] = React.useState(props.state);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);

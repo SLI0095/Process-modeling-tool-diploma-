@@ -12,7 +12,7 @@ export default function TaskRasci() {
     <>
       <MyAppBar />
       <Container sx={{ marginTop: 5, width: "50%", marginBottom: 10 }}>
-        <Typography variant={"h5"} component={"h2"}>
+        <Typography variant={"h4"} component={"h2"}>
           Required
         </Typography>
         <List
@@ -23,7 +23,7 @@ export default function TaskRasci() {
           <MyListItem />
           <MyListItem />
         </List>
-        <Typography variant={"h5"} component={"h2"} marginTop={3}>
+        <Typography variant={"h4"} component={"h2"} marginTop={3}>
           Accountable
         </Typography>
         <List
@@ -34,7 +34,7 @@ export default function TaskRasci() {
           <MyListItem />
           <MyListItem />
         </List>
-        <Typography variant={"h5"} component={"h2"} marginTop={3}>
+        <Typography variant={"h4"} component={"h2"} marginTop={3}>
           Support
         </Typography>
         <List
@@ -45,7 +45,7 @@ export default function TaskRasci() {
           <MyListItem />
           <MyListItem />
         </List>
-        <Typography variant={"h5"} component={"h2"} marginTop={3}>
+        <Typography variant={"h4"} component={"h2"} marginTop={3}>
           Consulted
         </Typography>
         <List
@@ -56,7 +56,7 @@ export default function TaskRasci() {
           <MyListItem />
           <MyListItem />
         </List>
-        <Typography variant={"h5"} component={"h2"} marginTop={3}>
+        <Typography variant={"h4"} component={"h2"} marginTop={3}>
           Informed
         </Typography>
         <List
@@ -69,7 +69,7 @@ export default function TaskRasci() {
         </List>
         <NewRasciModal />
       </Container>
-      <TaskSubMenuFooter />
+      <TaskSubMenuFooter state="rasci" />
     </>
   );
 }

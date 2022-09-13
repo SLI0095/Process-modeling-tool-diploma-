@@ -12,8 +12,8 @@ import {
 } from "@mui/icons-material";
 import { Paper } from "@mui/material";
 
-export default function ProcessSubMenuFooter() {
-  const [value, setValue] = React.useState("main");
+export default function ProcessSubMenuFooter(props) {
+  const [value, setValue] = React.useState(props.state);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);

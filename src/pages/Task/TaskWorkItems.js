@@ -11,7 +11,7 @@ export default function TaskWorkItems() {
     <>
       <MyAppBar />
       <Container sx={{ marginTop: 5, width: "50%", marginBottom: 7 }}>
-        <Typography variant={"h5"} component={"h2"}>
+        <Typography variant={"h4"} component={"h2"}>
           Inputs
         </Typography>
         <List
@@ -22,7 +22,7 @@ export default function TaskWorkItems() {
           <MyListItem />
           <MyListItem />
         </List>
-        <Typography variant={"h5"} component={"h2"} marginTop={3}>
+        <Typography variant={"h4"} component={"h2"} marginTop={3}>
           Outputs
         </Typography>
         <List
@@ -34,7 +34,7 @@ export default function TaskWorkItems() {
           <MyListItem />
         </List>
       </Container>
-      <TaskSubMenuFooter />
+      <TaskSubMenuFooter state="workItems" />
     </>
   );
 }

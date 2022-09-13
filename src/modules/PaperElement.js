@@ -1,4 +1,4 @@
-import { Grid, Paper } from "@mui/material";
+import { Grid, Link, Paper } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import PaperElementMenu from "./PaperElementMenu";
@@ -25,11 +25,17 @@ export default function PaperElement() {
                 paddingY: 2,
               }}
             >
-              Name
+              <Link
+                href="#"
+                variant={"inherit"}
+                color={"inherit"}
+                underline={"hover"}
+              >
+                Name
+              </Link>
             </Typography>
             <PaperElementMenu />
           </Box>
-
           <Typography
             variant={"body1"}
             component={"p"}

@@ -181,7 +181,7 @@ export default function WorkItemBasicInformation() {
           </Grid>
         </form>
       </Container>
-      <WorkItemSubMenuFooter />
+      <WorkItemSubMenuFooter state="main" />
     </>
   );
 }

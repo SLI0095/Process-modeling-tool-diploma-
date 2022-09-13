@@ -108,7 +108,7 @@ export default function RoleBasicInformation() {
           </Grid>
         </form>
       </Container>
-      <RoleSubMenuFooter />
+      <RoleSubMenuFooter state="main" />
     </>
   );
 }

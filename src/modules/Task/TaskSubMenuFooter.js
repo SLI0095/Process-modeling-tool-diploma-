@@ -11,14 +11,14 @@ import {
 } from "@mui/icons-material";
 import { Paper } from "@mui/material";
 
-export default function TaskSubMenuFooter() {
-  const [value, setValue] = React.useState("main");
+export default function TaskSubMenuFooter(props) {
+  const [value, setValue] = React.useState(props.state);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
-  //TODO set routing + accept props
+  //TODO set routing
   return (
     <Paper
       sx={{ position: "fixed", bottom: 0, left: 0, right: 0 }}

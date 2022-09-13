@@ -20,7 +20,7 @@ export default function TaskSteps() {
         </List>
         <NewStepModal />
       </Container>
-      <TaskSubMenuFooter />
+      <TaskSubMenuFooter state="steps" />
     </>
   );
 }

@@ -4,8 +4,8 @@ import BottomNavigationAction from "@mui/material/BottomNavigationAction";
 import { History, Info, Settings } from "@mui/icons-material";
 import { Paper } from "@mui/material";
 
-export default function RoleSubMenuFooter() {
-  const [value, setValue] = React.useState("main");
+export default function RoleSubMenuFooter(props) {
+  const [value, setValue] = React.useState(props.state);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);

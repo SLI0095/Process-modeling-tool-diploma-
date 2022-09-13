@@ -141,7 +141,7 @@ export default function ProcessBasicInformation() {
             </Button>
           </Grid>
         </Grid>
-        <ProcessSubMenuFooter />
+        <ProcessSubMenuFooter state="main" />
       </Container>
     </>
   );

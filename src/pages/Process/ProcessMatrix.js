@@ -9,7 +9,7 @@ export default function ProcessMatrix() {
       <Container
         sx={{ marginTop: 5, width: "50%", marginBottom: 7 }}
       ></Container>
-      <ProcessSubMenuFooter />
+      <ProcessSubMenuFooter state="rasci" />
     </>
   );
 }

@@ -108,7 +108,7 @@ export default function TaskBasicInformation() {
           </Grid>
         </form>
       </Container>
-      <TaskSubMenuFooter />
+      <TaskSubMenuFooter state="main" />
     </>
   );
 }

@@ -20,7 +20,7 @@ export default function WorkItemStates() {
         </List>
         <NewWorkItemStateModal />
       </Container>
-      <WorkItemSubMenuFooter />
+      <WorkItemSubMenuFooter state="states" />
     </>
   );
 }
