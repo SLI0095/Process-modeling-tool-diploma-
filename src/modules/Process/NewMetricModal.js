@@ -44,12 +44,12 @@ export default function NewMetricModal() {
             <Box sx={style}>
               <Container sx={{ width: "50%" }}>
                 <Grid container spacing={1}>
-                  <Grid textAlign={"center"} xs={12}>
+                  <Grid textAlign={"center"} item xs={12}>
                     <Typography variant="h6" component="h2">
                       Adding new metric
                     </Typography>
                   </Grid>
-                  <Grid textAlign={"center"} xs={12}>
+                  <Grid textAlign={"center"} item xs={12}>
                     <TextField
                       margin={"normal"}
                       fullWidth
@@ -58,7 +58,7 @@ export default function NewMetricModal() {
                       label="Metric name"
                     />
                   </Grid>
-                  <Grid textAlign={"center"} xs={12}>
+                  <Grid textAlign={"center"} item xs={12}>
                     <TextField
                       margin={"normal"}
                       inputRef={metricDescription}
@@ -68,7 +68,7 @@ export default function NewMetricModal() {
                       rows={5}
                     />
                   </Grid>
-                  <Grid textAlign={"center"} xs={12}>
+                  <Grid textAlign={"center"} item xs={12}>
                     <Button
                       type="submit"
                       onClick={addMetric}

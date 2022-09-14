@@ -11,15 +11,36 @@ import {
   Straighten,
 } from "@mui/icons-material";
 import { Paper } from "@mui/material";
+import { useNavigate } from "react-router";
 
 export default function ProcessSubMenuFooter(props) {
-  const [value, setValue] = React.useState(props.state);
+  const [value] = React.useState(props.state);
+  let navigate = useNavigate();
 
   const handleChange = (event, newValue) => {
-    setValue(newValue);
+    if (newValue === "main") {
+      navigate("/user/" + 1 + "/processes/" + 1);
+    }
+    if (newValue === "metrics") {
+      navigate("/user/" + 1 + "/processes/" + 1 + "/metrics");
+    }
+    if (newValue === "workflow") {
+      navigate("/user/" + 1 + "/processes/" + 1 + "/workflow");
+    }
+    if (newValue === "activities") {
+      navigate("/user/" + 1 + "/processes/" + 1 + "/activities");
+    }
+    if (newValue === "rasci") {
+      navigate("/user/" + 1 + "/processes/" + 1 + "/rasci");
+    }
+    if (newValue === "history") {
+      navigate("/user/" + 1 + "/processes/" + 1 + "/history");
+    }
+    if (newValue === "settings") {
+      navigate("/user/" + 1 + "/processes/" + 1 + "/settings");
+    }
   };
 
-  //TODO set routing + accept props
   return (
     <Paper
       sx={{ position: "fixed", bottom: 0, left: 0, right: 0 }}

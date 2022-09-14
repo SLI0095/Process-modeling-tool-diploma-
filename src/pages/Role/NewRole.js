@@ -4,11 +4,14 @@ import { useRef } from "react";
 import Typography from "@mui/material/Typography";
 import * as React from "react";
 import ReactQuill from "react-quill";
+import { useNavigate } from "react-router";
 
 export default function NewRole() {
+  let navigate = useNavigate();
+
   const saveRole = () => {};
-  const getBack = () => {
-    //TODO back to all roles
+  const cancelCreation = () => {
+    navigate("/user/" + 1 /*sessionStorage.getItem("userId")*/ + "/roles");
   };
 
   const name = useRef();
@@ -24,6 +27,9 @@ export default function NewRole() {
     <>
       <MyAppBar />
       <Container sx={{ marginTop: 5, width: "50%", marginBottom: 5 }}>
+        <Typography variant={"h4"} component={"h2"} marginBottom={7}>
+          New role
+        </Typography>
         <form>
           <Grid container spacing={1}>
             <Grid item xs={12}>
@@ -102,13 +108,16 @@ export default function NewRole() {
             <Grid item xs={12}>
               <ReactQuill theme="snow" ref={changeDescription} />
             </Grid>
-            <Grid item xs={2} marginTop={4} marginBottom={5}>
+            <Grid item xs={12} marginTop={4} marginBottom={5}>
               <Button onClick={saveRole()} size={"large"} variant="contained">
                 Create
               </Button>
-            </Grid>
-            <Grid item xs={8} marginTop={4} marginBottom={5} display={"flex"}>
-              <Button onClick={getBack()} size={"large"} variant="contained">
+              <Button
+                onClick={cancelCreation}
+                size={"large"}
+                variant="contained"
+                sx={{ marginLeft: 2 }}
+              >
                 Cancel
               </Button>
             </Grid>

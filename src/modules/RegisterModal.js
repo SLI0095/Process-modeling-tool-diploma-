@@ -89,12 +89,12 @@ export default function RegisterModal() {
           <form>
             <Box sx={style}>
               <Grid container spacing={1}>
-                <Grid textAlign={"center"} xs={12}>
+                <Grid textAlign={"center"} item xs={12}>
                   <Typography variant="h6" component="h2">
                     Register new user
                   </Typography>
                 </Grid>
-                <Grid textAlign={"center"} xs={12}>
+                <Grid textAlign={"center"} item xs={12}>
                   <TextField
                     margin={"normal"}
                     required
@@ -102,7 +102,7 @@ export default function RegisterModal() {
                     label="Username"
                   />
                 </Grid>
-                <Grid textAlign={"center"} xs={12}>
+                <Grid textAlign={"center"} item xs={12}>
                   <TextField
                     margin={"normal"}
                     required
@@ -111,7 +111,7 @@ export default function RegisterModal() {
                     type="password"
                   />
                 </Grid>
-                <Grid textAlign={"center"} xs={12}>
+                <Grid textAlign={"center"} item xs={12}>
                   <TextField
                     margin={"normal"}
                     required

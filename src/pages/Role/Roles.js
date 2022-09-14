@@ -11,7 +11,7 @@ import NewElementButton from "../../modules/NewElementButton";
 import Typography from "@mui/material/Typography";
 import * as React from "react";
 
-export default function Processes() {
+export default function Roles() {
   return (
     <>
       <MyAppBar />
@@ -19,7 +19,7 @@ export default function Processes() {
         <Grid container justifyContent={"flex-end"} marginTop={3}>
           <Grid item xs={6}>
             <Typography variant={"h4"} component={"h2"} marginY={3}>
-              Processes
+              Roles
             </Typography>
           </Grid>
           <Grid container item xs={6} justifyContent={"flex-end"} marginTop={4}>
@@ -42,12 +42,12 @@ export default function Processes() {
           justify="center"
           alignItems="center"
         >
-          <NewElementButton type="process" />
-          <PaperElement type="process" />
-          <PaperElement type="process" />
-          <PaperElement type="process" />
-          <PaperElement type="process" />
-          <PaperElement type="process" />
+          <NewElementButton type="role" />
+          <PaperElement type="role" />
+          <PaperElement type="role" />
+          <PaperElement type="role" />
+          <PaperElement type="role" />
+          <PaperElement type="role" />
         </Grid>
       </Container>
     </>

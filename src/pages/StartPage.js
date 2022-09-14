@@ -82,7 +82,7 @@ export default function StartPage() {
                 </Typography>
               </Box>
             </Grid>
-            <Grid textAlign={"center"} xs={12}>
+            <Grid textAlign={"center"} item xs={12}>
               <TextField
                 margin={"normal"}
                 required
@@ -90,7 +90,7 @@ export default function StartPage() {
                 label="Username"
               />
             </Grid>
-            <Grid textAlign={"center"} xs={12}>
+            <Grid textAlign={"center"} item xs={12}>
               <TextField
                 margin={"normal"}
                 required

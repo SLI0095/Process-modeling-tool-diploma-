@@ -5,6 +5,7 @@ import Typography from "@mui/material/Typography";
 import * as React from "react";
 import ReactQuill from "react-quill";
 import ProcessSubMenuFooter from "../../modules/Process/ProcessSubMenuFooter";
+import { Save } from "@mui/icons-material";
 
 export default function ProcessBasicInformation() {
   const saveChanges = () => {};
@@ -136,7 +137,12 @@ export default function ProcessBasicInformation() {
             <ReactQuill theme="snow" ref={changeDescription} />
           </Grid>
           <Grid item xs={12} marginTop={2} marginBottom={5}>
-            <Button onClick={saveChanges} size={"large"} variant="contained">
+            <Button
+              startIcon={<Save />}
+              onClick={saveChanges}
+              size={"large"}
+              variant="contained"
+            >
               Save
             </Button>
           </Grid>

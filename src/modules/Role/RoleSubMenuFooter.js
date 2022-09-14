@@ -3,12 +3,22 @@ import BottomNavigation from "@mui/material/BottomNavigation";
 import BottomNavigationAction from "@mui/material/BottomNavigationAction";
 import { History, Info, Settings } from "@mui/icons-material";
 import { Paper } from "@mui/material";
+import { useNavigate } from "react-router";
 
 export default function RoleSubMenuFooter(props) {
-  const [value, setValue] = React.useState(props.state);
+  const [value] = React.useState(props.state);
+  let navigate = useNavigate();
 
   const handleChange = (event, newValue) => {
-    setValue(newValue);
+    if (newValue === "main") {
+      navigate("/user/" + 1 + "/roles/" + 1);
+    }
+    if (newValue === "history") {
+      navigate("/user/" + 1 + "/roles/" + 1 + "/history");
+    }
+    if (newValue === "settings") {
+      navigate("/user/" + 1 + "/roles/" + 1 + "/settings");
+    }
   };
 
   //TODO set routing + accept props

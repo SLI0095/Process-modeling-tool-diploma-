@@ -10,15 +10,33 @@ import {
   Settings,
 } from "@mui/icons-material";
 import { Paper } from "@mui/material";
+import { useNavigate } from "react-router";
 
 export default function TaskSubMenuFooter(props) {
-  const [value, setValue] = React.useState(props.state);
+  const [value] = React.useState(props.state);
+  let navigate = useNavigate();
 
   const handleChange = (event, newValue) => {
-    setValue(newValue);
+    if (newValue === "main") {
+      navigate("/user/" + 1 + "/tasks/" + 1);
+    }
+    if (newValue === "steps") {
+      navigate("/user/" + 1 + "/tasks/" + 1 + "/steps");
+    }
+    if (newValue === "workItems") {
+      navigate("/user/" + 1 + "/tasks/" + 1 + "/workItems");
+    }
+    if (newValue === "rasci") {
+      navigate("/user/" + 1 + "/tasks/" + 1 + "/rasci");
+    }
+    if (newValue === "history") {
+      navigate("/user/" + 1 + "/tasks/" + 1 + "/history");
+    }
+    if (newValue === "settings") {
+      navigate("/user/" + 1 + "/tasks/" + 1 + "/settings");
+    }
   };
 
-  //TODO set routing
   return (
     <Paper
       sx={{ position: "fixed", bottom: 0, left: 0, right: 0 }}

@@ -1,14 +1,16 @@
-import MyAppBar from "../../modules/MyAppBar";
+import MyAppBar from "../modules/MyAppBar";
 import Container from "@mui/material/Container";
-import ProcessSubMenuFooter from "../../modules/Process/ProcessSubMenuFooter";
+import ProcessSubMenuFooter from "../modules/Process/ProcessSubMenuFooter";
 import Typography from "@mui/material/Typography";
 import * as React from "react";
 import { Checkbox, FormControlLabel, FormGroup, List } from "@mui/material";
-import UserListItem from "../../modules/UserListItem";
-import Button from "@mui/material/Button";
-import AddUserModal from "../../modules/Users/AddUserModal";
+import UserListItem from "../modules/UserListItem";
+import AddUserModal from "../modules/Users/AddUserModal";
+import MyListItem from "../modules/MyListItem";
+import AddProcessSettingsModal from "../modules/AddProcessSettingsModal";
+import ChangeOwnerModal from "../modules/Users/ChangeOwnerModal";
 
-export default function ProcessSettings() {
+export default function ElementSettings() {
   return (
     <>
       <MyAppBar />
@@ -35,6 +37,18 @@ export default function ProcessSettings() {
         <Typography variant={"body2"} fontStyle={"italic"} marginY={2}>
           Items marked as private are visible only for owner.
         </Typography>
+
+        <Typography variant={"h7"} component={"h3"} marginTop={3}>
+          Item usable in this processes
+        </Typography>
+        <List
+          sx={{
+            backgroundColor: "background.paper",
+          }}
+        >
+          <MyListItem type="process" />
+        </List>
+        <AddProcessSettingsModal />
 
         <Typography variant={"h4"} component={"h2"} marginTop={5}>
           User settings
@@ -74,9 +88,7 @@ export default function ProcessSettings() {
           <UserListItem type="user" />
         </List>
         <AddUserModal />
-        <Button sx={{ marginX: 2 }} variant={"contained"}>
-          Change owner
-        </Button>
+        <ChangeOwnerModal />
       </Container>
       <ProcessSubMenuFooter state="settings" />
     </>

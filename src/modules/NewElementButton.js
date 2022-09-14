@@ -3,9 +3,28 @@ import IconButton from "@mui/material/IconButton";
 import { AddCircle } from "@mui/icons-material";
 import { Grid } from "@mui/material";
 import { blue } from "@mui/material/colors";
+import { useNavigate } from "react-router";
 
-export default function NewElementButton() {
-  const handleClick = () => {};
+export default function NewElementButton(props) {
+  let navigate = useNavigate();
+
+  const handleClick = () => {
+    if (props.type === "process") {
+      navigate("/user/" + 1 + "/processes/newProcess");
+      return;
+    }
+    if (props.type === "task") {
+      navigate("/user/" + 1 + "/tasks/newTask");
+      return;
+    }
+    if (props.type === "workItem") {
+      navigate("/user/" + 1 + "/workItems/newWorkItem");
+      return;
+    }
+    if (props.type === "role") {
+      navigate("/user/" + 1 + "/roles/newRole");
+    }
+  };
 
   return (
     <Grid item xs={3} align={"center"}>

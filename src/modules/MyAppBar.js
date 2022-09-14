@@ -13,8 +13,6 @@ import MenuItem from "@mui/material/MenuItem";
 import { AccountCircle, Construction } from "@mui/icons-material";
 import { useNavigate } from "react-router";
 
-const pages = ["Processes", "Tasks", "Work Items", "Roles"];
-
 const MyAppBar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -29,6 +27,22 @@ const MyAppBar = () => {
 
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
+  };
+
+  const openProcesses = () => {
+    navigate("/user/" + 1 /*sessionStorage.getItem("userId")*/ + "/processes");
+  };
+
+  const openTasks = () => {
+    navigate("/user/" + 1 /*sessionStorage.getItem("userId")*/ + "/tasks");
+  };
+
+  const openWorkItems = () => {
+    navigate("/user/" + 1 /*sessionStorage.getItem("userId")*/ + "/workItems");
+  };
+
+  const openRoles = () => {
+    navigate("/user/" + 1 /*sessionStorage.getItem("userId")*/ + "/roles");
   };
 
   const handleLogout = () => {
@@ -62,7 +76,9 @@ const MyAppBar = () => {
             variant="h6"
             noWrap
             component="a"
-            href="/"
+            href={
+              "/user/" + 1 /*sessionStorage.getItem("userId")*/ + "/processes"
+            }
             sx={{
               mr: 2,
               display: { xs: "none", md: "flex" },
@@ -105,11 +121,18 @@ const MyAppBar = () => {
                 display: { xs: "block", md: "none" },
               }}
             >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
-                </MenuItem>
-              ))}
+              <MenuItem key="processes" onClick={openProcesses}>
+                <Typography textAlign="center">Processes</Typography>
+              </MenuItem>
+              <MenuItem key="tasks" onClick={openTasks}>
+                <Typography textAlign="center">Tasks</Typography>
+              </MenuItem>
+              <MenuItem key="workItems" onClick={openWorkItems}>
+                <Typography textAlign="center">Work Items</Typography>
+              </MenuItem>
+              <MenuItem key="roles" onClick={openRoles}>
+                <Typography textAlign="center">Roles</Typography>
+              </MenuItem>
             </Menu>
           </Box>
           <Construction sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
@@ -132,15 +155,34 @@ const MyAppBar = () => {
             ProMod
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            {pages.map((page) => (
-              <Button
-                key={page}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: "white", display: "block" }}
-              >
-                {page}
-              </Button>
-            ))}
+            <Button
+              key="processes"
+              onClick={openProcesses}
+              sx={{ my: 2, color: "white", display: "block" }}
+            >
+              Processes
+            </Button>
+            <Button
+              key="tasks"
+              onClick={openTasks}
+              sx={{ my: 2, color: "white", display: "block" }}
+            >
+              Tasks
+            </Button>
+            <Button
+              key="workItems"
+              onClick={openWorkItems}
+              sx={{ my: 2, color: "white", display: "block" }}
+            >
+              Work Items
+            </Button>
+            <Button
+              key="roles"
+              onClick={openRoles}
+              sx={{ my: 2, color: "white", display: "block" }}
+            >
+              Roles
+            </Button>
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>

@@ -1,13 +1,20 @@
-import * as React from "react";
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
-import Modal from "@mui/material/Modal";
-import { FormControl, Grid, InputLabel, Select } from "@mui/material";
-import { useRef } from "react";
-import { Add } from "@mui/icons-material";
+import MyAppBar from "../../modules/MyAppBar";
+import "bpmn-js/dist/assets/diagram-js.css";
+import "bpmn-js/dist/assets/bpmn-font/css/bpmn.css";
+import "bpmn-js/dist/assets/bpmn-font/css/bpmn-embedded.css";
+import "bpmn-js/dist/assets/bpmn-font/css/bpmn-codes.css";
+import BpmnJS from "bpmn-js/lib/Modeler";
+import BpmnPaletteModule from "bpmn-js/lib/features/palette";
 import Container from "@mui/material/Container";
+import ProcessSubMenuFooter from "../../modules/Process/ProcessSubMenuFooter";
+import { useEffect, useRef } from "react";
+import Button from "@mui/material/Button";
+import { Box, FormControl, Grid, InputLabel, Select } from "@mui/material";
+import { Download, Save } from "@mui/icons-material";
+import Modal from "@mui/material/Modal";
+import Typography from "@mui/material/Typography";
 import MenuItem from "@mui/material/MenuItem";
+import * as React from "react";
 
 const style = {
   position: "absolute",
@@ -21,19 +28,64 @@ const style = {
   p: 4,
 };
 
-export default function NewRasciModal() {
+//TODO modify modal
+
+export default function ProcessWorkflow() {
   const [open, setOpen] = React.useState(false);
-  const addRasci = () => setOpen(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const selectedRole = useRef();
-  const rasciType = useRef();
+  const modeler = useRef();
+  const shapeElement = useRef(null);
+
+  function bindModeler() {
+    const $modelerContainer = document.querySelector("#canvas");
+    modeler.current = new BpmnJS({
+      container: $modelerContainer,
+      keyboard: {
+        bindTo: document.body,
+      },
+      BpmnPaletteModule,
+    });
+    modelerSetEvents();
+    innitDiagram();
+  }
+
+  function innitDiagram(xml) {
+    if (xml != null) {
+      modeler.current.importXML(xml);
+    } else {
+      modeler.current.createDiagram();
+    }
+  }
+
+  useEffect(() => {
+    bindModeler();
+    // eslint-disable-next-line
+  }, []);
+
+  function modelerSetEvents() {
+    modeler.current.on("commandStack.shape.create.postExecute", (e) => {
+      let element = e.context.shape;
+      if (
+        element.type === "bpmn:Task" &&
+        element.businessObject.name === undefined
+      ) {
+        shapeElement.current = element.id;
+        handleOpen();
+      } else if (
+        element.type === "bpmn:DataObjectReference" &&
+        element.businessObject.name === undefined
+      ) {
+        shapeElement.current = element.id;
+        handleOpen();
+      }
+    });
+  }
 
   return (
     <>
-      <Button variant="contained" startIcon={<Add />} onClick={handleOpen}>
-        Add new RASCI
-      </Button>
+      <MyAppBar />
+
       <div>
         <Modal
           open={open}
@@ -61,7 +113,6 @@ export default function NewRasciModal() {
                         sx={{ minWidth: 175 }}
                         labelId="label1"
                         label="Role"
-                        ref={selectedRole}
                       >
                         <MenuItem value={"A"}>Role A</MenuItem>
                         <MenuItem value={"B"}>Role B</MenuItem>
@@ -77,7 +128,6 @@ export default function NewRasciModal() {
                         defaultValue={"R"}
                         labelId="label2"
                         label="Responsibility"
-                        ref={rasciType}
                         sx={{ minWidth: 175 }}
                       >
                         <MenuItem value={"R"}>Responsible</MenuItem>
@@ -91,10 +141,10 @@ export default function NewRasciModal() {
                   <Grid textAlign={"center"} item xs={12}>
                     <Button
                       type="submit"
-                      onClick={addRasci}
                       size={"large"}
                       variant="contained"
                       sx={{ marginRight: 1 }}
+                      onClick={handleClose}
                     >
                       Save RASCI
                     </Button>
@@ -114,6 +164,26 @@ export default function NewRasciModal() {
           </form>
         </Modal>
       </div>
+
+      <Container sx={{ marginTop: 5, width: "100%", marginBottom: 5 }}>
+        <div className="canvas" id="canvas"></div>
+        <Box paddingTop={5}>
+          <Button startIcon={<Save />} variant={"contained"}>
+            Save
+          </Button>
+          <Button
+            startIcon={<Download />}
+            sx={{ marginLeft: 2 }}
+            variant={"contained"}
+          >
+            Download BPMN
+          </Button>
+        </Box>
+      </Container>
+      <Container
+        sx={{ marginTop: 5, width: "50%", marginBottom: 7 }}
+      ></Container>
+      <ProcessSubMenuFooter state="workflow" />
     </>
   );
 }

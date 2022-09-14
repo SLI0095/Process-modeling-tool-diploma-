@@ -7,20 +7,26 @@ import {
   Switch,
   TextField,
 } from "@mui/material";
+
 import { useRef } from "react";
 import Typography from "@mui/material/Typography";
 import * as React from "react";
 import ReactQuill from "react-quill";
 import { UploadFile } from "@mui/icons-material";
+import { useNavigate } from "react-router";
 
 export default function NewProcess() {
   const [checked, setChecked] = React.useState(false);
+  let navigate = useNavigate();
 
   const handleChange = (event) => {
     setChecked(event.target.checked);
   };
 
   const saveProcess = () => {};
+  const cancelCreation = () => {
+    navigate("/user/" + 1 /*sessionStorage.getItem("userId")*/ + "/processes");
+  };
 
   const name = useRef();
   const briefDescription = useRef();
@@ -39,6 +45,9 @@ export default function NewProcess() {
     <>
       <MyAppBar />
       <Container sx={{ marginTop: 5, width: "50%", marginBottom: 5 }}>
+        <Typography variant={"h4"} component={"h2"} marginBottom={7}>
+          New process
+        </Typography>
         <form>
           <Grid container spacing={1}>
             <Grid item xs={12}>
@@ -172,7 +181,7 @@ export default function NewProcess() {
                 <input type="file" id="fileInput" accept=".bpmn" hidden />
               </Button>
             </Grid>
-            <Grid item xs={2} marginTop={4} marginBottom={5}>
+            <Grid item xs={12} marginTop={4} marginBottom={5}>
               <Button
                 onClick={saveProcess()}
                 size={"large"}
@@ -180,12 +189,11 @@ export default function NewProcess() {
               >
                 Create
               </Button>
-            </Grid>
-            <Grid item xs={8} marginTop={4} marginBottom={5} display={"flex"}>
               <Button
-                onClick={saveProcess()}
+                onClick={cancelCreation}
                 size={"large"}
                 variant="contained"
+                sx={{ marginLeft: 2 }}
               >
                 Cancel
               </Button>

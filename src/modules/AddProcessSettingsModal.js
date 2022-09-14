@@ -3,11 +3,11 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
-import { Grid, TextField } from "@mui/material";
+import { FormControl, Grid, InputLabel, Select } from "@mui/material";
 import { useRef } from "react";
-import { Edit } from "@mui/icons-material";
+import { Add } from "@mui/icons-material";
 import Container from "@mui/material/Container";
-import IconButton from "@mui/material/IconButton";
+import MenuItem from "@mui/material/MenuItem";
 
 const style = {
   position: "absolute",
@@ -21,24 +21,18 @@ const style = {
   p: 4,
 };
 
-export default function StepEditModal() {
+export default function AddProcessSettingsModal() {
   const [open, setOpen] = React.useState(false);
-  const saveStep = () => setOpen(false);
+  const addProcess = () => setOpen(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const stepName = useRef();
-  const stepDescription = useRef();
+  const selectedProcess = useRef();
 
   return (
     <>
-      <IconButton
-        edge="end"
-        aria-label="edit"
-        id="edit-button"
-        onClick={() => handleOpen()}
-      >
-        <Edit />
-      </IconButton>
+      <Button variant="contained" startIcon={<Add />} onClick={handleOpen}>
+        Add process
+      </Button>
       <div style={{ height: 0, width: 0, display: "inline-flex" }}>
         <Modal
           open={open}
@@ -49,47 +43,48 @@ export default function StepEditModal() {
           <form>
             <Box sx={style}>
               <Container sx={{ width: "50%" }}>
-                <Grid container spacing={1}>
-                  <Grid textAlign={"center"} item xs={12}>
-                    <Typography variant="h6" component="h2">
-                      Editing task step
+                <Grid container spacing={1} lineHeight={4.5}>
+                  <Grid textAlign={"center"} xs={12}>
+                    <Typography
+                      variant="h6"
+                      component="h2"
+                      sx={{ marginBottom: 2 }}
+                    >
+                      Adding process where will be item usable
                     </Typography>
                   </Grid>
-                  <Grid textAlign={"center"} item xs={12}>
-                    <TextField
-                      margin={"normal"}
-                      fullWidth
-                      required
-                      inputRef={stepName}
-                      label="Step name"
-                    />
+                  <Grid textAlign={"center"} xs={12}>
+                    <FormControl>
+                      <InputLabel id="label1">Process</InputLabel>
+                      <Select
+                        sx={{ minWidth: 175 }}
+                        labelId="label1"
+                        label="Process"
+                        ref={selectedProcess}
+                      >
+                        <MenuItem value={"A"}>Process A</MenuItem>
+                        <MenuItem value={"B"}>Process B</MenuItem>
+                        <MenuItem value={"C"}>Process C</MenuItem>
+                        <MenuItem value={"D"}>Process D</MenuItem>
+                      </Select>
+                    </FormControl>
                   </Grid>
-                  <Grid textAlign={"center"} item xs={12}>
-                    <TextField
-                      margin={"normal"}
-                      inputRef={stepDescription}
-                      label="Step description"
-                      multiline
-                      fullWidth
-                      rows={5}
-                    />
-                  </Grid>
-                  <Grid textAlign={"center"} item xs={12}>
+                  <Grid textAlign={"center"} xs={12}>
                     <Button
                       type="submit"
-                      onClick={saveStep}
+                      onClick={addProcess}
                       size={"large"}
                       variant="contained"
                       sx={{ marginRight: 1 }}
                     >
-                      Save step
+                      Add
                     </Button>
                     <Button
                       type="submit"
                       onClick={handleClose}
                       size={"large"}
                       variant="contained"
-                      sx={{ marginRight: 1 }}
+                      sx={{ marginLeft: 1 }}
                     >
                       Close
                     </Button>

@@ -44,12 +44,12 @@ export default function NewStepModal() {
             <Box sx={style}>
               <Container sx={{ width: "50%" }}>
                 <Grid container spacing={1}>
-                  <Grid textAlign={"center"} xs={12}>
+                  <Grid textAlign={"center"} item xs={12}>
                     <Typography variant="h6" component="h2">
                       Adding new step to the task
                     </Typography>
                   </Grid>
-                  <Grid textAlign={"center"} xs={12}>
+                  <Grid textAlign={"center"} item xs={12}>
                     <TextField
                       margin={"normal"}
                       fullWidth
@@ -58,7 +58,7 @@ export default function NewStepModal() {
                       label="Step name"
                     />
                   </Grid>
-                  <Grid textAlign={"center"} xs={12}>
+                  <Grid textAlign={"center"} item xs={12}>
                     <TextField
                       margin={"normal"}
                       inputRef={stepDescription}
@@ -68,7 +68,7 @@ export default function NewStepModal() {
                       rows={5}
                     />
                   </Grid>
-                  <Grid textAlign={"center"} xs={12}>
+                  <Grid textAlign={"center"} item xs={12}>
                     <Button
                       type="submit"
                       onClick={addStep}

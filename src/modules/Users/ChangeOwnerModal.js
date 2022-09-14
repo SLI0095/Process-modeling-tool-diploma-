@@ -3,11 +3,10 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
-import { Grid, TextField } from "@mui/material";
+import { FormControl, Grid, InputLabel, Select } from "@mui/material";
 import { useRef } from "react";
-import { Edit } from "@mui/icons-material";
 import Container from "@mui/material/Container";
-import IconButton from "@mui/material/IconButton";
+import MenuItem from "@mui/material/MenuItem";
 
 const style = {
   position: "absolute",
@@ -21,24 +20,18 @@ const style = {
   p: 4,
 };
 
-export default function StepEditModal() {
+export default function ChangeOwnerModal() {
   const [open, setOpen] = React.useState(false);
-  const saveStep = () => setOpen(false);
+  const changeOwner = () => setOpen(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const stepName = useRef();
-  const stepDescription = useRef();
+  const selectedUser = useRef();
 
   return (
     <>
-      <IconButton
-        edge="end"
-        aria-label="edit"
-        id="edit-button"
-        onClick={() => handleOpen()}
-      >
-        <Edit />
-      </IconButton>
+      <Button sx={{ marginX: 2 }} variant="contained" onClick={handleOpen}>
+        Change owner
+      </Button>
       <div style={{ height: 0, width: 0, display: "inline-flex" }}>
         <Modal
           open={open}
@@ -49,47 +42,48 @@ export default function StepEditModal() {
           <form>
             <Box sx={style}>
               <Container sx={{ width: "50%" }}>
-                <Grid container spacing={1}>
-                  <Grid textAlign={"center"} item xs={12}>
-                    <Typography variant="h6" component="h2">
-                      Editing task step
+                <Grid container spacing={1} lineHeight={4.5}>
+                  <Grid textAlign={"center"} xs={12}>
+                    <Typography
+                      variant="h6"
+                      component="h2"
+                      sx={{ marginBottom: 2 }}
+                    >
+                      Changing owner of item
                     </Typography>
                   </Grid>
-                  <Grid textAlign={"center"} item xs={12}>
-                    <TextField
-                      margin={"normal"}
-                      fullWidth
-                      required
-                      inputRef={stepName}
-                      label="Step name"
-                    />
+                  <Grid textAlign={"center"} xs={12}>
+                    <FormControl>
+                      <InputLabel id="label1">User</InputLabel>
+                      <Select
+                        sx={{ minWidth: 175 }}
+                        labelId="label1"
+                        label="User"
+                        ref={selectedUser}
+                      >
+                        <MenuItem value={"A"}>User A</MenuItem>
+                        <MenuItem value={"B"}>User B</MenuItem>
+                        <MenuItem value={"C"}>User C</MenuItem>
+                        <MenuItem value={"D"}>User D</MenuItem>
+                      </Select>
+                    </FormControl>
                   </Grid>
-                  <Grid textAlign={"center"} item xs={12}>
-                    <TextField
-                      margin={"normal"}
-                      inputRef={stepDescription}
-                      label="Step description"
-                      multiline
-                      fullWidth
-                      rows={5}
-                    />
-                  </Grid>
-                  <Grid textAlign={"center"} item xs={12}>
+                  <Grid textAlign={"center"} xs={12}>
                     <Button
                       type="submit"
-                      onClick={saveStep}
+                      onClick={changeOwner}
                       size={"large"}
                       variant="contained"
                       sx={{ marginRight: 1 }}
                     >
-                      Save step
+                      Set owner
                     </Button>
                     <Button
                       type="submit"
                       onClick={handleClose}
                       size={"large"}
                       variant="contained"
-                      sx={{ marginRight: 1 }}
+                      sx={{ marginLeft: 1 }}
                     >
                       Close
                     </Button>

@@ -3,7 +3,60 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import PaperElementMenu from "./PaperElementMenu";
 
-export default function PaperElement() {
+export default function PaperElement(props) {
+  function getLink(type) {
+    if (type === "process") {
+      return (
+        <Link
+          href={"/user/" + 1 + "/processes/" + 1}
+          variant={"inherit"}
+          color={"inherit"}
+          underline={"hover"}
+        >
+          Process name
+        </Link>
+      );
+    }
+    if (type === "task") {
+      return (
+        <Link
+          href={"/user/" + 1 + "/tasks/" + 1}
+          variant={"inherit"}
+          color={"inherit"}
+          underline={"hover"}
+        >
+          Task name
+        </Link>
+      );
+    }
+    if (type === "workItem") {
+      return (
+        <Link
+          href={"/user/" + 1 + "/workItems/" + 1}
+          variant={"inherit"}
+          color={"inherit"}
+          underline={"hover"}
+        >
+          Work item name
+        </Link>
+      );
+    }
+    if (type === "role") {
+      return (
+        <Link
+          href={"/user/" + 1 + "/roles/" + 1}
+          variant={"inherit"}
+          color={"inherit"}
+          underline={"hover"}
+        >
+          Role name
+        </Link>
+      );
+    }
+
+    return <></>;
+  }
+
   return (
     <>
       <Grid item xs={3}>
@@ -25,14 +78,7 @@ export default function PaperElement() {
                 paddingY: 2,
               }}
             >
-              <Link
-                href="#"
-                variant={"inherit"}
-                color={"inherit"}
-                underline={"hover"}
-              >
-                Name
-              </Link>
+              {getLink(props.type)}
             </Typography>
             <PaperElementMenu />
           </Box>

@@ -5,6 +5,7 @@ import Typography from "@mui/material/Typography";
 import ReactQuill from "react-quill";
 import * as React from "react";
 import TaskSubMenuFooter from "../../modules/Task/TaskSubMenuFooter";
+import { Save } from "@mui/icons-material";
 
 export default function TaskBasicInformation() {
   const saveChanges = () => {};
@@ -101,7 +102,12 @@ export default function TaskBasicInformation() {
               <ReactQuill theme="snow" ref={changeDescription} />
             </Grid>
             <Grid item xs={2} marginTop={4} marginBottom={5}>
-              <Button onClick={saveChanges} size={"large"} variant="contained">
+              <Button
+                startIcon={<Save />}
+                onClick={saveChanges}
+                size={"large"}
+                variant="contained"
+              >
                 Save
               </Button>
             </Grid>

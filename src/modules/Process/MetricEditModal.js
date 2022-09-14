@@ -50,12 +50,12 @@ export default function MetricEditModal() {
             <Box sx={style}>
               <Container sx={{ width: "50%" }}>
                 <Grid container spacing={1}>
-                  <Grid textAlign={"center"} xs={12}>
+                  <Grid textAlign={"center"} item xs={12}>
                     <Typography variant="h6" component="h2">
                       Editing metric
                     </Typography>
                   </Grid>
-                  <Grid textAlign={"center"} xs={12}>
+                  <Grid textAlign={"center"} item xs={12}>
                     <TextField
                       margin={"normal"}
                       fullWidth
@@ -64,7 +64,7 @@ export default function MetricEditModal() {
                       label="Metric name"
                     />
                   </Grid>
-                  <Grid textAlign={"center"} xs={12}>
+                  <Grid textAlign={"center"} item xs={12}>
                     <TextField
                       margin={"normal"}
                       inputRef={metricDescription}
@@ -74,7 +74,7 @@ export default function MetricEditModal() {
                       rows={5}
                     />
                   </Grid>
-                  <Grid textAlign={"center"} xs={12}>
+                  <Grid textAlign={"center"} item xs={12}>
                     <Button
                       type="submit"
                       onClick={saveMetric}

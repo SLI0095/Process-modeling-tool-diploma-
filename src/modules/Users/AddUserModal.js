@@ -45,7 +45,7 @@ export default function AddUserModal() {
             <Box sx={style}>
               <Container sx={{ width: "50%" }}>
                 <Grid container spacing={1} lineHeight={4.5}>
-                  <Grid textAlign={"center"} xs={12}>
+                  <Grid textAlign={"center"} item xs={12}>
                     <Typography
                       variant="h6"
                       component="h2"
@@ -54,7 +54,7 @@ export default function AddUserModal() {
                       Adding new user right
                     </Typography>
                   </Grid>
-                  <Grid textAlign={"center"} xs={12}>
+                  <Grid textAlign={"center"} item xs={12}>
                     <FormControl>
                       <InputLabel id="label1">User or group</InputLabel>
                       <Select
@@ -70,7 +70,7 @@ export default function AddUserModal() {
                       </Select>
                     </FormControl>
                   </Grid>
-                  <Grid textAlign={"center"} xs={12}>
+                  <Grid textAlign={"center"} item xs={12}>
                     <FormControl>
                       <InputLabel id="label2">Right</InputLabel>
                       <Select
@@ -85,7 +85,7 @@ export default function AddUserModal() {
                       </Select>
                     </FormControl>
                   </Grid>
-                  <Grid textAlign={"center"} xs={12}>
+                  <Grid textAlign={"center"} item xs={12}>
                     <Button
                       type="submit"
                       onClick={addRasci}

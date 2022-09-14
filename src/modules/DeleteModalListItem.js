@@ -51,17 +51,17 @@ export default function DeleteModalListItem(props) {
           <form>
             <Box sx={style}>
               <Grid container spacing={1}>
-                <Grid textAlign={"center"} xs={12}>
+                <Grid textAlign={"center"} item xs={12}>
                   <Typography variant="h6" component="h2">
                     Are you sure you want delete this {props.type}:
                   </Typography>
                 </Grid>
-                <Grid textAlign={"center"} xs={12}>
+                <Grid textAlign={"center"} item xs={12}>
                   <Typography variant="h6" component="h2">
                     {props.name}
                   </Typography>
                 </Grid>
-                <Grid textAlign={"center"} xs={12}>
+                <Grid textAlign={"center"} item xs={12}>
                   <Button
                     onClick={deleteElement}
                     size={"large"}
