@@ -3,6 +3,7 @@ import "bpmn-js/dist/assets/diagram-js.css";
 import "bpmn-js/dist/assets/bpmn-font/css/bpmn.css";
 import "bpmn-js/dist/assets/bpmn-font/css/bpmn-embedded.css";
 import "bpmn-js/dist/assets/bpmn-font/css/bpmn-codes.css";
+import "bpmn-js/dist/assets/bpmn-js.css";
 import BpmnJS from "bpmn-js/lib/Modeler";
 import BpmnPaletteModule from "bpmn-js/lib/features/palette";
 import Container from "@mui/material/Container";
@@ -31,9 +32,12 @@ const style = {
 //TODO modify modal
 
 export default function ProcessWorkflow() {
-  const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const [openTasks, setOpenTasks] = React.useState(false);
+  const handleOpenTasks = () => setOpenTasks(true);
+  const handleCloseTasks = () => setOpenTasks(false);
+  const [openWorkItems, setOpenWorkItems] = React.useState(false);
+  const handleOpenWorkItems = () => setOpenWorkItems(true);
+  const handleCloseWorkItems = () => setOpenWorkItems(false);
   const modeler = useRef();
   const shapeElement = useRef(null);
 
@@ -71,13 +75,13 @@ export default function ProcessWorkflow() {
         element.businessObject.name === undefined
       ) {
         shapeElement.current = element.id;
-        handleOpen();
+        handleOpenTasks();
       } else if (
         element.type === "bpmn:DataObjectReference" &&
         element.businessObject.name === undefined
       ) {
         shapeElement.current = element.id;
-        handleOpen();
+        handleOpenWorkItems();
       }
     });
   }
@@ -88,8 +92,8 @@ export default function ProcessWorkflow() {
 
       <div>
         <Modal
-          open={open}
-          onClose={handleClose}
+          open={openTasks}
+          onClose={handleCloseTasks}
           aria-labelledby="modal-modal-title"
           aria-describedby="modal-modal-description"
         >
@@ -103,16 +107,16 @@ export default function ProcessWorkflow() {
                       component="h2"
                       sx={{ marginBottom: 2 }}
                     >
-                      Adding new RASCI to the task
+                      Select task/process you want to add
                     </Typography>
                   </Grid>
                   <Grid textAlign={"center"} item xs={12}>
                     <FormControl>
-                      <InputLabel id="label1">Role</InputLabel>
+                      <InputLabel id="label1">Task/process</InputLabel>
                       <Select
                         sx={{ minWidth: 175 }}
                         labelId="label1"
-                        label="Role"
+                        label="Task/process"
                       >
                         <MenuItem value={"A"}>Role A</MenuItem>
                         <MenuItem value={"B"}>Role B</MenuItem>
@@ -122,19 +126,64 @@ export default function ProcessWorkflow() {
                     </FormControl>
                   </Grid>
                   <Grid textAlign={"center"} item xs={12}>
+                    <Button
+                      type="submit"
+                      size={"large"}
+                      variant="contained"
+                      sx={{ marginRight: 1 }}
+                      onClick={handleCloseTasks}
+                    >
+                      Add new task/process
+                    </Button>
+                    <Button
+                      type="submit"
+                      onClick={handleCloseTasks}
+                      size={"large"}
+                      variant="contained"
+                      sx={{ marginLeft: 1 }}
+                    >
+                      Add selected
+                    </Button>
+                  </Grid>
+                </Grid>
+              </Container>
+            </Box>
+          </form>
+        </Modal>
+      </div>
+
+      <div>
+        <Modal
+          open={openWorkItems}
+          onClose={handleCloseWorkItems}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <form>
+            <Box sx={style}>
+              <Container sx={{ width: "50%" }}>
+                <Grid container spacing={1} lineHeight={4.5}>
+                  <Grid textAlign={"center"} item xs={12}>
+                    <Typography
+                      variant="h6"
+                      component="h2"
+                      sx={{ marginBottom: 2 }}
+                    >
+                      Select work item you want to add
+                    </Typography>
+                  </Grid>
+                  <Grid textAlign={"center"} item xs={12}>
                     <FormControl>
-                      <InputLabel id="label2">Responsibility</InputLabel>
+                      <InputLabel id="label1">Work item</InputLabel>
                       <Select
-                        defaultValue={"R"}
-                        labelId="label2"
-                        label="Responsibility"
                         sx={{ minWidth: 175 }}
+                        labelId="label1"
+                        label="Work item"
                       >
-                        <MenuItem value={"R"}>Responsible</MenuItem>
-                        <MenuItem value={"A"}>Accountable</MenuItem>
-                        <MenuItem value={"S"}>Support</MenuItem>
-                        <MenuItem value={"C"}>Consulted</MenuItem>
-                        <MenuItem value={"I"}>Informed</MenuItem>
+                        <MenuItem value={"A"}>Role A</MenuItem>
+                        <MenuItem value={"B"}>Role B</MenuItem>
+                        <MenuItem value={"C"}>Role C</MenuItem>
+                        <MenuItem value={"D"}>Role D</MenuItem>
                       </Select>
                     </FormControl>
                   </Grid>
@@ -144,18 +193,18 @@ export default function ProcessWorkflow() {
                       size={"large"}
                       variant="contained"
                       sx={{ marginRight: 1 }}
-                      onClick={handleClose}
+                      onClick={handleCloseWorkItems}
                     >
-                      Save RASCI
+                      Add new work item
                     </Button>
                     <Button
                       type="submit"
-                      onClick={handleClose}
+                      onClick={handleCloseWorkItems}
                       size={"large"}
                       variant="contained"
                       sx={{ marginLeft: 1 }}
                     >
-                      Close
+                      Add selected
                     </Button>
                   </Grid>
                 </Grid>

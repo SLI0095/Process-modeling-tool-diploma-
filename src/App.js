@@ -21,6 +21,9 @@ import TaskWorkItems from "./pages/Task/TaskWorkItems";
 import TaskRasci from "./pages/Task/TaskRasci";
 import ProcessMetrics from "./pages/Process/ProcessMetrics";
 import ProcessWorkflow from "./pages/Process/ProcessWorkflow";
+import TaskHistory from "./pages/Task/TaskHistory";
+import ProcessMatrix from "./pages/Process/ProcessMatrix";
+import ProcessActivities from "./pages/Process/ProcessActivities";
 
 function App() {
   return (
@@ -46,6 +49,14 @@ function App() {
             element={<ProcessWorkflow />}
           />
           <Route
+            path="/user/:userId/processes/:processId/activities"
+            element={<ProcessActivities />}
+          />
+          <Route
+            path="/user/:userId/processes/:processId/rasci"
+            element={<ProcessMatrix />}
+          />
+          <Route
             path="/user/:userId/processes/:processId/settings"
             element={<ElementSettings type="process" />}
           />
@@ -67,6 +78,10 @@ function App() {
           <Route
             path="/user/:userId/tasks/:taskId/rasci"
             element={<TaskRasci />}
+          />
+          <Route
+            path="/user/:userId/tasks/:taskId/history"
+            element={<TaskHistory />}
           />
           <Route
             path="/user/:userId/tasks/:taskId/settings"

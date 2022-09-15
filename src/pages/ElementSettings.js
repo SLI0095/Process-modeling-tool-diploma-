@@ -9,8 +9,25 @@ import AddUserModal from "../modules/Users/AddUserModal";
 import MyListItem from "../modules/MyListItem";
 import AddProcessSettingsModal from "../modules/AddProcessSettingsModal";
 import ChangeOwnerModal from "../modules/Users/ChangeOwnerModal";
+import TaskSubMenuFooter from "../modules/Task/TaskSubMenuFooter";
+import WorkItemSubMenuFooter from "../modules/WorkItem/WorkItemSubMenuFooter";
+import RoleSubMenuFooter from "../modules/Role/RoleSubMenuFooter";
 
-export default function ElementSettings() {
+export default function ElementSettings(props) {
+  function getFooter(type) {
+    if (type === "process") {
+      return <ProcessSubMenuFooter state="settings" />;
+    }
+    if (type === "task") {
+      return <TaskSubMenuFooter state="settings" />;
+    }
+    if (type === "workItem") {
+      return <WorkItemSubMenuFooter state="settings" />;
+    }
+    if (type === "role") {
+      return <RoleSubMenuFooter state="settings" />;
+    }
+  }
   return (
     <>
       <MyAppBar />
@@ -90,7 +107,7 @@ export default function ElementSettings() {
         <AddUserModal />
         <ChangeOwnerModal />
       </Container>
-      <ProcessSubMenuFooter state="settings" />
+      {getFooter(props.type)}
     </>
   );
 }
