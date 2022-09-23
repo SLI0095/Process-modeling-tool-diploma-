@@ -44,3 +44,48 @@
   height: 500px;
   display:block;
 }
+
+.tableR{
+  text-align: center;
+  background: green;
+  padding-left: 0;
+  padding-right: 0;
+}
+.tableA{
+  text-align: center;
+  background: crimson;
+  padding-left: 0;
+  padding-right: 0;
+}
+.tableS{
+  text-align: center;
+  background: darkorchid;
+  padding-left: 0;
+  padding-right: 0;
+}
+.tableC{
+  text-align: center;
+  background: royalblue;
+  padding-left: 0;
+  padding-right: 0;
+}
+.tableI{
+  text-align: center;
+  background: goldenrod;
+  padding-left: 0;
+  padding-right: 0;
+}
+.table-{
+  text-align: center;
+  padding-left: 0;
+  padding-right: 0;
+}
+.tableTask{
+  font-weight: bold;
+}
+.tableRole{
+  font-weight: bold;
+  text-align: center;
+  padding-left: 1em;
+  padding-right: 1em;
+}
