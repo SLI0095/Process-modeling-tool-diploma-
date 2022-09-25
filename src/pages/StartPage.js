@@ -113,7 +113,6 @@ export default function StartPage() {
                 <Button
                   onClick={login}
                   type={"submit"}
-                  size={"large"}
                   variant="contained"
                   sx={{
                     marginRight: 2,

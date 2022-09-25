@@ -64,7 +64,6 @@ export default function DeleteModalListItem(props) {
                 <Grid textAlign={"center"} item xs={12}>
                   <Button
                     onClick={deleteElement}
-                    size={"large"}
                     variant="contained"
                     sx={{ marginRight: 1 }}
                   >
@@ -72,7 +71,6 @@ export default function DeleteModalListItem(props) {
                   </Button>
                   <Button
                     onClick={handleClose}
-                    size={"large"}
                     variant="contained"
                     sx={{ marginLeft: 1 }}
                   >

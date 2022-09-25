@@ -76,7 +76,7 @@ export default function RegisterModal() {
 
   return (
     <>
-      <Button size={"large"} variant="outlined" onClick={handleOpen}>
+      <Button variant="outlined" onClick={handleOpen}>
         Sign up
       </Button>
       <div>
@@ -134,7 +134,6 @@ export default function RegisterModal() {
                     <Button
                       type="submit"
                       onClick={registerUser}
-                      size={"large"}
                       variant="contained"
                       sx={{
                         marginRight: 2,

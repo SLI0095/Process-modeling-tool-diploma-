@@ -182,16 +182,11 @@ export default function NewProcess() {
               </Button>
             </Grid>
             <Grid item xs={12} marginTop={4} marginBottom={5}>
-              <Button
-                onClick={saveProcess()}
-                size={"large"}
-                variant="contained"
-              >
+              <Button onClick={saveProcess()} variant="contained">
                 Create
               </Button>
               <Button
                 onClick={cancelCreation}
-                size={"large"}
                 variant="contained"
                 sx={{ marginLeft: 2 }}
               >

@@ -105,7 +105,6 @@ export default function RoleBasicInformation() {
               <Button
                 startIcon={<Save />}
                 onClick={saveChanges}
-                size={"large"}
                 variant="contained"
               >
                 Save

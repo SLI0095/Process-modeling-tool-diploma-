@@ -105,7 +105,6 @@ export default function TaskBasicInformation() {
               <Button
                 startIcon={<Save />}
                 onClick={saveChanges}
-                size={"large"}
                 variant="contained"
               >
                 Save

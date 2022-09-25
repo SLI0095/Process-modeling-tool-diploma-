@@ -78,7 +78,6 @@ export default function StepEditModal() {
                     <Button
                       type="submit"
                       onClick={saveStep}
-                      size={"large"}
                       variant="contained"
                       sx={{ marginRight: 1 }}
                     >
@@ -87,7 +86,6 @@ export default function StepEditModal() {
                     <Button
                       type="submit"
                       onClick={handleClose}
-                      size={"large"}
                       variant="contained"
                       sx={{ marginRight: 1 }}
                     >

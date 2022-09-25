@@ -55,7 +55,6 @@ export default function DeleteModal(props) {
                 <Grid textAlign={"center"} item xs={12}>
                   <Button
                     onClick={deleteElement}
-                    size={"large"}
                     variant="contained"
                     sx={{ marginRight: 1 }}
                   >
@@ -63,7 +62,6 @@ export default function DeleteModal(props) {
                   </Button>
                   <Button
                     onClick={handleClose}
-                    size={"large"}
                     variant="contained"
                     sx={{ marginLeft: 1 }}
                   >

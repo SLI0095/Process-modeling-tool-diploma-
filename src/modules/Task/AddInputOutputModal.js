@@ -1,12 +1,12 @@
 import * as React from "react";
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
-import Modal from "@mui/material/Modal";
-import { FormControl, Grid, InputLabel, Select } from "@mui/material";
 import { useRef } from "react";
+import Button from "@mui/material/Button";
 import { Add } from "@mui/icons-material";
+import Modal from "@mui/material/Modal";
+import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
+import { FormControl, Grid, InputLabel, Select } from "@mui/material";
+import Typography from "@mui/material/Typography";
 import MenuItem from "@mui/material/MenuItem";
 
 const style = {
@@ -21,19 +21,19 @@ const style = {
   p: 4,
 };
 
-export default function AddProcessSettingsModal() {
+export default function AddInputOutputModal(props) {
   const [open, setOpen] = React.useState(false);
-  const addProcess = () => setOpen(false);
+  const addWorkItem = () => setOpen(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const selectedProcess = useRef();
+  const selectedWorkItem = useRef();
 
   return (
     <>
       <Button variant="contained" startIcon={<Add />} onClick={handleOpen}>
-        Add process
+        Add {props.type}
       </Button>
-      <div style={{ height: 0, width: 0, display: "inline-flex" }}>
+      <div>
         <Modal
           open={open}
           onClose={handleClose}
@@ -43,46 +43,42 @@ export default function AddProcessSettingsModal() {
           <form>
             <Box sx={style}>
               <Container sx={{ width: "50%" }}>
-                <Grid container spacing={1} lineHeight={4.5}>
-                  <Grid item textAlign={"center"} xs={12}>
-                    <Typography
-                      variant="h6"
-                      component="h2"
-                      sx={{ marginBottom: 2 }}
-                    >
-                      Adding process where will be item usable
+                <Grid container spacing={1}>
+                  <Grid textAlign={"center"} item xs={12}>
+                    <Typography variant="h6" component="h2">
+                      Adding {props.type} to the task
                     </Typography>
                   </Grid>
-                  <Grid item textAlign={"center"} xs={12}>
+                  <Grid textAlign={"center"} item xs={12}>
                     <FormControl>
-                      <InputLabel id="label1">Process</InputLabel>
+                      <InputLabel id="label1">Work item</InputLabel>
                       <Select
                         sx={{ minWidth: 175 }}
                         labelId="label1"
-                        label="Process"
-                        ref={selectedProcess}
+                        label="Work item"
+                        ref={selectedWorkItem}
                       >
-                        <MenuItem value={"A"}>Process A</MenuItem>
-                        <MenuItem value={"B"}>Process B</MenuItem>
-                        <MenuItem value={"C"}>Process C</MenuItem>
-                        <MenuItem value={"D"}>Process D</MenuItem>
+                        <MenuItem value={"A"}>WorkItem A</MenuItem>
+                        <MenuItem value={"B"}>WorkItem B</MenuItem>
+                        <MenuItem value={"C"}>WorkItem C</MenuItem>
+                        <MenuItem value={"D"}>WorkItem D</MenuItem>
                       </Select>
                     </FormControl>
                   </Grid>
-                  <Grid item textAlign={"center"} xs={12}>
+                  <Grid textAlign={"center"} item xs={12}>
                     <Button
                       type="submit"
-                      onClick={addProcess}
+                      onClick={addWorkItem}
                       variant="contained"
                       sx={{ marginRight: 1 }}
                     >
-                      Add
+                      Save
                     </Button>
                     <Button
                       type="submit"
                       onClick={handleClose}
                       variant="contained"
-                      sx={{ marginLeft: 1 }}
+                      sx={{ marginRight: 1 }}
                     >
                       Close
                     </Button>

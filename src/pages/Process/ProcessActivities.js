@@ -2,8 +2,10 @@ import MyAppBar from "../../modules/MyAppBar";
 import Container from "@mui/material/Container";
 import ProcessSubMenuFooter from "../../modules/Process/ProcessSubMenuFooter";
 import DraggableActivityList from "../../modules/Process/DraggableActivityList";
+import { Button } from "@mui/material";
 
 export default function ProcessActivities() {
+  const saveOrder = () => {};
   //TODO reorder items
   const onDragEnd = ({ destination, source }) => {
     if (!destination) return;
@@ -45,6 +47,9 @@ export default function ProcessActivities() {
           ]}
           onDragEnd={onDragEnd}
         />
+        <Button onClick={saveOrder()} variant="contained">
+          Save order
+        </Button>
       </Container>
       <ProcessSubMenuFooter state="activities" />
     </>

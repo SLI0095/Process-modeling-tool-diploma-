@@ -178,7 +178,6 @@ export default function WorkItemBasicInformation() {
               <Button
                 startIcon={<Save />}
                 onClick={saveChanges}
-                size={"large"}
                 variant="contained"
               >
                 Save

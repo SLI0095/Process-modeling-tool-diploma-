@@ -72,7 +72,6 @@ export default function NewMetricModal() {
                     <Button
                       type="submit"
                       onClick={addMetric}
-                      size={"large"}
                       variant="contained"
                       sx={{ marginRight: 1 }}
                     >
@@ -81,7 +80,6 @@ export default function NewMetricModal() {
                     <Button
                       type="submit"
                       onClick={handleClose}
-                      size={"large"}
                       variant="contained"
                       sx={{ marginRight: 1 }}
                     >

@@ -140,7 +140,6 @@ export default function ProcessBasicInformation() {
             <Button
               startIcon={<Save />}
               onClick={saveChanges}
-              size={"large"}
               variant="contained"
             >
               Save

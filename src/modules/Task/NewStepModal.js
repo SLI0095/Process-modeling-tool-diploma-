@@ -72,7 +72,6 @@ export default function NewStepModal() {
                     <Button
                       type="submit"
                       onClick={addStep}
-                      size={"large"}
                       variant="contained"
                       sx={{ marginRight: 1 }}
                     >
@@ -81,7 +80,6 @@ export default function NewStepModal() {
                     <Button
                       type="submit"
                       onClick={handleClose}
-                      size={"large"}
                       variant="contained"
                       sx={{ marginRight: 1 }}
                     >

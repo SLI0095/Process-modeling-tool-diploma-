@@ -43,7 +43,7 @@ export default function ChangeOwnerModal() {
             <Box sx={style}>
               <Container sx={{ width: "50%" }}>
                 <Grid container spacing={1} lineHeight={4.5}>
-                  <Grid textAlign={"center"} xs={12}>
+                  <Grid item textAlign={"center"} xs={12}>
                     <Typography
                       variant="h6"
                       component="h2"
@@ -52,7 +52,7 @@ export default function ChangeOwnerModal() {
                       Changing owner of item
                     </Typography>
                   </Grid>
-                  <Grid textAlign={"center"} xs={12}>
+                  <Grid item textAlign={"center"} xs={12}>
                     <FormControl>
                       <InputLabel id="label1">User</InputLabel>
                       <Select
@@ -68,11 +68,10 @@ export default function ChangeOwnerModal() {
                       </Select>
                     </FormControl>
                   </Grid>
-                  <Grid textAlign={"center"} xs={12}>
+                  <Grid item textAlign={"center"} xs={12}>
                     <Button
                       type="submit"
                       onClick={changeOwner}
-                      size={"large"}
                       variant="contained"
                       sx={{ marginRight: 1 }}
                     >
@@ -81,7 +80,6 @@ export default function ChangeOwnerModal() {
                     <Button
                       type="submit"
                       onClick={handleClose}
-                      size={"large"}
                       variant="contained"
                       sx={{ marginLeft: 1 }}
                     >

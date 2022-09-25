@@ -78,7 +78,6 @@ export default function MetricEditModal() {
                     <Button
                       type="submit"
                       onClick={saveMetric}
-                      size={"large"}
                       variant="contained"
                       sx={{ marginRight: 1 }}
                     >
@@ -87,7 +86,6 @@ export default function MetricEditModal() {
                     <Button
                       type="submit"
                       onClick={handleClose}
-                      size={"large"}
                       variant="contained"
                       sx={{ marginRight: 1 }}
                     >

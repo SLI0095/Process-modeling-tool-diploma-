@@ -109,12 +109,11 @@ export default function NewTask() {
               <ReactQuill theme="snow" ref={changeDescription} />
             </Grid>
             <Grid item xs={12} marginTop={4} marginBottom={5}>
-              <Button onClick={saveTask} size={"large"} variant="contained">
+              <Button onClick={saveTask} variant="contained">
                 Create
               </Button>
               <Button
                 onClick={cancelCreation}
-                size={"large"}
                 variant="contained"
                 sx={{ marginLeft: 2 }}
               >

@@ -1,6 +1,6 @@
 import { List } from "@mui/material";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
-import ActivityListItem from "./ActivityListItem";
+import DraggableContainer from "./DraggableContainer";
 
 export default function DraggableActivityList(props) {
   return (
@@ -8,15 +8,9 @@ export default function DraggableActivityList(props) {
       <DragDropContext onDragEnd={props.onDragEnd}>
         <Droppable droppableId="droppable-list">
           {(provided) => (
-            <List
-              /*sx={{
-                backgroundColor: "background.paper",
-              }}*/
-              ref={provided.innerRef}
-              {...provided.droppableProps}
-            >
+            <List ref={provided.innerRef} {...provided.droppableProps}>
               {props.activities.map((activity, index) => (
-                <ActivityListItem
+                <DraggableContainer
                   activity={activity}
                   index={index}
                   key={activity.name}

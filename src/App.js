@@ -24,6 +24,7 @@ import ProcessWorkflow from "./pages/Process/ProcessWorkflow";
 import TaskHistory from "./pages/Task/TaskHistory";
 import ProcessMatrix from "./pages/Process/ProcessMatrix";
 import ProcessActivities from "./pages/Process/ProcessActivities";
+import WorkItemStates from "./pages/WorkItem/WorkItemStates";
 
 function App() {
   return (
@@ -97,12 +98,24 @@ function App() {
             path="/user/:userId/workItems/:workItemId"
             element={<WorkItemBasicInformation />}
           />
+          <Route
+            path="/user/:userId/workItems/:workItemId/states"
+            element={<WorkItemStates />}
+          />
+          <Route
+            path="/user/:userId/workItems/:workItemId/settings"
+            element={<ElementSettings type="workItem" />}
+          />
 
           <Route path="/user/:userId/roles" element={<Roles />} />
           <Route path="/user/:userId/roles/newRole" element={<NewRole />} />
           <Route
             path="/user/:userId/roles/:roleId"
             element={<RoleBasicInformation />}
+          />
+          <Route
+            path="/user/:userId/roles/:roleId/settings"
+            element={<ElementSettings type="role" />}
           />
 
           <Route path="/test" element={<ProcessWorkflow />} />

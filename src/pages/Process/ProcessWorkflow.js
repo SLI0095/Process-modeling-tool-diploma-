@@ -128,7 +128,6 @@ export default function ProcessWorkflow() {
                   <Grid textAlign={"center"} item xs={12}>
                     <Button
                       type="submit"
-                      size={"large"}
                       variant="contained"
                       sx={{ marginRight: 1 }}
                       onClick={handleCloseTasks}
@@ -138,7 +137,6 @@ export default function ProcessWorkflow() {
                     <Button
                       type="submit"
                       onClick={handleCloseTasks}
-                      size={"large"}
                       variant="contained"
                       sx={{ marginLeft: 1 }}
                     >
@@ -190,7 +188,6 @@ export default function ProcessWorkflow() {
                   <Grid textAlign={"center"} item xs={12}>
                     <Button
                       type="submit"
-                      size={"large"}
                       variant="contained"
                       sx={{ marginRight: 1 }}
                       onClick={handleCloseWorkItems}
@@ -200,7 +197,6 @@ export default function ProcessWorkflow() {
                     <Button
                       type="submit"
                       onClick={handleCloseWorkItems}
-                      size={"large"}
                       variant="contained"
                       sx={{ marginLeft: 1 }}
                     >

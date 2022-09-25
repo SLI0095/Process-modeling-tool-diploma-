@@ -92,7 +92,6 @@ export default function NewRasciModal() {
                     <Button
                       type="submit"
                       onClick={addRasci}
-                      size={"large"}
                       variant="contained"
                       sx={{ marginRight: 1 }}
                     >
@@ -101,7 +100,6 @@ export default function NewRasciModal() {
                     <Button
                       type="submit"
                       onClick={handleClose}
-                      size={"large"}
                       variant="contained"
                       sx={{ marginLeft: 1 }}
                     >
