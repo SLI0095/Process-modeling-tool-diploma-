@@ -3,24 +3,26 @@ import BottomNavigation from "@mui/material/BottomNavigation";
 import BottomNavigationAction from "@mui/material/BottomNavigationAction";
 import { History, Info, MultipleStop, Settings } from "@mui/icons-material";
 import { Paper } from "@mui/material";
-import { useNavigate } from "react-router";
+import { useNavigate, useParams } from "react-router";
 
 export default function WorkItemSubMenuFooter(props) {
   const [value] = React.useState(props.state);
   let navigate = useNavigate();
+  const { workItemId } = useParams();
+  const userId = sessionStorage.getItem("userId");
 
   const handleChange = (event, newValue) => {
     if (newValue === "main") {
-      navigate("/user/" + 1 + "/workItems/" + 1);
+      navigate("/user/" + userId + "/workItems/" + workItemId);
     }
     if (newValue === "states") {
-      navigate("/user/" + 1 + "/workItems/" + 1 + "/states");
+      navigate("/user/" + userId + "/workItems/" + workItemId + "/states");
     }
     if (newValue === "history") {
-      navigate("/user/" + 1 + "/workItems/" + 1 + "/history");
+      navigate("/user/" + userId + "/workItems/" + workItemId + "/history");
     }
     if (newValue === "settings") {
-      navigate("/user/" + 1 + "/workItems/" + 1 + "/settings");
+      navigate("/user/" + userId + "/workItems/" + workItemId + "/settings");
     }
   };
 

@@ -11,33 +11,35 @@ import {
   Straighten,
 } from "@mui/icons-material";
 import { Paper } from "@mui/material";
-import { useNavigate } from "react-router";
+import { useNavigate, useParams } from "react-router";
 
 export default function ProcessSubMenuFooter(props) {
   const [value] = React.useState(props.state);
+  const { processId } = useParams();
+  const userId = sessionStorage.getItem("userId");
   let navigate = useNavigate();
 
   const handleChange = (event, newValue) => {
     if (newValue === "main") {
-      navigate("/user/" + 1 + "/processes/" + 1);
+      navigate("/user/" + userId + "/processes/" + processId);
     }
     if (newValue === "metrics") {
-      navigate("/user/" + 1 + "/processes/" + 1 + "/metrics");
+      navigate("/user/" + userId + "/processes/" + processId + "/metrics");
     }
     if (newValue === "workflow") {
-      navigate("/user/" + 1 + "/processes/" + 1 + "/workflow");
+      navigate("/user/" + userId + "/processes/" + processId + "/workflow");
     }
     if (newValue === "activities") {
-      navigate("/user/" + 1 + "/processes/" + 1 + "/activities");
+      navigate("/user/" + userId + "/processes/" + processId + "/activities");
     }
     if (newValue === "rasci") {
-      navigate("/user/" + 1 + "/processes/" + 1 + "/rasci");
+      navigate("/user/" + userId + "/processes/" + processId + "/rasci");
     }
     if (newValue === "history") {
-      navigate("/user/" + 1 + "/processes/" + 1 + "/history");
+      navigate("/user/" + userId + "/processes/" + processId + "/history");
     }
     if (newValue === "settings") {
-      navigate("/user/" + 1 + "/processes/" + 1 + "/settings");
+      navigate("/user/" + userId + "/processes/" + processId + "/settings");
     }
   };
 

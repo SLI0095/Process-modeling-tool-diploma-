@@ -5,13 +5,45 @@ import Typography from "@mui/material/Typography";
 import * as React from "react";
 import ReactQuill from "react-quill";
 import { useNavigate } from "react-router";
+import config from "../../resources/config.json";
 
 export default function NewRole() {
   let navigate = useNavigate();
+  const userId = sessionStorage.getItem("userId");
 
-  const saveRole = () => {};
+  const saveRole = () => {
+    const role = {
+      name: name.current.value,
+      briefDescription: briefDescription.current.value,
+      mainDescription: mainDescription.current.getEditor().root.innerHTML,
+      skills: skills.current.getEditor().root.innerHTML,
+      assignmentApproaches:
+        assignmentApproaches.current.getEditor().root.innerHTML,
+      version: version.current.value,
+      changeDate: changDate.current.value,
+      changeDescription: changeDescription.current.getEditor().root.innerHTML,
+    };
+    const requestOptions = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(role),
+    };
+    fetch(config.serverURL + "roles/?userId=" + userId, requestOptions)
+      .then((response) => {
+        if (response.ok) {
+          cancelCreation();
+          return;
+        }
+        return response.json();
+      })
+      .then((data) => {
+        if (data !== undefined) {
+          alert(data.message);
+        }
+      });
+  };
   const cancelCreation = () => {
-    navigate("/user/" + 1 /*sessionStorage.getItem("userId")*/ + "/roles");
+    navigate("/user/" + userId + "/roles");
   };
 
   const name = useRef();
@@ -109,7 +141,7 @@ export default function NewRole() {
               <ReactQuill theme="snow" ref={changeDescription} />
             </Grid>
             <Grid item xs={12} marginTop={4} marginBottom={5}>
-              <Button onClick={saveRole()} variant="contained">
+              <Button onClick={saveRole} variant="contained">
                 Create
               </Button>
               <Button

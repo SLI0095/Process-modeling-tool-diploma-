@@ -8,48 +8,68 @@ export default function PaperElement(props) {
     if (type === "process") {
       return (
         <Link
-          href={"/user/" + 1 + "/processes/" + 1}
+          href={
+            "/user/" +
+            sessionStorage.getItem("userId") +
+            "/processes/" +
+            props.element.id
+          }
           variant={"inherit"}
           color={"inherit"}
           underline={"hover"}
         >
-          Process name
+          {props.element.name}
         </Link>
       );
     }
     if (type === "task") {
       return (
         <Link
-          href={"/user/" + 1 + "/tasks/" + 1}
+          href={
+            "/user/" +
+            sessionStorage.getItem("userId") +
+            "/tasks/" +
+            props.element.id
+          }
           variant={"inherit"}
           color={"inherit"}
           underline={"hover"}
         >
-          Task name
+          {props.element.name}
         </Link>
       );
     }
     if (type === "workItem") {
       return (
         <Link
-          href={"/user/" + 1 + "/workItems/" + 1}
+          href={
+            "/user/" +
+            sessionStorage.getItem("userId") +
+            "/workItems/" +
+            props.element.id
+          }
           variant={"inherit"}
           color={"inherit"}
           underline={"hover"}
         >
-          Work item name
+          {props.element.name}
         </Link>
       );
     }
     if (type === "role") {
       return (
         <Link
-          href={"/user/" + 1 + "/roles/" + 1}
+          href={
+            "/user/" +
+            sessionStorage.getItem("userId") +
+            "/roles/" +
+            props.element.id
+          }
           variant={"inherit"}
           color={"inherit"}
           underline={"hover"}
         >
-          Role name
+          {props.element.name}
         </Link>
       );
     }
@@ -90,8 +110,7 @@ export default function PaperElement(props) {
               paddingBottom: 2,
             }}
           >
-            Description - Sed ut perspiciatis, unde omnis iste natus error sit
-            voluptatem accusantium doloremque laudantium.
+            {props.element.briefDescription}
           </Typography>
         </Paper>
       </Grid>

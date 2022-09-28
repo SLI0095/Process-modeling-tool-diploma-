@@ -10,8 +10,29 @@ import PaperElement from "../../modules/PaperElement";
 import NewElementButton from "../../modules/NewElementButton";
 import Typography from "@mui/material/Typography";
 import * as React from "react";
+import { useEffect, useState } from "react";
+import config from "../../resources/config.json";
 
 export default function WorkItems() {
+  const [workItems, setWorkItems] = useState([]);
+
+  useEffect(() => {
+    fetch(
+      config.serverURL +
+        "workItems/templates?userId=" +
+        sessionStorage.getItem("userId")
+    )
+      .then((res) => res.json())
+      .then(
+        (result) => {
+          setWorkItems(result);
+        },
+        () => {
+          alert("Could not load data.");
+        }
+      );
+  }, []);
+
   return (
     <>
       <MyAppBar />
@@ -43,11 +64,13 @@ export default function WorkItems() {
           alignItems="center"
         >
           <NewElementButton type="workItem" />
-          <PaperElement type="workItem" />
-          <PaperElement type="workItem" />
-          <PaperElement type="workItem" />
-          <PaperElement type="workItem" />
-          <PaperElement type="workItem" />
+          {workItems.map((workItem) => (
+            <PaperElement
+              key={workItem.id}
+              type={"workItem"}
+              element={workItem}
+            />
+          ))}
         </Grid>
       </Container>
     </>

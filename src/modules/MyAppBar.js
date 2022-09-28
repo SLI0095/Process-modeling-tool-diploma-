@@ -12,6 +12,7 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import { AccountCircle, Construction } from "@mui/icons-material";
 import { useNavigate } from "react-router";
+import { useEffect } from "react";
 
 const MyAppBar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -30,19 +31,19 @@ const MyAppBar = () => {
   };
 
   const openProcesses = () => {
-    navigate("/user/" + 1 /*sessionStorage.getItem("userId")*/ + "/processes");
+    navigate("/user/" + sessionStorage.getItem("userId") + "/processes");
   };
 
   const openTasks = () => {
-    navigate("/user/" + 1 /*sessionStorage.getItem("userId")*/ + "/tasks");
+    navigate("/user/" + sessionStorage.getItem("userId") + "/tasks");
   };
 
   const openWorkItems = () => {
-    navigate("/user/" + 1 /*sessionStorage.getItem("userId")*/ + "/workItems");
+    navigate("/user/" + sessionStorage.getItem("userId") + "/workItems");
   };
 
   const openRoles = () => {
-    navigate("/user/" + 1 /*sessionStorage.getItem("userId")*/ + "/roles");
+    navigate("/user/" + sessionStorage.getItem("userId") + "/roles");
   };
 
   const handleLogout = () => {
@@ -57,15 +58,13 @@ const MyAppBar = () => {
   };
 
   //TODO Uncomment after testing
-  /*
   useEffect(() => {
     let loggedIn = sessionStorage.getItem("isLoggedIn");
-    let userId = sessionStorage.getItem("userName");
+    let userId = sessionStorage.getItem("userId");
     if (userId === 0 || !loggedIn) {
       navigate("/");
     }
   });
-  */
 
   return (
     <AppBar position="sticky">
@@ -76,9 +75,7 @@ const MyAppBar = () => {
             variant="h6"
             noWrap
             component="a"
-            href={
-              "/user/" + 1 /*sessionStorage.getItem("userId")*/ + "/processes"
-            }
+            href={"/user/" + sessionStorage.getItem("userId") + "/processes"}
             sx={{
               mr: 2,
               display: { xs: "none", md: "flex" },

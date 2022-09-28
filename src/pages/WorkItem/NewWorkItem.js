@@ -5,13 +5,52 @@ import Typography from "@mui/material/Typography";
 import * as React from "react";
 import ReactQuill from "react-quill";
 import { useNavigate } from "react-router";
+import config from "../../resources/config.json";
 
 export default function NewWorkItem() {
   let navigate = useNavigate();
+  const userId = sessionStorage.getItem("userId");
 
-  const saveWorkItem = () => {};
+  const saveWorkItem = () => {
+    const workItem = {
+      name: name.current.value,
+      briefDescription: briefDescription.current.value,
+      mainDescription: mainDescription.current.getEditor().root.innerHTML,
+      workItemType: workItemType.current.value,
+      urlAdress: urlAddress.current.value,
+      purpose: purpose.current.getEditor().root.innerHTML,
+      keyConsiderations: keyConsiderations.current.getEditor().root.innerHTML,
+      briefOutline: briefOutline.current.getEditor().root.innerHTML,
+      notation: notation.current.getEditor().root.innerHTML,
+      impactOfNotHaving: impactOfNotHaving.current.getEditor().root.innerHTML,
+      reasonForNotNeeding:
+        reasonForNotNeeding.current.getEditor().root.innerHTML,
+      version: version.current.value,
+      changeDate: changDate.current.value,
+      templateText: templateText.current.getEditor().root.innerHTML,
+      changeDescription: changeDescription.current.getEditor().root.innerHTML,
+    };
+    const requestOptions = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(workItem),
+    };
+    fetch(config.serverURL + "workItems?userId=" + userId, requestOptions)
+      .then((response) => {
+        if (response.ok) {
+          cancelCreation();
+          return;
+        }
+        return response.json();
+      })
+      .then((data) => {
+        if (data !== undefined) {
+          alert(data.message);
+        }
+      });
+  };
   const cancelCreation = () => {
-    navigate("/user/" + 1 /*sessionStorage.getItem("userId")*/ + "/workItems");
+    navigate("/user/" + userId + "/workItems");
   };
 
   const name = useRef();

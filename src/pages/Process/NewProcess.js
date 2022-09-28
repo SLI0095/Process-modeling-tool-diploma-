@@ -14,6 +14,7 @@ import * as React from "react";
 import ReactQuill from "react-quill";
 import { UploadFile } from "@mui/icons-material";
 import { useNavigate } from "react-router";
+import config from "../../resources/config.json";
 
 export default function NewProcess() {
   const [checked, setChecked] = React.useState(false);
@@ -23,9 +24,46 @@ export default function NewProcess() {
     setChecked(event.target.checked);
   };
 
-  const saveProcess = () => {};
+  const saveProcess = () => {
+    //TODO check if BPMN selected
+    const process = {
+      name: name.current.value,
+      briefDescription: briefDescription.current.value,
+      mainDescription: mainDescription.current.getEditor().root.innerHTML,
+      purpose: purpose.current.getEditor().root.innerHTML,
+      scope: scope.current.getEditor().root.innerHTML,
+      usageNotes: usageNotes.current.getEditor().root.innerHTML,
+      alternatives: alternatives.current.getEditor().root.innerHTML,
+      howToStaff: howToStaff.current.getEditor().root.innerHTML,
+      keyConsiderations: keyConsiderations.current.getEditor().root.innerHTML,
+      version: version.current.value,
+      changeDate: changDate.current.value,
+      changeDescription: changeDescription.current.getEditor().root.innerHTML,
+    };
+    const requestOptions = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(process),
+    };
+    fetch(
+      config.serverURL +
+        "processes/?userId=" +
+        sessionStorage.getItem("userId"),
+      requestOptions
+    )
+      .then((response) => {
+        if (response.ok) {
+          cancelCreation();
+        } else {
+          return response.json();
+        }
+      })
+      .then((data) => {
+        alert(data.message);
+      });
+  };
   const cancelCreation = () => {
-    navigate("/user/" + 1 /*sessionStorage.getItem("userId")*/ + "/processes");
+    navigate("/user/" + sessionStorage.getItem("userId") + "/processes");
   };
 
   const name = useRef();
@@ -182,7 +220,7 @@ export default function NewProcess() {
               </Button>
             </Grid>
             <Grid item xs={12} marginTop={4} marginBottom={5}>
-              <Button onClick={saveProcess()} variant="contained">
+              <Button onClick={saveProcess} variant="contained">
                 Create
               </Button>
               <Button

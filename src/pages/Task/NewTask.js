@@ -5,13 +5,44 @@ import Typography from "@mui/material/Typography";
 import * as React from "react";
 import ReactQuill from "react-quill";
 import { useNavigate } from "react-router";
+import config from "../../resources/config.json";
 
 export default function NewTask() {
   let navigate = useNavigate();
 
-  const saveTask = () => {};
+  const saveTask = () => {
+    const task = {
+      name: name.current.value,
+      briefDescription: briefDescription.current.value,
+      mainDescription: mainDescription.current.getEditor().root.innerHTML,
+      purpose: purpose.current.getEditor().root.innerHTML,
+      keyConsiderations: keyConsiderations.current.getEditor().root.innerHTML,
+      version: version.current.value,
+      changeDate: changDate.current.value,
+      changeDescription: changeDescription.current.getEditor().root.innerHTML,
+    };
+    const requestOptions = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(task),
+    };
+    fetch(
+      config.serverURL + "tasks/?userId=" + sessionStorage.getItem("userId"),
+      requestOptions
+    )
+      .then((response) => {
+        if (response.ok) {
+          cancelCreation();
+          return;
+        }
+        return response.json();
+      })
+      .then((data) => {
+        alert(data.message);
+      });
+  };
   const cancelCreation = () => {
-    navigate("/user/" + 1 /*sessionStorage.getItem("userId")*/ + "/tasks");
+    navigate("/user/" + sessionStorage.getItem("userId") + "/tasks");
   };
 
   const name = useRef();

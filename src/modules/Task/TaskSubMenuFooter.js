@@ -10,30 +10,32 @@ import {
   Settings,
 } from "@mui/icons-material";
 import { Paper } from "@mui/material";
-import { useNavigate } from "react-router";
+import { useNavigate, useParams } from "react-router";
 
 export default function TaskSubMenuFooter(props) {
   const [value] = React.useState(props.state);
+  const { taskId } = useParams();
+  const userId = sessionStorage.getItem("userId");
   let navigate = useNavigate();
 
   const handleChange = (event, newValue) => {
     if (newValue === "main") {
-      navigate("/user/" + 1 + "/tasks/" + 1);
+      navigate("/user/" + userId + "/tasks/" + taskId);
     }
     if (newValue === "steps") {
-      navigate("/user/" + 1 + "/tasks/" + 1 + "/steps");
+      navigate("/user/" + userId + "/tasks/" + taskId + "/steps");
     }
     if (newValue === "workItems") {
-      navigate("/user/" + 1 + "/tasks/" + 1 + "/workItems");
+      navigate("/user/" + userId + "/tasks/" + taskId + "/workItems");
     }
     if (newValue === "rasci") {
-      navigate("/user/" + 1 + "/tasks/" + 1 + "/rasci");
+      navigate("/user/" + userId + "/tasks/" + taskId + "/rasci");
     }
     if (newValue === "history") {
-      navigate("/user/" + 1 + "/tasks/" + 1 + "/history");
+      navigate("/user/" + userId + "/tasks/" + taskId + "/history");
     }
     if (newValue === "settings") {
-      navigate("/user/" + 1 + "/tasks/" + 1 + "/settings");
+      navigate("/user/" + userId + "/tasks/" + taskId + "/settings");
     }
   };
 

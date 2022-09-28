@@ -10,8 +10,29 @@ import PaperElement from "../../modules/PaperElement";
 import NewElementButton from "../../modules/NewElementButton";
 import Typography from "@mui/material/Typography";
 import * as React from "react";
+import config from "../../resources/config.json";
+import { useEffect, useState } from "react";
 
 export default function Processes() {
+  const [processes, setProcesses] = useState([]);
+
+  useEffect(() => {
+    fetch(
+      config.serverURL +
+        "processes/templates?userId=" +
+        sessionStorage.getItem("userId")
+    )
+      .then((res) => res.json())
+      .then(
+        (result) => {
+          setProcesses(result);
+        },
+        () => {
+          alert("Could not load data.");
+        }
+      );
+  }, []);
+
   return (
     <>
       <MyAppBar />
@@ -43,11 +64,9 @@ export default function Processes() {
           alignItems="center"
         >
           <NewElementButton type="process" />
-          <PaperElement type="process" />
-          <PaperElement type="process" />
-          <PaperElement type="process" />
-          <PaperElement type="process" />
-          <PaperElement type="process" />
+          {processes.map((process) => (
+            <PaperElement key={process.id} type={"process"} element={process} />
+          ))}
         </Grid>
       </Container>
     </>

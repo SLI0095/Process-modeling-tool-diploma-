@@ -10,8 +10,29 @@ import PaperElement from "../../modules/PaperElement";
 import NewElementButton from "../../modules/NewElementButton";
 import Typography from "@mui/material/Typography";
 import * as React from "react";
+import { useEffect, useState } from "react";
+import config from "../../resources/config.json";
 
 export default function Tasks() {
+  const [tasks, setTasks] = useState([]);
+
+  useEffect(() => {
+    fetch(
+      config.serverURL +
+        "tasks/templates?userId=" +
+        sessionStorage.getItem("userId")
+    )
+      .then((res) => res.json())
+      .then(
+        (result) => {
+          setTasks(result);
+        },
+        () => {
+          alert("Could not load data.");
+        }
+      );
+  }, []);
+
   return (
     <>
       <MyAppBar />
@@ -43,11 +64,9 @@ export default function Tasks() {
           alignItems="center"
         >
           <NewElementButton type="task" />
-          <PaperElement type="task" />
-          <PaperElement type="task" />
-          <PaperElement type="task" />
-          <PaperElement type="task" />
-          <PaperElement type="task" />
+          {tasks.map((task) => (
+            <PaperElement key={task.id} type={"task"} element={task} />
+          ))}
         </Grid>
       </Container>
     </>

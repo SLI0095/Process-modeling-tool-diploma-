@@ -10,8 +10,29 @@ import PaperElement from "../../modules/PaperElement";
 import NewElementButton from "../../modules/NewElementButton";
 import Typography from "@mui/material/Typography";
 import * as React from "react";
+import { useEffect, useState } from "react";
+import config from "../../resources/config.json";
 
 export default function Roles() {
+  const [roles, setRoles] = useState([]);
+
+  useEffect(() => {
+    fetch(
+      config.serverURL +
+        "roles/templates?userId=" +
+        sessionStorage.getItem("userId")
+    )
+      .then((res) => res.json())
+      .then(
+        (result) => {
+          setRoles(result);
+        },
+        () => {
+          alert("Could not load data.");
+        }
+      );
+  }, []);
+
   return (
     <>
       <MyAppBar />
@@ -43,11 +64,9 @@ export default function Roles() {
           alignItems="center"
         >
           <NewElementButton type="role" />
-          <PaperElement type="role" />
-          <PaperElement type="role" />
-          <PaperElement type="role" />
-          <PaperElement type="role" />
-          <PaperElement type="role" />
+          {roles.map((role) => (
+            <PaperElement key={role.id} type={"role"} element={role} />
+          ))}
         </Grid>
       </Container>
     </>
