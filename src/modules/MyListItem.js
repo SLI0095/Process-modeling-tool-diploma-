@@ -11,14 +11,32 @@ import StepEditModal from "./Task/StepEditModal";
 
 export default function MyListItem(props) {
   function getEdit(type) {
-    if (type === "WIState") {
-      return <WorkItemStateEditModal />;
+    if (type === "work item state") {
+      return (
+        <WorkItemStateEditModal
+          name={props.name}
+          description={props.description}
+          id={props.id}
+        />
+      );
     }
     if (type === "step") {
-      return <StepEditModal />;
+      return (
+        <StepEditModal
+          name={props.name}
+          description={props.description}
+          id={props.id}
+        />
+      );
     }
     if (type === "metric") {
-      return <MetricEditModal />;
+      return (
+        <MetricEditModal
+          name={props.name}
+          description={props.description}
+          id={props.id}
+        />
+      );
     }
 
     return <></>;
@@ -33,10 +51,14 @@ export default function MyListItem(props) {
         }}
       >
         <ListItem>
-          <ListItemText primary="Name" secondary="Description" />
+          <ListItemText primary={props.name} secondary={props.description} />
           <ListItemSecondaryAction>
             {getEdit(props.type)}
-            <DeleteModalListItem />
+            <DeleteModalListItem
+              type={props.type}
+              name={props.name}
+              id={props.id}
+            />
           </ListItemSecondaryAction>
         </ListItem>
       </Paper>

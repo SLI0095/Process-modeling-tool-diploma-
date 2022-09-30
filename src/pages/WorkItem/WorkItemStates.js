@@ -4,8 +4,26 @@ import { List } from "@mui/material";
 import MyListItem from "../../modules/MyListItem";
 import WorkItemSubMenuFooter from "../../modules/WorkItem/WorkItemSubMenuFooter";
 import NewWorkItemStateModal from "../../modules/WorkItem/NewWorkItemStateModal";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router";
+import config from "../../resources/config.json";
 
 export default function WorkItemStates() {
+  const [workItem, setWorkItem] = useState({ workItemStates: [] });
+  const { workItemId } = useParams();
+
+  useEffect(() => {
+    fetch(config.serverURL + "workItems/" + workItemId)
+      .then((res) => res.json())
+      .then(
+        (result) => {
+          setWorkItem(result);
+        },
+        (error) => {
+          alert(error);
+        }
+      );
+  }, [workItemId]);
   return (
     <>
       <MyAppBar />
@@ -15,8 +33,15 @@ export default function WorkItemStates() {
             backgroundColor: "background.paper",
           }}
         >
-          <MyListItem type="WIState" />
-          <MyListItem type="WIState" />
+          {workItem.workItemStates.map((state) => (
+            <MyListItem
+              name={state.stateName}
+              description={state.stateDescription}
+              id={state.id}
+              key={state.id}
+              type="work item state"
+            />
+          ))}
         </List>
         <NewWorkItemStateModal />
       </Container>

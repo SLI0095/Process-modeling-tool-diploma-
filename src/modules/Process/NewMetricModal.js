@@ -7,6 +7,8 @@ import { Grid, TextField } from "@mui/material";
 import { useRef } from "react";
 import { Add } from "@mui/icons-material";
 import Container from "@mui/material/Container";
+import { useParams } from "react-router";
+import config from "../../resources/config.json";
 
 const style = {
   position: "absolute",
@@ -22,9 +24,41 @@ const style = {
 
 export default function NewMetricModal() {
   const [open, setOpen] = React.useState(false);
-  const addMetric = () => setOpen(false);
+  const addMetric = () => {
+    const metric = {
+      name: metricName.current.value,
+      description: metricDescription.current.value,
+    };
+    const requestOptions = {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(metric),
+    };
+    fetch(
+      config.serverURL +
+        "processes/" +
+        processId +
+        "/addMetric?userId=" +
+        userId,
+      requestOptions
+    )
+      .then((response) => {
+        if (response.ok) {
+          setOpen(false);
+          return;
+        }
+        return response.json();
+      })
+      .then((data) => {
+        if (data !== undefined) {
+          alert(data.message);
+        }
+      });
+  };
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const { processId } = useParams();
+  const userId = sessionStorage.getItem("userId");
   const metricName = useRef();
   const metricDescription = useRef();
 

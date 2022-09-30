@@ -8,6 +8,7 @@ import { useRef } from "react";
 import { Edit } from "@mui/icons-material";
 import Container from "@mui/material/Container";
 import IconButton from "@mui/material/IconButton";
+import config from "../../resources/config.json";
 
 const style = {
   position: "absolute",
@@ -21,13 +22,40 @@ const style = {
   p: 4,
 };
 
-export default function MetricEditModal() {
+export default function MetricEditModal(props) {
   const [open, setOpen] = React.useState(false);
-  const saveMetric = () => setOpen(false);
+  const saveMetric = () => {
+    const metric = {
+      name: metricName.current.value,
+      description: metricDescription.current.value,
+    };
+    const requestOptions = {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(metric),
+    };
+    fetch(
+      config.serverURL + "metrics/" + props.id + "?userId=" + userId,
+      requestOptions
+    )
+      .then((response) => {
+        if (response.ok) {
+          setOpen(false);
+          return;
+        }
+        return response.json();
+      })
+      .then((data) => {
+        if (data !== undefined) {
+          alert(data.message);
+        }
+      });
+  };
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const metricName = useRef();
   const metricDescription = useRef();
+  const userId = sessionStorage.getItem("userId");
 
   return (
     <>
@@ -61,6 +89,7 @@ export default function MetricEditModal() {
                       fullWidth
                       required
                       inputRef={metricName}
+                      defaultValue={props.name}
                       label="Metric name"
                     />
                   </Grid>
@@ -68,6 +97,7 @@ export default function MetricEditModal() {
                     <TextField
                       margin={"normal"}
                       inputRef={metricDescription}
+                      defaultValue={props.description}
                       label="Metric description"
                       multiline
                       fullWidth

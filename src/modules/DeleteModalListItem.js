@@ -6,6 +6,8 @@ import Modal from "@mui/material/Modal";
 import { Grid } from "@mui/material";
 import { Delete } from "@mui/icons-material";
 import IconButton from "@mui/material/IconButton";
+import config from "../resources/config.json";
+import { useParams } from "react-router";
 
 const style = {
   position: "absolute",
@@ -21,12 +23,107 @@ const style = {
 
 export default function DeleteModalListItem(props) {
   const [open, setOpen] = React.useState(false);
+  const userId = sessionStorage.getItem("userId");
+  const { processId } = useParams();
+  const { taskId } = useParams();
+  const { workItemId } = useParams();
   const handleOpen = () => {
     setOpen(true);
   };
   const handleClose = () => setOpen(false);
+
   //TODO send delete request
-  const deleteElement = () => {};
+  const deleteElement = () => {
+    if (props.type === "metric") {
+      const metric = {
+        id: props.id,
+      };
+      const requestOptions = {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(metric),
+      };
+      fetch(
+        config.serverURL +
+          "processes/" +
+          processId +
+          "/removeMetric?userId=" +
+          userId,
+        requestOptions
+      )
+        .then((response) => {
+          if (response.ok) {
+            setOpen(false);
+            window.location.reload(false);
+            return;
+          }
+          return response.json();
+        })
+        .then((data) => {
+          if (data !== undefined) {
+            alert(data.message);
+          }
+        });
+    }
+    if (props.type === "step") {
+      const step = {
+        id: props.id,
+      };
+      const requestOptions = {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(step),
+      };
+      fetch(
+        config.serverURL + "tasks/" + taskId + "/removeStep?userId=" + userId,
+        requestOptions
+      )
+        .then((response) => {
+          if (response.ok) {
+            setOpen(false);
+            window.location.reload(false);
+            return;
+          }
+          return response.json();
+        })
+        .then((data) => {
+          if (data !== undefined) {
+            alert(data.message);
+          }
+        });
+    }
+    if (props.type === "work item state") {
+      const state = {
+        id: props.id,
+      };
+      const requestOptions = {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(state),
+      };
+      fetch(
+        config.serverURL +
+          "workItems/" +
+          workItemId +
+          "/removeState?userId=" +
+          userId,
+        requestOptions
+      )
+        .then((response) => {
+          if (response.ok) {
+            setOpen(false);
+            window.location.reload(false);
+            return;
+          }
+          return response.json();
+        })
+        .then((data) => {
+          if (data !== undefined) {
+            alert(data.message);
+          }
+        });
+    }
+  };
 
   return (
     <>

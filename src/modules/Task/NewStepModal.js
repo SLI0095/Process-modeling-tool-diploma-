@@ -7,7 +7,10 @@ import { Grid, TextField } from "@mui/material";
 import { useRef } from "react";
 import { Add } from "@mui/icons-material";
 import Container from "@mui/material/Container";
+import { useParams } from "react-router";
+import config from "../../resources/config.json";
 
+//TODO form required fields stopped working find out why, try React 17
 const style = {
   position: "absolute",
   top: "50%",
@@ -22,11 +25,39 @@ const style = {
 
 export default function NewStepModal() {
   const [open, setOpen] = React.useState(false);
-  const addStep = () => setOpen(false);
+  const addStep = () => {
+    const step = {
+      name: stepName.current.value,
+      description: stepDescription.current.value,
+    };
+    const requestOptions = {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(step),
+    };
+    fetch(
+      config.serverURL + "tasks/" + taskId + "/addStep?userId=" + userId,
+      requestOptions
+    )
+      .then((response) => {
+        if (response.ok) {
+          setOpen(false);
+          return;
+        }
+        return response.json();
+      })
+      .then((data) => {
+        if (data !== undefined) {
+          alert(data.message);
+        }
+      });
+  };
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const stepName = useRef();
   const stepDescription = useRef();
+  const { taskId } = useParams();
+  const userId = sessionStorage.getItem("userId");
 
   return (
     <>

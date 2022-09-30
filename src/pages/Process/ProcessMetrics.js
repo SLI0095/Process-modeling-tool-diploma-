@@ -4,8 +4,27 @@ import Container from "@mui/material/Container";
 import { List } from "@mui/material";
 import MyListItem from "../../modules/MyListItem";
 import NewMetricModal from "../../modules/Process/NewMetricModal";
+import { useEffect, useState } from "react";
+import config from "../../resources/config.json";
+import { useParams } from "react-router";
 
 export default function ProcessMetrics() {
+  const [process, setProcess] = useState({ metrics: [] });
+  const { processId } = useParams();
+
+  useEffect(() => {
+    fetch(config.serverURL + "processes/" + processId)
+      .then((res) => res.json())
+      .then(
+        (result) => {
+          setProcess(result);
+        },
+        (error) => {
+          alert(error);
+        }
+      );
+  }, [processId]);
+
   return (
     <>
       <MyAppBar />
@@ -15,8 +34,15 @@ export default function ProcessMetrics() {
             backgroundColor: "background.paper",
           }}
         >
-          <MyListItem type="metric" />
-          <MyListItem type="metric" />
+          {process.metrics.map((metric) => (
+            <MyListItem
+              name={metric.name}
+              description={metric.description}
+              id={metric.id}
+              key={metric.id}
+              type="metric"
+            />
+          ))}
         </List>
         <NewMetricModal />
       </Container>

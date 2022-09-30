@@ -7,6 +7,8 @@ import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import { Grid, TextField } from "@mui/material";
 import Typography from "@mui/material/Typography";
+import config from "../../resources/config.json";
+import { useParams } from "react-router";
 
 const style = {
   position: "absolute",
@@ -22,11 +24,43 @@ const style = {
 
 export default function NewWorkItemStateModal() {
   const [open, setOpen] = React.useState(false);
-  const addState = () => setOpen(false);
+  const addState = () => {
+    const state = {
+      stateName: stateName.current.value,
+      stateDescription: stateDescription.current.value,
+    };
+    const requestOptions = {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(state),
+    };
+    fetch(
+      config.serverURL +
+        "workItems/" +
+        workItemId +
+        "/addState?userId=" +
+        userId,
+      requestOptions
+    )
+      .then((response) => {
+        if (response.ok) {
+          setOpen(false);
+          return;
+        }
+        return response.json();
+      })
+      .then((data) => {
+        if (data !== undefined) {
+          alert(data.message);
+        }
+      });
+  };
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const stateName = useRef();
   const stateDescription = useRef();
+  const { workItemId } = useParams();
+  const userId = sessionStorage.getItem("userId");
 
   return (
     <>
