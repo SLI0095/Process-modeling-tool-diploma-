@@ -4,10 +4,12 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import { FormControl, Grid, InputLabel, Select } from "@mui/material";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Add } from "@mui/icons-material";
 import Container from "@mui/material/Container";
 import MenuItem from "@mui/material/MenuItem";
+import { useParams } from "react-router";
+import config from "../../resources/config.json";
 
 const style = {
   position: "absolute",
@@ -21,13 +23,58 @@ const style = {
   p: 4,
 };
 
+//TODO add check if none selected
 export default function NewRasciModal() {
+  const [roles, setRoles] = useState([]);
   const [open, setOpen] = React.useState(false);
-  const addRasci = () => setOpen(false);
+  const addRasci = () => {
+    const rasci = {
+      role: {
+        id: selectedRole.current.getElementsByTagName("input")[0].value,
+      },
+      type: rasciType.current.getElementsByTagName("input")[0].value,
+    };
+    const requestOptions = {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(rasci),
+    };
+    fetch(
+      config.serverURL + "tasks/" + taskId + "/addRasci?userId=" + userId,
+      requestOptions
+    )
+      .then((response) => {
+        if (response.ok) {
+          setOpen(false);
+          return;
+        }
+        return response.json();
+      })
+      .then((data) => {
+        if (data !== undefined) {
+          alert(data.message);
+        }
+      });
+  };
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const selectedRole = useRef();
   const rasciType = useRef();
+  const { taskId } = useParams();
+  const userId = sessionStorage.getItem("userId");
+
+  useEffect(() => {
+    fetch(config.serverURL + "roles/templatesCanEdit?userId=" + userId)
+      .then((res) => res.json())
+      .then(
+        (result) => {
+          setRoles(result);
+        },
+        (error) => {
+          alert(error);
+        }
+      );
+  }, [userId]);
 
   return (
     <>
@@ -62,11 +109,13 @@ export default function NewRasciModal() {
                         labelId="label1"
                         label="Role"
                         ref={selectedRole}
+                        defaultValue={""}
                       >
-                        <MenuItem value={"A"}>Role A</MenuItem>
-                        <MenuItem value={"B"}>Role B</MenuItem>
-                        <MenuItem value={"C"}>Role C</MenuItem>
-                        <MenuItem value={"D"}>Role D</MenuItem>
+                        {roles.map((role) => (
+                          <MenuItem key={role.id} value={role.id}>
+                            {role.name}
+                          </MenuItem>
+                        ))}
                       </Select>
                     </FormControl>
                   </Grid>

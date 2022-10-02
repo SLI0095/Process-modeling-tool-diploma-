@@ -32,7 +32,6 @@ export default function DeleteModalListItem(props) {
   };
   const handleClose = () => setOpen(false);
 
-  //TODO send delete request
   const deleteElement = () => {
     if (props.type === "metric") {
       const metric = {
@@ -107,6 +106,91 @@ export default function DeleteModalListItem(props) {
           workItemId +
           "/removeState?userId=" +
           userId,
+        requestOptions
+      )
+        .then((response) => {
+          if (response.ok) {
+            setOpen(false);
+            window.location.reload(false);
+            return;
+          }
+          return response.json();
+        })
+        .then((data) => {
+          if (data !== undefined) {
+            alert(data.message);
+          }
+        });
+    }
+    if (props.type === "input") {
+      const workItem = {
+        id: props.id,
+      };
+      const requestOptions = {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(workItem),
+      };
+      fetch(
+        config.serverURL +
+          "tasks/" +
+          taskId +
+          "/removeMandatoryInput?userId=" +
+          userId,
+        requestOptions
+      )
+        .then((response) => {
+          if (response.ok) {
+            setOpen(false);
+            window.location.reload(false);
+            return;
+          }
+          return response.json();
+        })
+        .then((data) => {
+          if (data !== undefined) {
+            alert(data.message);
+          }
+        });
+    }
+    if (props.type === "output") {
+      const workItem = {
+        id: props.id,
+      };
+      const requestOptions = {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(workItem),
+      };
+      fetch(
+        config.serverURL + "task/" + taskId + "/removeOutput?userId=" + userId,
+        requestOptions
+      )
+        .then((response) => {
+          if (response.ok) {
+            setOpen(false);
+            window.location.reload(false);
+            return;
+          }
+          return response.json();
+        })
+        .then((data) => {
+          if (data !== undefined) {
+            alert(data.message);
+          }
+        });
+    }
+    if (props.type === "rasci") {
+      const rasci = {
+        id: props.id,
+      };
+      const requestOptions = {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(rasci),
+      };
+      fetch(
+        config.serverURL + "tasks/" + taskId + "/removeRasci?userId=" + userId,
         requestOptions
       )
         .then((response) => {

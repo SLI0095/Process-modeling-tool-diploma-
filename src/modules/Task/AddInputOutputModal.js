@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Button from "@mui/material/Button";
 import { Add } from "@mui/icons-material";
 import Modal from "@mui/material/Modal";
@@ -8,6 +8,8 @@ import Container from "@mui/material/Container";
 import { FormControl, Grid, InputLabel, Select } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import MenuItem from "@mui/material/MenuItem";
+import { useParams } from "react-router";
+import config from "../../resources/config.json";
 
 const style = {
   position: "absolute",
@@ -20,13 +22,77 @@ const style = {
   boxShadow: 24,
   p: 4,
 };
-
+//TODO add check if none selected
 export default function AddInputOutputModal(props) {
-  const [open, setOpen] = React.useState(false);
-  const addWorkItem = () => setOpen(false);
+  const [open, setOpen] = useState(false);
+  const [workItems, setWorkItems] = useState([]);
+  const addWorkItem = () => {
+    const workItem = {
+      id: selectedWorkItem.current.getElementsByTagName("input")[0].value,
+    };
+    const requestOptions = {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(workItem),
+    };
+    if (props.type === "input") {
+      fetch(
+        config.serverURL +
+          "tasks/" +
+          taskId +
+          "/addMandatoryInput?userId=" +
+          userId,
+        requestOptions
+      )
+        .then((response) => {
+          if (response.ok) {
+            setOpen(false);
+            return;
+          }
+          return response.json();
+        })
+        .then((data) => {
+          if (data !== undefined) {
+            alert(data.message);
+          }
+        });
+    } else if (props.type === "output") {
+      fetch(
+        config.serverURL + "tasks/" + taskId + "/addOutput?userId=" + userId,
+        requestOptions
+      )
+        .then((response) => {
+          if (response.ok) {
+            setOpen(false);
+            return;
+          }
+          return response.json();
+        })
+        .then((data) => {
+          if (data !== undefined) {
+            alert(data.message);
+          }
+        });
+    }
+  };
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const selectedWorkItem = useRef();
+  const { taskId } = useParams();
+  const userId = sessionStorage.getItem("userId");
+
+  useEffect(() => {
+    fetch(config.serverURL + "workItems/templatesCanEdit?userId=" + userId)
+      .then((res) => res.json())
+      .then(
+        (result) => {
+          setWorkItems(result);
+        },
+        (error) => {
+          alert(error);
+        }
+      );
+  }, [userId]);
 
   return (
     <>
@@ -57,11 +123,13 @@ export default function AddInputOutputModal(props) {
                         labelId="label1"
                         label="Work item"
                         ref={selectedWorkItem}
+                        defaultValue={""}
                       >
-                        <MenuItem value={"A"}>WorkItem A</MenuItem>
-                        <MenuItem value={"B"}>WorkItem B</MenuItem>
-                        <MenuItem value={"C"}>WorkItem C</MenuItem>
-                        <MenuItem value={"D"}>WorkItem D</MenuItem>
+                        {workItems.map((workItem) => (
+                          <MenuItem key={workItem.id} value={workItem.id}>
+                            {workItem.name}
+                          </MenuItem>
+                        ))}
                       </Select>
                     </FormControl>
                   </Grid>
