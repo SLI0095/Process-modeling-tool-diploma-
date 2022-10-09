@@ -1,23 +1,26 @@
 import MyAppBar from "../../modules/MyAppBar";
 import Container from "@mui/material/Container";
 import ProcessSubMenuFooter from "../../modules/Process/ProcessSubMenuFooter";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import config from "../../resources/config.json";
+import { useParams } from "react-router";
 
 export default function ProcessMatrix() {
   const [matrix, setMatrix] = useState([[]]);
+  const { processId } = useParams();
 
-  /*useEffect(() => {
-    fetch(config.serverURL + "processes/" + location.state.processToEdit.id + "/rasci")
-        .then(res => res.json())
-        .then(
-            (result) => {
-              setMatrix(result);
-            },
-            (error) => {
-              alert("Could not load RASCI matrix");
-            }
-        )
-  }, [])*/
+  useEffect(() => {
+    fetch(config.serverURL + "processes/" + processId + "/rasci")
+      .then((res) => res.json())
+      .then(
+        (result) => {
+          setMatrix(result);
+        },
+        () => {
+          alert("Could not load RASCI matrix");
+        }
+      );
+  }, [processId]);
 
   return (
     <>
@@ -29,7 +32,7 @@ export default function ProcessMatrix() {
               if (index === 0) {
                 return (
                   <tr>
-                    {a.map((b, index2) => {
+                    {a.map((b) => {
                       return <td className={"tableRole"}>{b}</td>;
                     })}
                   </tr>
