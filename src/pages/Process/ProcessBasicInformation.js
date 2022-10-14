@@ -12,7 +12,7 @@ import Typography from "@mui/material/Typography";
 import * as React from "react";
 import ReactQuill from "react-quill";
 import ProcessSubMenuFooter from "../../modules/Process/ProcessSubMenuFooter";
-import { Save } from "@mui/icons-material";
+import { Download, Save } from "@mui/icons-material";
 import config from "../../resources/config.json";
 import { useParams } from "react-router";
 
@@ -91,6 +91,21 @@ export default function ProcessBasicInformation() {
   const version = useRef();
   const changDate = useRef();
   const changeDescription = useRef();
+
+  function downloadHtml() {
+    fetch(config.serverURL + "processes/" + processId + "/generateHTML")
+      .then((response) => {
+        if (response.ok) {
+          return response.blob();
+        }
+      })
+      .then((data) => {
+        var a = document.getElementById("downloadLink");
+        a.setAttribute("href", URL.createObjectURL(data));
+        a.setAttribute("download", "processHtml.zip");
+        a.click();
+      });
+  }
 
   if (process === null) {
     return (
@@ -264,6 +279,14 @@ export default function ProcessBasicInformation() {
               >
                 Save
               </Button>
+              <Button
+                startIcon={<Download />}
+                sx={{ marginLeft: 2 }}
+                onClick={downloadHtml}
+                variant="contained"
+              >
+                Download as HTML
+              </Button>
             </Grid>
           </Grid>
           <Snackbar
@@ -280,6 +303,8 @@ export default function ProcessBasicInformation() {
             </Alert>
           </Snackbar>
           <ProcessSubMenuFooter state="main" />
+          {/* eslint-disable-next-line jsx-a11y/anchor-is-valid,jsx-a11y/anchor-has-content */}
+          <a id="downloadLink" hidden></a>
         </Container>
       </>
     );

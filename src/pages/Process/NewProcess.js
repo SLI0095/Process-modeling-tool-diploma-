@@ -19,6 +19,7 @@ import config from "../../resources/config.json";
 export default function NewProcess() {
   const [checked, setChecked] = React.useState(false);
   let navigate = useNavigate();
+  const userId = sessionStorage.getItem("userId");
 
   const handleChange = (event) => {
     setChecked(event.target.checked);
@@ -40,27 +41,58 @@ export default function NewProcess() {
       changeDate: changDate.current.value,
       changeDescription: changeDescription.current.getEditor().root.innerHTML,
     };
-    const requestOptions = {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(process),
-    };
-    fetch(
-      config.serverURL +
-        "processes/?userId=" +
-        sessionStorage.getItem("userId"),
-      requestOptions
-    )
-      .then((response) => {
-        if (response.ok) {
-          cancelCreation();
-        } else {
-          return response.json();
-        }
-      })
-      .then((data) => {
-        alert(data.message);
-      });
+    if (checked) {
+      const file = document.getElementById("fileInput").files[0];
+      const fileReader = new FileReader();
+
+      fileReader.onload = function (fileLoadedEvent) {
+        const textFromFileLoaded = fileLoadedEvent.target.result;
+        const bpmn = {
+          bpmnContent: textFromFileLoaded,
+        };
+        const bodyRequest = {
+          process: process,
+          bpmn: bpmn,
+        };
+        const requestOptions = {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(bodyRequest),
+        };
+        fetch(
+          config.serverURL + "processes/fromBpmn?userId=" + userId,
+          requestOptions
+        )
+          .then((response) => {
+            if (response.ok) {
+              cancelCreation();
+            } else {
+              return response.json();
+            }
+          })
+          .then((data) => {
+            alert(data.message);
+          });
+      };
+      fileReader.readAsText(file);
+    } else {
+      const requestOptions = {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(process),
+      };
+      fetch(config.serverURL + "processes/?userId=" + userId, requestOptions)
+        .then((response) => {
+          if (response.ok) {
+            cancelCreation();
+          } else {
+            return response.json();
+          }
+        })
+        .then((data) => {
+          alert(data.message);
+        });
+    }
   };
   const cancelCreation = () => {
     navigate("/user/" + sessionStorage.getItem("userId") + "/processes");
