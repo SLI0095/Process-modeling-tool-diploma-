@@ -4,16 +4,13 @@ import Box from "@mui/material/Box";
 import PaperElementMenu from "./PaperElementMenu";
 
 export default function PaperElement(props) {
+  const userId = sessionStorage.getItem("userId");
+
   function getLink(type) {
     if (type === "process") {
       return (
         <Link
-          href={
-            "/user/" +
-            sessionStorage.getItem("userId") +
-            "/processes/" +
-            props.element.id
-          }
+          href={"/user/" + userId + "/processes/" + props.element.id}
           variant={"inherit"}
           color={"inherit"}
           underline={"hover"}
@@ -25,12 +22,7 @@ export default function PaperElement(props) {
     if (type === "task") {
       return (
         <Link
-          href={
-            "/user/" +
-            sessionStorage.getItem("userId") +
-            "/tasks/" +
-            props.element.id
-          }
+          href={"/user/" + userId + "/tasks/" + props.element.id}
           variant={"inherit"}
           color={"inherit"}
           underline={"hover"}
@@ -42,12 +34,7 @@ export default function PaperElement(props) {
     if (type === "workItem") {
       return (
         <Link
-          href={
-            "/user/" +
-            sessionStorage.getItem("userId") +
-            "/workItems/" +
-            props.element.id
-          }
+          href={"/user/" + userId + "/workItems/" + props.element.id}
           variant={"inherit"}
           color={"inherit"}
           underline={"hover"}
@@ -59,12 +46,7 @@ export default function PaperElement(props) {
     if (type === "role") {
       return (
         <Link
-          href={
-            "/user/" +
-            sessionStorage.getItem("userId") +
-            "/roles/" +
-            props.element.id
-          }
+          href={"/user/" + userId + "/roles/" + props.element.id}
           variant={"inherit"}
           color={"inherit"}
           underline={"hover"}
@@ -100,7 +82,7 @@ export default function PaperElement(props) {
             >
               {getLink(props.type)}
             </Typography>
-            <PaperElementMenu />
+            <PaperElementMenu type={props.type} element={props.element} />
           </Box>
           <Typography
             variant={"body1"}

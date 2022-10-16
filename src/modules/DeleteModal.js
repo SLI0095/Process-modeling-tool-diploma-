@@ -5,6 +5,8 @@ import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import MenuItem from "@mui/material/MenuItem";
 import { Grid } from "@mui/material";
+import config from "../resources/config.json";
+import { useNavigate } from "react-router";
 
 const style = {
   position: "absolute",
@@ -20,12 +22,97 @@ const style = {
 
 export default function DeleteModal(props) {
   const [open, setOpen] = React.useState(false);
+  const userId = sessionStorage.getItem("userId");
+  let navigate = useNavigate();
+
   const handleOpen = () => {
     setOpen(true);
   };
   const handleClose = () => setOpen(false);
   //TODO send delete request
-  const deleteElement = () => {};
+  const deleteElement = () => {
+    const requestOptions = {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(props.element),
+    };
+    if (props.type === "process") {
+      fetch(
+        config.serverURL +
+          "processes/" +
+          props.element.id +
+          "?userId=" +
+          userId,
+        requestOptions
+      )
+        .then((response) => {
+          if (response.ok) {
+            setOpen(false);
+            navigate(0);
+            return;
+          }
+          return response.json();
+        })
+        .then((data) => {
+          alert(data.message);
+        });
+    }
+    if (props.type === "task") {
+      fetch(
+        config.serverURL + "tasks/" + props.element.id + "?userId=" + userId,
+        requestOptions
+      )
+        .then((response) => {
+          if (response.ok) {
+            setOpen(false);
+            navigate(0);
+            return;
+          }
+          return response.json();
+        })
+        .then((data) => {
+          alert(data.message);
+        });
+    }
+    if (props.type === "workItem") {
+      fetch(
+        config.serverURL +
+          "workItems/" +
+          props.element.id +
+          "?userId=" +
+          userId,
+        requestOptions
+      )
+        .then((response) => {
+          if (response.ok) {
+            setOpen(false);
+            navigate(0);
+            return;
+          }
+          return response.json();
+        })
+        .then((data) => {
+          alert(data.message);
+        });
+    }
+    if (props.type === "role") {
+      fetch(
+        config.serverURL + "roles/" + props.element.id + "?userId=" + userId,
+        requestOptions
+      )
+        .then((response) => {
+          if (response.ok) {
+            setOpen(false);
+            navigate(0);
+            return;
+          }
+          return response.json();
+        })
+        .then((data) => {
+          alert(data.message);
+        });
+    }
+  };
 
   return (
     <>
@@ -49,7 +136,7 @@ export default function DeleteModal(props) {
                 </Grid>
                 <Grid textAlign={"center"} item xs={12}>
                   <Typography variant="h6" component="h2">
-                    {props.name}
+                    {props.element.name}
                   </Typography>
                 </Grid>
                 <Grid textAlign={"center"} item xs={12}>

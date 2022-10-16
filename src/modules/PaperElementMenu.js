@@ -8,7 +8,7 @@ import DeleteModal from "./DeleteModal";
 const ITEM_HEIGHT = 48;
 
 //TODO in props get id of element and type of element
-export default function PaperElementMenu() {
+export default function PaperElementMenu(props) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -54,7 +54,7 @@ export default function PaperElementMenu() {
         <MenuItem key={"newVersion"} onClick={handleTemplate}>
           Use as template
         </MenuItem>
-        <DeleteModal />
+        <DeleteModal type={props.type} element={props.element} />
       </Menu>
     </div>
   );
