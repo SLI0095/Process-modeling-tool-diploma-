@@ -21,10 +21,10 @@ import TaskWorkItems from "./pages/Task/TaskWorkItems";
 import TaskRasci from "./pages/Task/TaskRasci";
 import ProcessMetrics from "./pages/Process/ProcessMetrics";
 import ProcessWorkflow from "./pages/Process/ProcessWorkflow";
-import TaskHistory from "./pages/Task/TaskHistory";
 import ProcessMatrix from "./pages/Process/ProcessMatrix";
 import ProcessActivities from "./pages/Process/ProcessActivities";
 import WorkItemStates from "./pages/WorkItem/WorkItemStates";
+import HistoryPage from "./pages/HistoryPage";
 
 function App() {
   return (
@@ -58,6 +58,10 @@ function App() {
             element={<ProcessMatrix />}
           />
           <Route
+            path="/user/:userId/processes/:processId/history"
+            element={<HistoryPage type={"process"} />}
+          />
+          <Route
             path="/user/:userId/processes/:processId/settings"
             element={<ElementSettings type="process" />}
           />
@@ -82,7 +86,7 @@ function App() {
           />
           <Route
             path="/user/:userId/tasks/:taskId/history"
-            element={<TaskHistory />}
+            element={<HistoryPage type={"task"} />}
           />
           <Route
             path="/user/:userId/tasks/:taskId/settings"
@@ -103,6 +107,10 @@ function App() {
             element={<WorkItemStates />}
           />
           <Route
+            path="/user/:userId/workItems/:workItemId/history"
+            element={<HistoryPage type={"workItem"} />}
+          />
+          <Route
             path="/user/:userId/workItems/:workItemId/settings"
             element={<ElementSettings type="workItem" />}
           />
@@ -112,6 +120,10 @@ function App() {
           <Route
             path="/user/:userId/roles/:roleId"
             element={<RoleBasicInformation />}
+          />
+          <Route
+            path="/user/:userId/roles/:roleId/history"
+            element={<HistoryPage type="role" />}
           />
           <Route
             path="/user/:userId/roles/:roleId/settings"
