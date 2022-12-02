@@ -30,6 +30,10 @@ const MyAppBar = () => {
     setAnchorElNav(null);
   };
 
+  const handleOpenGroups = () => {
+    navigate("/user/" + sessionStorage.getItem("userId") + "/groups");
+  };
+
   const openProcesses = () => {
     navigate("/user/" + sessionStorage.getItem("userId") + "/processes");
   };
@@ -211,8 +215,8 @@ const MyAppBar = () => {
               <MenuItem key={"profile"} onClick={handleCloseUserMenu}>
                 <Typography textAlign="center">Main dashboard</Typography>
               </MenuItem>
-              <MenuItem key={"account"} onClick={handleCloseUserMenu}>
-                <Typography textAlign="center">Account settings</Typography>
+              <MenuItem key={"account"} onClick={handleOpenGroups}>
+                <Typography textAlign="center">User groups</Typography>
               </MenuItem>
               <MenuItem key={"logout"} onClick={handleLogout}>
                 <Typography textAlign="center">Logout</Typography>
