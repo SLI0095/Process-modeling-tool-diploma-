@@ -25,6 +25,8 @@ import ProcessMatrix from "./pages/Process/ProcessMatrix";
 import ProcessActivities from "./pages/Process/ProcessActivities";
 import WorkItemStates from "./pages/WorkItem/WorkItemStates";
 import HistoryPage from "./pages/HistoryPage";
+import UserGroupsView from "./pages/Groups/UserGroupsView";
+import GroupDetail from "./pages/Groups/GroupDetail";
 
 function App() {
   return (
@@ -128,6 +130,12 @@ function App() {
           <Route
             path="/user/:userId/roles/:roleId/settings"
             element={<ElementSettings type="role" />}
+          />
+
+          <Route path="/user/:userId/groups" element={<UserGroupsView />} />
+          <Route
+            path="/user/:userId/groups/:groupId"
+            element={<GroupDetail />}
           />
 
           <Route path="/test" element={<ProcessWorkflow />} />

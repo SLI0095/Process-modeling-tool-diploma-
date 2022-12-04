@@ -29,7 +29,7 @@ export default function CreateGroupModal() {
       groupName: groupName.current.value,
     };
     const requestOptions = {
-      method: "PUT",
+      method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(group),
     };

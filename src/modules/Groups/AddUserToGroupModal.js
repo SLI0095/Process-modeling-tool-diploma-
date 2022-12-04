@@ -4,10 +4,12 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import { FormControl, Grid, InputLabel, Select } from "@mui/material";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Add } from "@mui/icons-material";
 import Container from "@mui/material/Container";
 import MenuItem from "@mui/material/MenuItem";
+import config from "../../resources/config.json";
+import { useParams } from "react-router";
 
 const style = {
   position: "absolute",
@@ -23,10 +25,52 @@ const style = {
 
 export default function AddUserToGroupModal() {
   const [open, setOpen] = React.useState(false);
-  const addUser = () => setOpen(false);
+  const [users, setUsers] = useState([]);
+  const { groupId } = useParams();
+  const { userId } = useParams();
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const selectedUser = useRef();
+
+  const addUser = () => {
+    const user = {
+      id: selectedUser.current.getElementsByTagName("input")[0].value,
+    };
+    const requestOptions = {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(user),
+    };
+    fetch(
+      config.serverURL + "userGroups/" + groupId + "/addUser?userId=" + userId,
+      requestOptions
+    )
+      .then((response) => {
+        if (response.ok) {
+          setOpen(false);
+          return;
+        }
+        return response.json();
+      })
+      .then((data) => {
+        if (data !== undefined) {
+          alert(data.message);
+        }
+      });
+  };
+
+  useEffect(() => {
+    fetch(config.serverURL + "users")
+      .then((res) => res.json())
+      .then(
+        (result) => {
+          setUsers(result);
+        },
+        (error) => {
+          alert(error);
+        }
+      );
+  }, [groupId]);
 
   return (
     <>
@@ -55,17 +99,19 @@ export default function AddUserToGroupModal() {
                   </Grid>
                   <Grid textAlign={"center"} item xs={12}>
                     <FormControl>
-                      <InputLabel id="label1">User or group</InputLabel>
+                      <InputLabel id="label1">User</InputLabel>
                       <Select
                         sx={{ minWidth: 175 }}
                         labelId="label1"
-                        label="User or group"
+                        label="User"
                         ref={selectedUser}
+                        defaultValue={""}
                       >
-                        <MenuItem value={"A"}>Role A</MenuItem>
-                        <MenuItem value={"B"}>Role B</MenuItem>
-                        <MenuItem value={"C"}>Role C</MenuItem>
-                        <MenuItem value={"D"}>Role D</MenuItem>
+                        {users.map((user) => (
+                          <MenuItem key={user.id} value={user.id}>
+                            {user.username}
+                          </MenuItem>
+                        ))}
                       </Select>
                     </FormControl>
                   </Grid>

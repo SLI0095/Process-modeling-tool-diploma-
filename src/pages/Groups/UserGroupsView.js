@@ -5,8 +5,27 @@ import * as React from "react";
 import UserListItem from "../../modules/UserListItem";
 import { List } from "@mui/material";
 import CreateGroupModal from "../../modules/Groups/CreateGroupModal";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router";
+import config from "../../resources/config.json";
 
 export default function UserGroupsView() {
+  const [user, setUser] = useState({ isCreator: [], groups: [] });
+  const { userId } = useParams();
+
+  useEffect(() => {
+    fetch(config.serverURL + "users/" + userId)
+      .then((res) => res.json())
+      .then(
+        (result) => {
+          setUser(result);
+        },
+        (error) => {
+          alert(error);
+        }
+      );
+  }, [userId]);
+
   return (
     <>
       <MyAppBar />
@@ -25,9 +44,16 @@ export default function UserGroupsView() {
             backgroundColor: "background.paper",
           }}
         >
-          //TODO options to delete and detail
-          <UserListItem type="myGroup" />
-          <UserListItem type="myGroup" />
+          {/*//TODO options to delete and detail*/}
+          {user.isCreator.map((group) => (
+            <UserListItem
+              name={group.groupName}
+              groupId={group.id}
+              id={group.id}
+              key={group.id}
+              type="myGroup"
+            />
+          ))}
         </List>
 
         <CreateGroupModal />
@@ -46,9 +72,15 @@ export default function UserGroupsView() {
             backgroundColor: "background.paper",
           }}
         >
-          //TODO no options
-          <UserListItem type="memberGroup" />
-          <UserListItem type="memberGroup" />
+          {user.groups.map((group) => (
+            <UserListItem
+              name={group.groupName}
+              groupId={group.id}
+              id={group.id}
+              key={group.id}
+              type="memberGroup"
+            />
+          ))}
         </List>
       </Container>
     </>
