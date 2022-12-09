@@ -26,7 +26,6 @@ export default function NewProcess() {
   };
 
   const saveProcess = () => {
-    //TODO check if BPMN selected
     const process = {
       name: name.current.value,
       briefDescription: briefDescription.current.value,

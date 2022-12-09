@@ -4,13 +4,12 @@ import {
   ListItemText,
   Paper,
 } from "@mui/material";
-
-import DeleteModalListItem from "./DeleteModalListItem";
 import RemoveUserFromGroupModal from "./Groups/RemoveUserFromGroupModal";
 import IconButton from "@mui/material/IconButton";
 import { Info } from "@mui/icons-material";
 import * as React from "react";
 import { useNavigate } from "react-router";
+import RemoveRightModal from "./Users/RemoveRightModal";
 
 export default function UserListItem(props) {
   let navigate = useNavigate();
@@ -23,8 +22,27 @@ export default function UserListItem(props) {
   };
 
   function getDelete(type) {
-    if (type === "user") {
-      return <DeleteModalListItem />;
+    if (type === "userEdit") {
+      return (
+        <RemoveRightModal
+          type={"edit"}
+          name={props.name}
+          user={props.user}
+          elementType={props.elementType}
+          elementId={props.elementId}
+        />
+      );
+    }
+    if (type === "userAccess") {
+      return (
+        <RemoveRightModal
+          type={"access"}
+          name={props.name}
+          user={props.user}
+          elementType={props.elementType}
+          elementId={props.elementId}
+        />
+      );
     }
     if (type === "member") {
       return <RemoveUserFromGroupModal user={props.user} />;

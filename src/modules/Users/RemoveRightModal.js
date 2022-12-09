@@ -3,10 +3,11 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
-import MenuItem from "@mui/material/MenuItem";
 import { Grid } from "@mui/material";
-import config from "../resources/config.json";
-import { useNavigate } from "react-router";
+import { Delete } from "@mui/icons-material";
+import IconButton from "@mui/material/IconButton";
+import config from "../../resources/config.json";
+import { getPath } from "../../resources/Utils";
 
 const style = {
   position: "absolute",
@@ -20,104 +21,86 @@ const style = {
   p: 4,
 };
 
-export default function DeleteModal(props) {
+export default function RemoveRightModal(props) {
   const [open, setOpen] = React.useState(false);
   const userId = sessionStorage.getItem("userId");
-  let navigate = useNavigate();
 
   const handleOpen = () => {
     setOpen(true);
   };
   const handleClose = () => setOpen(false);
-  const deleteElement = () => {
-    const requestOptions = {
-      method: "DELETE",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(props.element),
+
+  const removeRight = () => {
+    const user = {
+      id: props.user.id,
     };
-    if (props.type === "process") {
+    const urlPath = getPath(props.elementType);
+    const requestOptions = {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(user),
+    };
+    if (props.type === "edit") {
       fetch(
         config.serverURL +
-          "processes/" +
-          props.element.id +
-          "?userId=" +
+          urlPath +
+          props.elementId +
+          "/removeEdit?userId=" +
           userId,
         requestOptions
       )
         .then((response) => {
           if (response.ok) {
             setOpen(false);
-            navigate(0);
+            window.location.reload(false);
             return;
           }
           return response.json();
         })
         .then((data) => {
-          alert(data.message);
-        });
-    }
-    if (props.type === "task") {
-      fetch(
-        config.serverURL + "tasks/" + props.element.id + "?userId=" + userId,
-        requestOptions
-      )
-        .then((response) => {
-          if (response.ok) {
-            setOpen(false);
-            navigate(0);
-            return;
+          if (data !== undefined) {
+            alert(data.message);
           }
-          return response.json();
-        })
-        .then((data) => {
-          alert(data.message);
         });
     }
-    if (props.type === "workItem") {
+    if (props.type === "access") {
       fetch(
         config.serverURL +
-          "workItems/" +
-          props.element.id +
-          "?userId=" +
+          urlPath +
+          props.elementId +
+          "/removeAccess?userId=" +
           userId,
         requestOptions
       )
         .then((response) => {
           if (response.ok) {
             setOpen(false);
-            navigate(0);
+            window.location.reload(false);
             return;
           }
           return response.json();
         })
         .then((data) => {
-          alert(data.message);
-        });
-    }
-    if (props.type === "role") {
-      fetch(
-        config.serverURL + "roles/" + props.element.id + "?userId=" + userId,
-        requestOptions
-      )
-        .then((response) => {
-          if (response.ok) {
-            setOpen(false);
-            navigate(0);
-            return;
+          if (data !== undefined) {
+            alert(data.message);
           }
-          return response.json();
-        })
-        .then((data) => {
-          alert(data.message);
         });
     }
   };
 
   return (
     <>
-      <MenuItem key={"delete"} onClick={handleOpen}>
-        Delete
-      </MenuItem>
+      <IconButton
+        edge={"end"}
+        aria-label="remove"
+        id="remove-button"
+        onClick={() => handleOpen()}
+        sx={{
+          marginLeft: 2,
+        }}
+      >
+        <Delete />
+      </IconButton>
       <div>
         <Modal
           open={open}
@@ -130,17 +113,18 @@ export default function DeleteModal(props) {
               <Grid container spacing={1}>
                 <Grid textAlign={"center"} item xs={12}>
                   <Typography variant="h6" component="h2">
-                    Are you sure you want delete this {props.type}:
+                    Are you sure you want remove {props.rightType} right of this
+                    user/group:
                   </Typography>
                 </Grid>
                 <Grid textAlign={"center"} item xs={12}>
                   <Typography variant="h6" component="h2">
-                    {props.element.name}
+                    {props.name}
                   </Typography>
                 </Grid>
                 <Grid textAlign={"center"} item xs={12}>
                   <Button
-                    onClick={deleteElement}
+                    onClick={removeRight}
                     variant="contained"
                     sx={{ marginRight: 1 }}
                   >

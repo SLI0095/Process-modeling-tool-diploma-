@@ -12,8 +12,74 @@ import ChangeOwnerModal from "../modules/Users/ChangeOwnerModal";
 import TaskSubMenuFooter from "../modules/Task/TaskSubMenuFooter";
 import WorkItemSubMenuFooter from "../modules/WorkItem/WorkItemSubMenuFooter";
 import RoleSubMenuFooter from "../modules/Role/RoleSubMenuFooter";
+import AddTaskSettingsModal from "../modules/AddTaskSettingsModal";
+import { useParams } from "react-router";
+import { useEffect, useState } from "react";
+import config from "../resources/config.json";
 
 export default function ElementSettings(props) {
+  const [item, setItem] = useState({
+    id: -1,
+    canEdit: [],
+    hasAccess: [],
+    owner: { username: "" },
+  });
+  const { workItemId } = useParams();
+  const { taskId } = useParams();
+  const { roleId } = useParams();
+  const { processId } = useParams();
+
+  useEffect(() => {
+    if (props.type === "workItem") {
+      fetch(config.serverURL + "workItems/" + workItemId)
+        .then((res) => res.json())
+        .then(
+          (result) => {
+            setItem(result);
+          },
+          (error) => {
+            alert(error);
+          }
+        );
+    }
+    if (props.type === "role") {
+      fetch(config.serverURL + "roles/" + roleId)
+        .then((res) => res.json())
+        .then(
+          (result) => {
+            setItem(result);
+          },
+          (error) => {
+            alert(error);
+          }
+        );
+    }
+    if (props.type === "process") {
+      fetch(config.serverURL + "processes/" + processId)
+        .then((res) => res.json())
+        .then(
+          (result) => {
+            setItem(result);
+          },
+          (error) => {
+            alert(error);
+          }
+        );
+    }
+    if (props.type === "task") {
+      fetch(config.serverURL + "tasks/" + taskId)
+        .then((res) => res.json())
+        .then(
+          (result) => {
+            setItem(result);
+          },
+          (error) => {
+            alert(error);
+          }
+        );
+    }
+  }, [processId, props.type, roleId, taskId, workItemId]);
+
   function getFooter(type) {
     if (type === "process") {
       return <ProcessSubMenuFooter state="settings" />;
@@ -28,6 +94,89 @@ export default function ElementSettings(props) {
       return <RoleSubMenuFooter state="settings" />;
     }
   }
+
+  function getUsableIn(type) {
+    if (type === "process") {
+      return (
+        <>
+          <Typography variant={"h7"} component={"h3"} marginTop={3}>
+            Item usable in this processes
+          </Typography>
+          <List
+            sx={{
+              backgroundColor: "background.paper",
+            }}
+          >
+            <MyListItem type="process" />
+          </List>
+          <AddProcessSettingsModal />
+        </>
+      );
+    }
+    if (type === "task") {
+      return (
+        <>
+          <Typography variant={"h7"} component={"h3"} marginTop={3}>
+            Item usable in this processes
+          </Typography>
+          <List
+            sx={{
+              backgroundColor: "background.paper",
+            }}
+          >
+            <MyListItem type="process" />
+          </List>
+          <AddProcessSettingsModal />
+        </>
+      );
+    }
+    if (type === "workItem") {
+      return (
+        <>
+          <Typography variant={"h7"} component={"h3"} marginTop={3}>
+            Item usable in this processes
+          </Typography>
+          <List
+            sx={{
+              backgroundColor: "background.paper",
+            }}
+          >
+            <MyListItem type="task" />
+          </List>
+          <AddProcessSettingsModal />
+          <Typography variant={"h7"} component={"h3"} marginTop={3}>
+            Item usable in this tasks
+          </Typography>
+          <List
+            sx={{
+              backgroundColor: "background.paper",
+            }}
+          >
+            <MyListItem type="task" />
+          </List>
+          <AddTaskSettingsModal />
+        </>
+      );
+    }
+    if (type === "role") {
+      return (
+        <>
+          <Typography variant={"h7"} component={"h3"} marginTop={3}>
+            Item usable in this tasks
+          </Typography>
+          <List
+            sx={{
+              backgroundColor: "background.paper",
+            }}
+          >
+            <MyListItem type="task" />
+          </List>
+          <AddTaskSettingsModal />
+        </>
+      );
+    }
+  }
+
   return (
     <>
       <MyAppBar />
@@ -45,28 +194,9 @@ export default function ElementSettings(props) {
           <FormControlLabel control={<Checkbox />} label="Marked as template" />
         </FormGroup>
         <Typography variant={"body2"} fontStyle={"italic"} marginY={2}>
-          Items marked as template can be use in other processes.
+          Items marked as template can be use in all other processes or tasks.
         </Typography>
-
-        <FormGroup>
-          <FormControlLabel control={<Checkbox />} label="Marked as private" />
-        </FormGroup>
-        <Typography variant={"body2"} fontStyle={"italic"} marginY={2}>
-          Items marked as private are visible only for owner.
-        </Typography>
-
-        <Typography variant={"h7"} component={"h3"} marginTop={3}>
-          Item usable in this processes
-        </Typography>
-        <List
-          sx={{
-            backgroundColor: "background.paper",
-          }}
-        >
-          <MyListItem type="process" />
-        </List>
-        <AddProcessSettingsModal />
-
+        {getUsableIn(props.type)}
         <Typography variant={"h4"} component={"h2"} marginTop={5}>
           User settings
         </Typography>
@@ -78,7 +208,10 @@ export default function ElementSettings(props) {
             backgroundColor: "background.paper",
           }}
         >
-          <UserListItem type="owner" />
+          <UserListItem
+            type="owner"
+            name={item.owner !== null ? item.owner.username : ""}
+          />
         </List>
 
         <Typography variant={"h7"} component={"h3"} marginTop={3}>
@@ -89,8 +222,21 @@ export default function ElementSettings(props) {
             backgroundColor: "background.paper",
           }}
         >
-          <UserListItem type="user" />
-          <UserListItem type="user" />
+          {item.canEdit.map((userType) => (
+            <UserListItem
+              user={userType}
+              name={
+                userType.username !== undefined
+                  ? userType.username
+                  : userType.groupName
+              }
+              id={userType.id}
+              key={userType.id}
+              type="userEdit"
+              elementType={props.type}
+              elementId={item.id}
+            />
+          ))}
         </List>
 
         <Typography variant={"h7"} component={"h3"} marginTop={3}>
@@ -101,10 +247,23 @@ export default function ElementSettings(props) {
             backgroundColor: "background.paper",
           }}
         >
-          <UserListItem type="user" />
-          <UserListItem type="user" />
+          {item.hasAccess.map((userType) => (
+            <UserListItem
+              user={userType}
+              name={
+                userType.username !== undefined
+                  ? userType.username
+                  : userType.groupName
+              }
+              id={userType.id}
+              key={userType.id}
+              type="userAccess"
+              elementType={props.type}
+              elementId={item.id}
+            />
+          ))}
         </List>
-        <AddUserModal />
+        <AddUserModal type={props.type} itemId={item.id} />
         <ChangeOwnerModal />
       </Container>
       {getFooter(props.type)}

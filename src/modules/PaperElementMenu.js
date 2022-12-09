@@ -7,7 +7,6 @@ import DeleteModal from "./DeleteModal";
 
 const ITEM_HEIGHT = 48;
 
-//TODO in props get id of element and type of element
 export default function PaperElementMenu(props) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);

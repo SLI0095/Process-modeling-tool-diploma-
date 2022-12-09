@@ -4,10 +4,12 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import { FormControl, Grid, InputLabel, Select } from "@mui/material";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { Add } from "@mui/icons-material";
 import Container from "@mui/material/Container";
 import MenuItem from "@mui/material/MenuItem";
+import config from "../../resources/config.json";
+import { getPath } from "../../resources/Utils";
 
 const style = {
   position: "absolute",
@@ -21,13 +23,81 @@ const style = {
   p: 4,
 };
 
-export default function AddUserModal() {
+export default function AddUserModal(props) {
+  const [userTypes, setUserTypes] = React.useState([]);
   const [open, setOpen] = React.useState(false);
-  const addRasci = () => setOpen(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const selectedUser = useRef();
+  const selectedUserType = useRef();
   const selectedRight = useRef();
+
+  const userId = sessionStorage.getItem("userId");
+
+  useEffect(() => {
+    fetch(config.serverURL + "userTypes")
+      .then((res) => res.json())
+      .then(
+        (result) => {
+          setUserTypes(result);
+        },
+        (error) => {
+          alert(error);
+        }
+      );
+  }, [userId]);
+
+  const addRights = () => {
+    const userType = {
+      id: selectedUserType.current.getElementsByTagName("input")[0].value,
+    };
+
+    const right = selectedRight.current.getElementsByTagName("input")[0].value;
+    const urlPath = getPath(props.type);
+    const requestOptions = {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(userType),
+    };
+
+    if (right === "edit") {
+      fetch(
+        config.serverURL + urlPath + props.itemId + "/addEdit?userId=" + userId,
+        requestOptions
+      )
+        .then((response) => {
+          if (response.ok) {
+            setOpen(false);
+          }
+          return response.json();
+        })
+        .then((data) => {
+          if (data !== undefined) {
+            alert(data.message);
+          }
+        });
+    }
+    if (right === "view") {
+      fetch(
+        config.serverURL +
+          urlPath +
+          props.itemId +
+          "/addAccess?userId=" +
+          userId,
+        requestOptions
+      )
+        .then((response) => {
+          if (response.ok) {
+            setOpen(false);
+          }
+          return response.json();
+        })
+        .then((data) => {
+          if (data !== undefined) {
+            alert(data.message);
+          }
+        });
+    }
+  };
 
   return (
     <>
@@ -61,12 +131,19 @@ export default function AddUserModal() {
                         sx={{ minWidth: 175 }}
                         labelId="label1"
                         label="User or group"
-                        ref={selectedUser}
+                        ref={selectedUserType}
+                        defaultValue={""}
                       >
-                        <MenuItem value={"A"}>Role A</MenuItem>
-                        <MenuItem value={"B"}>Role B</MenuItem>
-                        <MenuItem value={"C"}>Role C</MenuItem>
-                        <MenuItem value={"D"}>Role D</MenuItem>
+                        {userTypes.map((type) => (
+                          <MenuItem key={type.id} value={type.id}>
+                            {type.username !== undefined
+                              ? type.username
+                              : type.groupName}
+                            {type.username !== undefined
+                              ? " (User)"
+                              : " (Group)"}
+                          </MenuItem>
+                        ))}
                       </Select>
                     </FormControl>
                   </Grid>
@@ -88,7 +165,7 @@ export default function AddUserModal() {
                   <Grid textAlign={"center"} item xs={12}>
                     <Button
                       type="submit"
-                      onClick={addRasci}
+                      onClick={addRights}
                       variant="contained"
                       sx={{ marginRight: 1 }}
                     >
