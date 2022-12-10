@@ -3,7 +3,14 @@ import Container from "@mui/material/Container";
 import ProcessSubMenuFooter from "../modules/Process/ProcessSubMenuFooter";
 import Typography from "@mui/material/Typography";
 import * as React from "react";
-import { Checkbox, FormControlLabel, FormGroup, List } from "@mui/material";
+import {
+  Alert,
+  Checkbox,
+  FormControlLabel,
+  FormGroup,
+  List,
+  Snackbar,
+} from "@mui/material";
 import UserListItem from "../modules/UserListItem";
 import AddUserModal from "../modules/Users/AddUserModal";
 import MyListItem from "../modules/MyListItem";
@@ -22,12 +29,23 @@ export default function ElementSettings(props) {
     id: -1,
     canEdit: [],
     hasAccess: [],
+    isTemplate: false,
     owner: { username: "" },
   });
+  const [selected, setSelected] = useState(false);
   const { workItemId } = useParams();
   const { taskId } = useParams();
   const { roleId } = useParams();
   const { processId } = useParams();
+  const { userId } = useParams();
+
+  const [openSnack, setOpenSnack] = React.useState(false);
+  const handleCloseSnack = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpenSnack(false);
+  };
 
   useEffect(() => {
     if (props.type === "workItem") {
@@ -35,6 +53,7 @@ export default function ElementSettings(props) {
         .then((res) => res.json())
         .then(
           (result) => {
+            setSelected(result.isTemplate);
             setItem(result);
           },
           (error) => {
@@ -47,6 +66,7 @@ export default function ElementSettings(props) {
         .then((res) => res.json())
         .then(
           (result) => {
+            setSelected(result.isTemplate);
             setItem(result);
           },
           (error) => {
@@ -59,6 +79,7 @@ export default function ElementSettings(props) {
         .then((res) => res.json())
         .then(
           (result) => {
+            setSelected(result.isTemplate);
             setItem(result);
           },
           (error) => {
@@ -71,6 +92,7 @@ export default function ElementSettings(props) {
         .then((res) => res.json())
         .then(
           (result) => {
+            setSelected(result.isTemplate);
             setItem(result);
           },
           (error) => {
@@ -79,6 +101,112 @@ export default function ElementSettings(props) {
         );
     }
   }, [processId, props.type, roleId, taskId, workItemId]);
+
+  const saveTemplateChange = (checked) => {
+    const requestOptions = {
+      method: "PUT",
+    };
+    if (props.type === "workItem") {
+      fetch(
+        config.serverURL +
+          "workItems/" +
+          workItemId +
+          "/setTemplate?userId=" +
+          userId +
+          "&isTemplate=" +
+          checked,
+        requestOptions
+      )
+        .then((response) => {
+          if (response.ok) {
+            setSelected(checked);
+            setOpenSnack(true);
+            return;
+          }
+          return response.json();
+        })
+        .then((data) => {
+          if (data !== undefined) {
+            alert(data.message);
+          }
+        });
+    }
+    if (props.type === "role") {
+      fetch(
+        config.serverURL +
+          "roles/" +
+          roleId +
+          "/setTemplate?userId=" +
+          userId +
+          "&isTemplate=" +
+          checked,
+        requestOptions
+      )
+        .then((response) => {
+          if (response.ok) {
+            setSelected(checked);
+            setOpenSnack(true);
+            return;
+          }
+          return response.json();
+        })
+        .then((data) => {
+          if (data !== undefined) {
+            alert(data.message);
+          }
+        });
+    }
+    if (props.type === "process") {
+      fetch(
+        config.serverURL +
+          "processes/" +
+          processId +
+          "/setTemplate?userId=" +
+          userId +
+          "&isTemplate=" +
+          checked,
+        requestOptions
+      )
+        .then((response) => {
+          if (response.ok) {
+            setSelected(checked);
+            setOpenSnack(true);
+            return;
+          }
+          return response.json();
+        })
+        .then((data) => {
+          if (data !== undefined) {
+            alert(data.message);
+          }
+        });
+    }
+    if (props.type === "task") {
+      fetch(
+        config.serverURL +
+          "tasks/" +
+          taskId +
+          "/setTemplate?userId=" +
+          userId +
+          "&isTemplate=" +
+          checked,
+        requestOptions
+      )
+        .then((response) => {
+          if (response.ok) {
+            setSelected(checked);
+            setOpenSnack(true);
+            return;
+          }
+          return response.json();
+        })
+        .then((data) => {
+          if (data !== undefined) {
+            alert(data.message);
+          }
+        });
+    }
+  };
 
   function getFooter(type) {
     if (type === "process") {
@@ -191,7 +319,15 @@ export default function ElementSettings(props) {
         </Typography>
 
         <FormGroup>
-          <FormControlLabel control={<Checkbox />} label="Marked as template" />
+          <FormControlLabel
+            control={
+              <Checkbox
+                checked={selected}
+                onChange={(e) => saveTemplateChange(e.target.checked)}
+              />
+            }
+            label="Marked as template"
+          />
         </FormGroup>
         <Typography variant={"body2"} fontStyle={"italic"} marginY={2}>
           Items marked as template can be use in all other processes or tasks.
@@ -263,6 +399,19 @@ export default function ElementSettings(props) {
             />
           ))}
         </List>
+        <Snackbar
+          open={openSnack}
+          autoHideDuration={3000}
+          onClose={handleCloseSnack}
+        >
+          <Alert
+            onClose={handleCloseSnack}
+            severity="success"
+            sx={{ width: "100%" }}
+          >
+            Changes saved.
+          </Alert>
+        </Snackbar>
         <AddUserModal type={props.type} itemId={item.id} />
         <ChangeOwnerModal />
       </Container>
