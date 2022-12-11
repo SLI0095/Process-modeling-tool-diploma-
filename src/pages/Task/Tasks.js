@@ -12,16 +12,16 @@ import Typography from "@mui/material/Typography";
 import * as React from "react";
 import { useEffect, useState } from "react";
 import config from "../../resources/config.json";
+import { useParams } from "react-router";
 
 export default function Tasks() {
   const [tasks, setTasks] = useState([]);
+  const [templates, setTemplates] = useState(true);
+  const [nonTemplates, setNonTemplates] = useState(true);
+  const { userId } = useParams();
 
   useEffect(() => {
-    fetch(
-      config.serverURL +
-        "tasks/templates?userId=" +
-        sessionStorage.getItem("userId")
-    )
+    fetch(config.serverURL + "tasks/templates?userId=" + userId)
       .then((res) => res.json())
       .then(
         (result) => {
@@ -31,7 +31,69 @@ export default function Tasks() {
           alert("Could not load data.");
         }
       );
-  }, []);
+  }, [userId]);
+
+  function loadRequiredData(nonTemplates, templates) {
+    if (templates && nonTemplates) {
+      fetch(config.serverURL + "tasks/templates?userId=" + userId)
+        .then((res) => res.json())
+        .then(
+          (result) => {
+            setTasks(result);
+          },
+          () => {
+            alert("Could not load data.");
+          }
+        );
+    }
+    if (templates && !nonTemplates) {
+      fetch(
+        config.serverURL +
+          "tasks/isTemplate?userId=" +
+          userId +
+          "&isTemplate=true"
+      )
+        .then((res) => res.json())
+        .then(
+          (result) => {
+            setTasks(result);
+          },
+          () => {
+            alert("Could not load data.");
+          }
+        );
+    }
+    if (!templates && nonTemplates) {
+      fetch(
+        config.serverURL +
+          "tasks/isTemplate?userId=" +
+          userId +
+          "&isTemplate=false"
+      )
+        .then((res) => res.json())
+        .then(
+          (result) => {
+            setTasks(result);
+          },
+          () => {
+            alert("Could not load data.");
+          }
+        );
+    } else {
+      setTasks([]);
+    }
+  }
+
+  const changeCheckboxes = (checked, type) => {
+    if (type === 1) {
+      setNonTemplates(checked);
+      loadRequiredData(checked, templates);
+    }
+    if (type === 2) {
+      setTemplates(checked);
+      loadRequiredData(nonTemplates, checked);
+    }
+  };
 
   return (
     <>
@@ -46,12 +108,25 @@ export default function Tasks() {
           <Grid container item xs={6} justifyContent={"flex-end"} marginTop={4}>
             <FormGroup>
               <FormControlLabel
-                control={<Checkbox defaultChecked />}
+                control={
+                  <Checkbox
+                    checked={nonTemplates}
+                    onChange={(e) => changeCheckboxes(e.target.checked, 1)}
+                  />
+                }
                 label="Show non-templates"
               />
             </FormGroup>
             <FormGroup>
-              <FormControlLabel control={<Checkbox />} label="Show templates" />
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={templates}
+                    onChange={(e) => changeCheckboxes(e.target.checked, 2)}
+                  />
+                }
+                label="Show templates"
+              />
             </FormGroup>
           </Grid>
         </Grid>
