@@ -4,10 +4,12 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import { FormControl, Grid, InputLabel, Select } from "@mui/material";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { Add } from "@mui/icons-material";
 import Container from "@mui/material/Container";
 import MenuItem from "@mui/material/MenuItem";
+import config from "../resources/config.json";
+import { useParams } from "react-router";
 
 const style = {
   position: "absolute",
@@ -23,10 +25,27 @@ const style = {
 
 export default function AddProcessSettingsModal() {
   const [open, setOpen] = React.useState(false);
+  const [processes, setProcesses] = React.useState([]);
   const addProcess = () => setOpen(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const selectedProcess = useRef();
+  const { taskId } = useParams();
+  const { processId } = useParams();
+  const { userId } = useParams();
+
+  useEffect(() => {
+    fetch(config.serverURL + "processes/templatesCanEdit?userId=" + userId)
+      .then((res) => res.json())
+      .then(
+        (result) => {
+          setProcesses(result);
+        },
+        (error) => {
+          alert(error);
+        }
+      );
+  }, [userId]);
 
   return (
     <>
@@ -62,10 +81,11 @@ export default function AddProcessSettingsModal() {
                         label="Process"
                         ref={selectedProcess}
                       >
-                        <MenuItem value={"A"}>Process A</MenuItem>
-                        <MenuItem value={"B"}>Process B</MenuItem>
-                        <MenuItem value={"C"}>Process C</MenuItem>
-                        <MenuItem value={"D"}>Process D</MenuItem>
+                        {processes.map((process) => (
+                          <MenuItem key={process.id} value={process.id}>
+                            {process.name}
+                          </MenuItem>
+                        ))}
                       </Select>
                     </FormControl>
                   </Grid>

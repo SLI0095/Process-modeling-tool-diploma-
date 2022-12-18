@@ -4,10 +4,12 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import { FormControl, Grid, InputLabel, Select } from "@mui/material";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { Add } from "@mui/icons-material";
 import Container from "@mui/material/Container";
 import MenuItem from "@mui/material/MenuItem";
+import { useParams } from "react-router";
+import config from "../resources/config.json";
 
 const style = {
   position: "absolute",
@@ -21,12 +23,29 @@ const style = {
   p: 4,
 };
 
-export default function AddTaskSettingsModal() {
+export default function AddTaskSettingsModal(props) {
   const [open, setOpen] = React.useState(false);
+  const [tasks, setTasks] = React.useState([]);
   const addTask = () => setOpen(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const selectedTask = useRef();
+  const { workItemId } = useParams();
+  const { roleId } = useParams();
+  const { userId } = useParams();
+
+  useEffect(() => {
+    fetch(config.serverURL + "tasks/templatesCanEdit?userId=" + userId)
+      .then((res) => res.json())
+      .then(
+        (result) => {
+          setTasks(result);
+        },
+        (error) => {
+          alert(error);
+        }
+      );
+  }, [userId]);
 
   return (
     <>
@@ -62,10 +81,11 @@ export default function AddTaskSettingsModal() {
                         label="Task"
                         ref={selectedTask}
                       >
-                        <MenuItem value={"A"}>Task A</MenuItem>
-                        <MenuItem value={"B"}>Task B</MenuItem>
-                        <MenuItem value={"C"}>Task C</MenuItem>
-                        <MenuItem value={"D"}>Task D</MenuItem>
+                        {tasks.map((task) => (
+                          <MenuItem key={task.id} value={task.id}>
+                            {task.name}
+                          </MenuItem>
+                        ))}
                       </Select>
                     </FormControl>
                   </Grid>

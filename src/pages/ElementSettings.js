@@ -32,6 +32,9 @@ export default function ElementSettings(props) {
     isTemplate: false,
     owner: { username: "" },
   });
+
+  const [tasks, setTasks] = useState([]);
+  const [processes, setProcesses] = useState([]);
   const [selected, setSelected] = useState(false);
   const { workItemId } = useParams();
   const { taskId } = useParams();
@@ -49,12 +52,22 @@ export default function ElementSettings(props) {
 
   useEffect(() => {
     if (props.type === "workItem") {
-      fetch(config.serverURL + "workItems/" + workItemId)
-        .then((res) => res.json())
+      Promise.all([
+        fetch(config.serverURL + "workItems/" + workItemId),
+        fetch(
+          config.serverURL + "workItems/" + workItemId + "/usableInProcesses"
+        ),
+        fetch(config.serverURL + "workItems/" + workItemId + "/usableInTasks"),
+      ])
+        .then(([resItem, resProcesses, resTasks]) =>
+          Promise.all([resItem.json(), resProcesses.json(), resTasks.json()])
+        )
         .then(
-          (result) => {
-            setSelected(result.isTemplate);
-            setItem(result);
+          ([resultItem, resultProcesses, resultTasks]) => {
+            setSelected(resultItem.isTemplate);
+            setItem(resultItem);
+            setProcesses(resultProcesses);
+            setTasks(resultTasks);
           },
           (error) => {
             alert(error);
@@ -62,12 +75,18 @@ export default function ElementSettings(props) {
         );
     }
     if (props.type === "role") {
-      fetch(config.serverURL + "roles/" + roleId)
-        .then((res) => res.json())
+      Promise.all([
+        fetch(config.serverURL + "roles/" + roleId),
+        fetch(config.serverURL + "roles/" + roleId + "/usableIn"),
+      ])
+        .then(([resItem, resTasks]) =>
+          Promise.all([resItem.json(), resTasks.json()])
+        )
         .then(
-          (result) => {
-            setSelected(result.isTemplate);
-            setItem(result);
+          ([resultItem, resultTasks]) => {
+            setSelected(resultItem.isTemplate);
+            setItem(resultItem);
+            setTasks(resultTasks);
           },
           (error) => {
             alert(error);
@@ -75,12 +94,18 @@ export default function ElementSettings(props) {
         );
     }
     if (props.type === "process") {
-      fetch(config.serverURL + "processes/" + processId)
-        .then((res) => res.json())
+      Promise.all([
+        fetch(config.serverURL + "processes/" + processId),
+        fetch(config.serverURL + "processes/" + processId + "/usableIn"),
+      ])
+        .then(([resItem, resProcesses]) =>
+          Promise.all([resItem.json(), resProcesses.json()])
+        )
         .then(
-          (result) => {
-            setSelected(result.isTemplate);
-            setItem(result);
+          ([resultItem, resultProcesses]) => {
+            setSelected(resultItem.isTemplate);
+            setItem(resultItem);
+            setProcesses(resultProcesses);
           },
           (error) => {
             alert(error);
@@ -88,12 +113,18 @@ export default function ElementSettings(props) {
         );
     }
     if (props.type === "task") {
-      fetch(config.serverURL + "tasks/" + taskId)
-        .then((res) => res.json())
+      Promise.all([
+        fetch(config.serverURL + "tasks/" + taskId),
+        fetch(config.serverURL + "tasks/" + taskId + "/usableIn"),
+      ])
+        .then(([resItem, resProcesses]) =>
+          Promise.all([resItem.json(), resProcesses.json()])
+        )
         .then(
-          (result) => {
-            setSelected(result.isTemplate);
-            setItem(result);
+          ([resultItem, resultProcesses]) => {
+            setSelected(resultItem.isTemplate);
+            setItem(resultItem);
+            setProcesses(resultProcesses);
           },
           (error) => {
             alert(error);
@@ -235,7 +266,14 @@ export default function ElementSettings(props) {
               backgroundColor: "background.paper",
             }}
           >
-            <MyListItem type="process" />
+            {processes.map((process) => (
+              <MyListItem
+                name={process.name}
+                id={process.id}
+                key={process.id}
+                type="process"
+              />
+            ))}
           </List>
           <AddProcessSettingsModal />
         </>
@@ -252,7 +290,14 @@ export default function ElementSettings(props) {
               backgroundColor: "background.paper",
             }}
           >
-            <MyListItem type="process" />
+            {processes.map((process) => (
+              <MyListItem
+                name={process.name}
+                id={process.id}
+                key={process.id}
+                type="process"
+              />
+            ))}
           </List>
           <AddProcessSettingsModal />
         </>
@@ -269,7 +314,14 @@ export default function ElementSettings(props) {
               backgroundColor: "background.paper",
             }}
           >
-            <MyListItem type="task" />
+            {processes.map((process) => (
+              <MyListItem
+                name={process.name}
+                id={process.id}
+                key={process.id}
+                type="process"
+              />
+            ))}
           </List>
           <AddProcessSettingsModal />
           <Typography variant={"h7"} component={"h3"} marginTop={3}>
@@ -280,7 +332,14 @@ export default function ElementSettings(props) {
               backgroundColor: "background.paper",
             }}
           >
-            <MyListItem type="task" />
+            {tasks.map((task) => (
+              <MyListItem
+                name={task.name}
+                id={task.id}
+                key={task.id}
+                type="task"
+              />
+            ))}
           </List>
           <AddTaskSettingsModal />
         </>
@@ -297,7 +356,14 @@ export default function ElementSettings(props) {
               backgroundColor: "background.paper",
             }}
           >
-            <MyListItem type="task" />
+            {tasks.map((task) => (
+              <MyListItem
+                name={task.name}
+                id={task.id}
+                key={task.id}
+                type="task"
+              />
+            ))}
           </List>
           <AddTaskSettingsModal />
         </>
