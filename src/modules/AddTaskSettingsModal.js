@@ -26,7 +26,55 @@ const style = {
 export default function AddTaskSettingsModal(props) {
   const [open, setOpen] = React.useState(false);
   const [tasks, setTasks] = React.useState([]);
-  const addTask = () => setOpen(false);
+  const addTask = () => {
+    const task = {
+      id: selectedTask.current.getElementsByTagName("input")[0].value,
+    };
+    const requestOptions = {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(task),
+    };
+    if (props.type === "workItem") {
+      fetch(
+        config.serverURL +
+          "workItems/" +
+          workItemId +
+          "/addElement?userId=" +
+          userId,
+        requestOptions
+      )
+        .then((response) => {
+          if (response.ok) {
+            setOpen(false);
+            return;
+          }
+          return response.json();
+        })
+        .then((data) => {
+          if (data !== undefined) {
+            alert(data.message);
+          }
+        });
+    } else if (props.type === "role") {
+      fetch(
+        config.serverURL + "roles/" + roleId + "/addTask?userId=" + userId,
+        requestOptions
+      )
+        .then((response) => {
+          if (response.ok) {
+            setOpen(false);
+            return;
+          }
+          return response.json();
+        })
+        .then((data) => {
+          if (data !== undefined) {
+            alert(data.message);
+          }
+        });
+    }
+  };
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const selectedTask = useRef();

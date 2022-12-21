@@ -8,6 +8,7 @@ import DeleteModalListItem from "./DeleteModalListItem";
 import MetricEditModal from "./Process/MetricEditModal";
 import WorkItemStateEditModal from "./WorkItem/WorkItemStateEditModal";
 import StepEditModal from "./Task/StepEditModal";
+import DeleteUsableInModal from "./DeleteUsableInModal";
 
 export default function MyListItem(props) {
   function getEdit(type) {
@@ -42,6 +43,23 @@ export default function MyListItem(props) {
     return <></>;
   }
 
+  function getDelete(type) {
+    if (type === "usableRemove") {
+      return (
+        <DeleteUsableInModal
+          itemType={props.itemType}
+          itemId={props.id}
+          settingsElementType={props.settingsElementType}
+          settingsElementId={props.settingsElementId}
+          name={props.name}
+        />
+      );
+    }
+    return (
+      <DeleteModalListItem type={props.type} name={props.name} id={props.id} />
+    );
+  }
+
   return (
     <>
       <Paper
@@ -54,11 +72,7 @@ export default function MyListItem(props) {
           <ListItemText primary={props.name} secondary={props.description} />
           <ListItemSecondaryAction>
             {getEdit(props.type)}
-            <DeleteModalListItem
-              type={props.type}
-              name={props.name}
-              id={props.id}
-            />
+            {getDelete(props.type)}
           </ListItemSecondaryAction>
         </ListItem>
       </Paper>

@@ -23,13 +23,85 @@ const style = {
   p: 4,
 };
 
-export default function AddProcessSettingsModal() {
+export default function AddProcessSettingsModal(props) {
   const [open, setOpen] = React.useState(false);
   const [processes, setProcesses] = React.useState([]);
-  const addProcess = () => setOpen(false);
+  const addProcess = () => {
+    const process = {
+      id: selectedProcess.current.getElementsByTagName("input")[0].value,
+    };
+    const requestOptions = {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(process),
+    };
+    console.log(process, taskId, props.type);
+    if (props.type === "process") {
+      fetch(
+        config.serverURL +
+          "processes/" +
+          processId +
+          "/addProcess?userId=" +
+          userId,
+        requestOptions
+      )
+        .then((response) => {
+          if (response.ok) {
+            setOpen(false);
+            return;
+          }
+          return response.json();
+        })
+        .then((data) => {
+          if (data !== undefined) {
+            alert(data.message);
+          }
+        });
+    } else if (props.type === "task") {
+      console.log(process, taskId);
+      fetch(
+        config.serverURL + "tasks/" + taskId + "/addProcess?userId=" + userId,
+        requestOptions
+      )
+        .then((response) => {
+          if (response.ok) {
+            setOpen(false);
+            return;
+          }
+          return response.json();
+        })
+        .then((data) => {
+          if (data !== undefined) {
+            alert(data.message);
+          }
+        });
+    } else if (props.type === "workItem") {
+      fetch(
+        config.serverURL +
+          "workItems/" +
+          workItemId +
+          "/addElement?userId=" +
+          userId,
+        requestOptions
+      )
+        .then((response) => {
+          if (response.ok) {
+            setOpen(false);
+            return;
+          }
+          return response.json();
+        })
+        .then((data) => {
+          if (data !== undefined) {
+            alert(data.message);
+          }
+        });
+    }
+  };
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const selectedProcess = useRef();
+  const { workItemId } = useParams();
   const { taskId } = useParams();
   const { processId } = useParams();
   const { userId } = useParams();

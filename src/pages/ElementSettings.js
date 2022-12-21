@@ -271,11 +271,14 @@ export default function ElementSettings(props) {
                 name={process.name}
                 id={process.id}
                 key={process.id}
-                type="process"
+                type="usableRemove"
+                itemType={"Process"}
+                settingsElementType={"processes"}
+                settingsElementId={processId}
               />
             ))}
           </List>
-          <AddProcessSettingsModal />
+          <AddProcessSettingsModal type={type} />
         </>
       );
     }
@@ -295,11 +298,14 @@ export default function ElementSettings(props) {
                 name={process.name}
                 id={process.id}
                 key={process.id}
-                type="process"
+                type="usableRemove"
+                itemType={"Process"}
+                settingsElementType={"tasks"}
+                settingsElementId={taskId}
               />
             ))}
           </List>
-          <AddProcessSettingsModal />
+          <AddProcessSettingsModal type={type} />
         </>
       );
     }
@@ -319,11 +325,14 @@ export default function ElementSettings(props) {
                 name={process.name}
                 id={process.id}
                 key={process.id}
-                type="process"
+                type="usableRemove"
+                itemType={"Process"}
+                settingsElementType={"workItems"}
+                settingsElementId={workItemId}
               />
             ))}
           </List>
-          <AddProcessSettingsModal />
+          <AddProcessSettingsModal type={type} />
           <Typography variant={"h7"} component={"h3"} marginTop={3}>
             Item usable in this tasks
           </Typography>
@@ -337,11 +346,14 @@ export default function ElementSettings(props) {
                 name={task.name}
                 id={task.id}
                 key={task.id}
-                type="task"
+                type="usableRemove"
+                itemType={"Task"}
+                settingsElementType={"workItems"}
+                settingsElementId={workItemId}
               />
             ))}
           </List>
-          <AddTaskSettingsModal />
+          <AddTaskSettingsModal type={type} />
         </>
       );
     }
@@ -361,11 +373,14 @@ export default function ElementSettings(props) {
                 name={task.name}
                 id={task.id}
                 key={task.id}
-                type="task"
+                type="usableRemove"
+                itemType={"Task"}
+                settingsElementType={"roles"}
+                settingsElementId={roleId}
               />
             ))}
           </List>
-          <AddTaskSettingsModal />
+          <AddTaskSettingsModal type={type} />
         </>
       );
     }
