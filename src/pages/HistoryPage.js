@@ -168,6 +168,73 @@ export default function HistoryPage(props) {
     }
   }
 
+  function revertSnapshot(e) {
+    const snapshot = {
+      id: e.target.value,
+    };
+    const requestOptions = {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(snapshot),
+    };
+    if (props.type === "process") {
+      fetch(
+        config.serverURL + "processes/revert?userId=" + userId,
+        requestOptions
+      ).then((response) => {
+        if (response.ok) {
+          setOpenSnack(true);
+        } else {
+          response.json().then((data) => {
+            alert(data.message);
+          });
+        }
+      });
+    }
+    if (props.type === "task") {
+      fetch(
+        config.serverURL + "tasks/revert?userId=" + userId,
+        requestOptions
+      ).then((response) => {
+        if (response.ok) {
+          setOpenSnack(true);
+        } else {
+          response.json().then((data) => {
+            alert(data.message);
+          });
+        }
+      });
+    }
+    if (props.type === "workItem") {
+      fetch(
+        config.serverURL + "workItems/revert?userId=" + userId,
+        requestOptions
+      ).then((response) => {
+        if (response.ok) {
+          setOpenSnack(true);
+        } else {
+          response.json().then((data) => {
+            alert(data.message);
+          });
+        }
+      });
+    }
+    if (props.type === "role") {
+      fetch(
+        config.serverURL + "roles/revert?userId=" + userId,
+        requestOptions
+      ).then((response) => {
+        if (response.ok) {
+          setOpenSnack(true);
+        } else {
+          response.json().then((data) => {
+            alert(data.message);
+          });
+        }
+      });
+    }
+  }
+
   return (
     <>
       <MyAppBar />
@@ -200,6 +267,14 @@ export default function HistoryPage(props) {
               >
                 Restore
               </Button>
+              <Button
+                sx={{ marginTop: 2, marginLeft: 1 }}
+                variant={"contained"}
+                value={snap.id}
+                onClick={revertSnapshot}
+              >
+                Revert
+              </Button>
             </AccordionDetails>
           </Accordion>
         ))}
@@ -215,7 +290,7 @@ export default function HistoryPage(props) {
           severity="success"
           sx={{ width: "100%" }}
         >
-          Restore successful.
+          Restore/revert successful.
         </Alert>
       </Snackbar>
       {getFooter(props.type)}

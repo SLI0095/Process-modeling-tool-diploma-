@@ -73,8 +73,8 @@ export default function TaskRasci() {
               type="rasci"
               name={rasci.role.name}
               description={rasci.role.briefDescription}
-              id={rasci.role.id}
-              key={rasci.role.id}
+              id={rasci.id}
+              key={rasci.id}
             />
           ))}
         </List>
@@ -91,8 +91,8 @@ export default function TaskRasci() {
               type="rasci"
               name={rasci.role.name}
               description={rasci.role.briefDescription}
-              id={rasci.role.id}
-              key={rasci.role.id}
+              id={rasci.id}
+              key={rasci.id}
             />
           ))}
         </List>
@@ -109,8 +109,8 @@ export default function TaskRasci() {
               type="rasci"
               name={rasci.role.name}
               description={rasci.role.briefDescription}
-              id={rasci.role.id}
-              key={rasci.role.id}
+              id={rasci.id}
+              key={rasci.id}
             />
           ))}
         </List>
@@ -127,8 +127,8 @@ export default function TaskRasci() {
               type="rasci"
               name={rasci.role.name}
               description={rasci.role.briefDescription}
-              id={rasci.role.id}
-              key={rasci.role.id}
+              id={rasci.id}
+              key={rasci.id}
             />
           ))}
         </List>
@@ -145,8 +145,8 @@ export default function TaskRasci() {
               type="rasci"
               name={rasci.role.name}
               description={rasci.role.briefDescription}
-              id={rasci.role.id}
-              key={rasci.role.id}
+              id={rasci.id}
+              key={rasci.id}
             />
           ))}
         </List>
