@@ -12,7 +12,10 @@ const useStyles = makeStyles({
 export default function DraggableContainer(props) {
   const classes = useStyles();
   return (
-    <Draggable draggableId={props.activity.name} index={props.activity.id}>
+    <Draggable
+      draggableId={props.activity.elementId.toString()}
+      index={props.activity.id}
+    >
       {(provided, snapshot) => (
         <Paper
           elevation={3}

@@ -10,7 +10,15 @@ import Container from "@mui/material/Container";
 import ProcessSubMenuFooter from "../../modules/Process/ProcessSubMenuFooter";
 import { useEffect, useRef, useState } from "react";
 import Button from "@mui/material/Button";
-import { Box, FormControl, Grid, InputLabel, Select } from "@mui/material";
+import {
+  Alert,
+  Box,
+  FormControl,
+  Grid,
+  InputLabel,
+  Select,
+  Snackbar,
+} from "@mui/material";
 import { Download, Save } from "@mui/icons-material";
 import Modal from "@mui/material/Modal";
 import Typography from "@mui/material/Typography";
@@ -187,23 +195,23 @@ export default function ProcessWorkflow() {
       let task_process = getElement(
         selectedElement.current.getElementsByTagName("input")[0].value
       );
-      console.log(task_process);
+      //console.log(task_process);
       const element = elementRegistry.get(shapeElement.current);
       if (task_process.steps === undefined) {
         modeling.updateProperties(element, { name: task_process.name });
-        let businnesObject = bpmnFactory.create("bpmn:CallActivity", {
+        let businessObject = bpmnFactory.create("bpmn:CallActivity", {
           name: task_process.name,
         });
         let proc = elementFactory.createShape({
           type: "bpmn:CallActivity",
-          businessObject: businnesObject,
+          businessObject: businessObject,
         });
         modeling.updateProperties(element, {
           id: "Element_" + task_process.id + "_" + element.id,
         });
         replace.replaceElement(element, proc);
       } else {
-        let businnesObject = bpmnFactory.create(
+        let businessObject = bpmnFactory.create(
           "bpmn:" +
             task_process.taskType[0].toUpperCase() +
             task_process.taskType.substring(1),
@@ -214,7 +222,7 @@ export default function ProcessWorkflow() {
             "bpmn:" +
             task_process.taskType[0].toUpperCase() +
             task_process.taskType.substring(1),
-          businessObject: businnesObject,
+          businessObject: businessObject,
         });
         modeling.updateProperties(element, {
           name: task_process.name,
@@ -222,14 +230,14 @@ export default function ProcessWorkflow() {
         });
         const newElement = replace.replaceElement(element, task);
         task_process.mandatoryInputs.forEach(function (item) {
-          console.log(newElement);
-          const dataObjedctBussinessObject = bpmnFactory.create(
+          //console.log(newElement);
+          const dataObjectBusinessObject = bpmnFactory.create(
             "bpmn:DataObjectReference",
             { name: item.name }
           );
           const dataObject = elementFactory.createShape({
             type: "bpmn:DataObjectReference",
-            businessObject: dataObjedctBussinessObject,
+            businessObject: dataObjectBusinessObject,
           });
           modeling.createShape(
             dataObject,
@@ -242,13 +250,13 @@ export default function ProcessWorkflow() {
           });
         });
         task_process.outputs.forEach(function (item) {
-          const dataObjedctBussinessObject = bpmnFactory.create(
+          const dataObjectBusinessObject = bpmnFactory.create(
             "bpmn:DataObjectReference",
             { name: item.name }
           );
           const dataObject = elementFactory.createShape({
             type: "bpmn:DataObjectReference",
-            businessObject: dataObjedctBussinessObject,
+            businessObject: dataObjectBusinessObject,
           });
           modeling.createShape(
             dataObject,
@@ -268,7 +276,7 @@ export default function ProcessWorkflow() {
     let xml;
     modeler.current.saveXML().then((result) => {
       xml = result.xml;
-      console.log(xml);
+      //console.log(xml);
       const bpmn = {
         bpmnContent: xml,
         process: {
@@ -290,7 +298,7 @@ export default function ProcessWorkflow() {
       )
         .then((response) => {
           if (response.ok) {
-            alert("saved");
+            setOpenSnack(true);
             //setReload(true);
             return;
           }
@@ -347,6 +355,14 @@ export default function ProcessWorkflow() {
       a.click();
     });
   }
+
+  const [openSnack, setOpenSnack] = React.useState(false);
+  const handleCloseSnack = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpenSnack(false);
+  };
 
   return (
     <>
@@ -502,6 +518,19 @@ export default function ProcessWorkflow() {
       <Container
         sx={{ marginTop: 5, width: "50%", marginBottom: 7 }}
       ></Container>
+      <Snackbar
+        open={openSnack}
+        autoHideDuration={3000}
+        onClose={handleCloseSnack}
+      >
+        <Alert
+          onClose={handleCloseSnack}
+          severity="success"
+          sx={{ width: "100%" }}
+        >
+          Saved.
+        </Alert>
+      </Snackbar>
       <ProcessSubMenuFooter state="workflow" />
     </>
   );

@@ -13,7 +13,7 @@ export default function DraggableActivityList(props) {
                 <DraggableContainer
                   activity={activity}
                   index={index}
-                  key={activity.name}
+                  key={activity.elementId}
                 />
               ))}
               {provided.placeholder}
