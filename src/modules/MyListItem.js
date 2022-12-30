@@ -55,6 +55,9 @@ export default function MyListItem(props) {
         />
       );
     }
+    if (type === "snapshot") {
+      return <></>;
+    }
     return (
       <DeleteModalListItem type={props.type} name={props.name} id={props.id} />
     );

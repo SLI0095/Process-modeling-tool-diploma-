@@ -403,10 +403,6 @@ export default function ProcessWorkflow() {
                           {element.steps !== undefined ? "Task" : "Process"})
                         </MenuItem>
                       ))}
-                      {/*<MenuItem value={"A"}>Role A</MenuItem>
-                        <MenuItem value={"B"}>Role B</MenuItem>
-                        <MenuItem value={"C"}>Role C</MenuItem>
-                        <MenuItem value={"D"}>Role D</MenuItem>*/}
                     </Select>
                   </FormControl>
                 </Grid>

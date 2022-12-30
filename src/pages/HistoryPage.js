@@ -19,6 +19,10 @@ import { useParams } from "react-router";
 import { useEffect, useState } from "react";
 import config from "../resources/config.json";
 import CreateSnapshotModal from "../modules/CreateSnapshotModal";
+import { WorkItemSnapshotDetail } from "../modules/History/WorkItemSnapshotDetail";
+import { RoleSnapshotDetail } from "../modules/History/RoleSnapshotDetail";
+import { TaskSnapshotDetail } from "../modules/History/TaskSnapshotDetail";
+import { ProcessSnapshotDetail } from "../modules/History/ProcessSnapshotDetail";
 
 export default function HistoryPage(props) {
   const [item, setItem] = useState({ snapshots: [] });
@@ -98,6 +102,21 @@ export default function HistoryPage(props) {
     }
     if (type === "role") {
       return <RoleSubMenuFooter state="history" />;
+    }
+  }
+
+  function getDetail(type, snapshot) {
+    if (type === "process") {
+      return <ProcessSnapshotDetail process={snapshot} />;
+    }
+    if (type === "task") {
+      return <TaskSnapshotDetail task={snapshot} />;
+    }
+    if (type === "workItem") {
+      return <WorkItemSnapshotDetail workItem={snapshot} />;
+    }
+    if (type === "role") {
+      return <RoleSnapshotDetail role={snapshot} />;
     }
   }
 
@@ -253,12 +272,7 @@ export default function HistoryPage(props) {
             </AccordionSummary>
             <AccordionDetails>
               <Typography>{snap.snapshotDescription}</Typography>
-              <Button
-                variant={"contained"}
-                sx={{ marginTop: 2, marginRight: 1 }}
-              >
-                Detail
-              </Button>
+              {getDetail(props.type, snap)}
               <Button
                 sx={{ marginTop: 2, marginLeft: 1 }}
                 variant={"contained"}
