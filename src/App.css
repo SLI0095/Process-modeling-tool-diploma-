@@ -45,47 +45,92 @@
   display:block;
 }
 
+table, tr, td{
+  font-family: Roboto, sans-serif;
+  color: black;
+  font-size: 22px;
+  /*border: 1px solid black;
+  border-collapse: collapse;*/
+}
+
+
 .tableR{
   text-align: center;
   background: green;
   padding-left: 0;
   padding-right: 0;
+  color: #f0f0f0;
+  border-left: none;
+  border-right: none;
+  border-bottom: none;
+  border-top: none;
 }
 .tableA{
   text-align: center;
   background: crimson;
   padding-left: 0;
   padding-right: 0;
+  color: #f0f0f0;
+  border-left: none;
+  border-right: none;
+  border-bottom: none;
+  border-top: none;
 }
 .tableS{
   text-align: center;
   background: darkorchid;
   padding-left: 0;
   padding-right: 0;
+  color: #f0f0f0;
+  border-left: none;
+  border-right: none;
+  border-bottom: none;
+  border-top: none;
 }
 .tableC{
   text-align: center;
   background: royalblue;
   padding-left: 0;
   padding-right: 0;
+  color: #f0f0f0;
+  border-left: none;
+  border-right: none;
+  border-bottom: none;
+  border-top: none;
 }
 .tableI{
   text-align: center;
   background: goldenrod;
   padding-left: 0;
   padding-right: 0;
+  color: #f0f0f0;
+  border-left: none;
+  border-right: none;
+  border-bottom: none;
+  border-top: none;
 }
 .table-{
+  background: gray;
   text-align: center;
   padding-left: 0;
   padding-right: 0;
+  color: #f0f0f0;
+  border-left: none;
+  border-right: none;
+  border-bottom: none;
+  border-top: none;
 }
 .tableTask{
-  font-weight: bold;
+  font-style: normal;
+  font-size: 20px;
+  padding: 0.5em 1em;
 }
 .tableRole{
-  font-weight: bold;
+  font-size: 20px;
+  font-weight: normal;
   text-align: center;
   padding-left: 1em;
   padding-right: 1em;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
 }
