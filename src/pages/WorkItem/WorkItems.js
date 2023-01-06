@@ -21,7 +21,7 @@ export default function WorkItems() {
   const { userId } = useParams();
 
   useEffect(() => {
-    fetch(config.serverURL + "workItems/templates?userId=" + userId)
+    fetch(config.serverURL + "workItems/all?userId=" + userId)
       .then((res) => res.json())
       .then(
         (result) => {
@@ -35,7 +35,7 @@ export default function WorkItems() {
 
   function loadRequiredData(nonTemplates, templates) {
     if (templates && nonTemplates) {
-      fetch(config.serverURL + "workItems/templates?userId=" + userId)
+      fetch(config.serverURL + "workItems/all?userId=" + userId)
         .then((res) => res.json())
         .then(
           (result) => {

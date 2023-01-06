@@ -61,7 +61,6 @@ const MyAppBar = () => {
     setAnchorElUser(null);
   };
 
-  //TODO Uncomment after testing
   useEffect(() => {
     let loggedIn = sessionStorage.getItem("isLoggedIn");
     let userId = sessionStorage.getItem("userId");

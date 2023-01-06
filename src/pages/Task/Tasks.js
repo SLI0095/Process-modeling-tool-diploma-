@@ -21,7 +21,7 @@ export default function Tasks() {
   const { userId } = useParams();
 
   useEffect(() => {
-    fetch(config.serverURL + "tasks/templates?userId=" + userId)
+    fetch(config.serverURL + "tasks/all?userId=" + userId)
       .then((res) => res.json())
       .then(
         (result) => {
@@ -35,7 +35,7 @@ export default function Tasks() {
 
   function loadRequiredData(nonTemplates, templates) {
     if (templates && nonTemplates) {
-      fetch(config.serverURL + "tasks/templates?userId=" + userId)
+      fetch(config.serverURL + "tasks/all?userId=" + userId)
         .then((res) => res.json())
         .then(
           (result) => {

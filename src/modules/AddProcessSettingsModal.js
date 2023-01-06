@@ -107,7 +107,7 @@ export default function AddProcessSettingsModal(props) {
   const { userId } = useParams();
 
   useEffect(() => {
-    fetch(config.serverURL + "processes/templatesCanEdit?userId=" + userId)
+    fetch(config.serverURL + "processes/allCanEdit?userId=" + userId)
       .then((res) => res.json())
       .then(
         (result) => {

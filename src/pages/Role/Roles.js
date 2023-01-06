@@ -21,7 +21,7 @@ export default function Roles() {
   const { userId } = useParams();
 
   useEffect(() => {
-    fetch(config.serverURL + "roles/templates?userId=" + userId)
+    fetch(config.serverURL + "roles/all?userId=" + userId)
       .then((res) => res.json())
       .then(
         (result) => {
@@ -35,7 +35,7 @@ export default function Roles() {
 
   function loadRequiredData(nonTemplates, templates) {
     if (templates && nonTemplates) {
-      fetch(config.serverURL + "roles/templates?userId=" + userId)
+      fetch(config.serverURL + "roles/all?userId=" + userId)
         .then((res) => res.json())
         .then(
           (result) => {

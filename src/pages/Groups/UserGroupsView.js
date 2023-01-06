@@ -44,7 +44,6 @@ export default function UserGroupsView() {
             backgroundColor: "background.paper",
           }}
         >
-          {/*//TODO options to delete and detail*/}
           {user.isCreator.map((group) => (
             <UserListItem
               name={group.groupName}

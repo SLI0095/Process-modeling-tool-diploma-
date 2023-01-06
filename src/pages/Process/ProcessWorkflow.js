@@ -39,8 +39,6 @@ const style = {
   p: 4,
 };
 
-//TODO modify modal
-
 export default function ProcessWorkflow() {
   const [openTasks, setOpenTasks] = useState(false);
   const handleOpenTasks = () => setOpenTasks(true);
@@ -112,7 +110,13 @@ export default function ProcessWorkflow() {
           alert(error);
         }
       );
-    fetch(config.serverURL + "elements/templatesCanEdit?userId=" + userId)
+    fetch(
+      config.serverURL +
+        "elements/forProcess?userId=" +
+        userId +
+        "&processId=" +
+        processId
+    )
       .then((res) => res.json())
       .then(
         (result) => {
@@ -128,7 +132,13 @@ export default function ProcessWorkflow() {
           alert(error);
         }
       );
-    fetch(config.serverURL + "workItems/templatesCanEdit?userId=" + userId)
+    fetch(
+      config.serverURL +
+        "workItems/forProcess?userId=" +
+        userId +
+        "&processId=" +
+        processId
+    )
       .then((res) => res.json())
       .then(
         (result) => {
@@ -371,7 +381,6 @@ export default function ProcessWorkflow() {
       <div>
         <Modal
           open={openTasks}
-          onClose={handleCloseTasks}
           aria-labelledby="modal-modal-title"
           aria-describedby="modal-modal-description"
         >
@@ -410,7 +419,7 @@ export default function ProcessWorkflow() {
                   <Button
                     onClick={selectElement}
                     variant="contained"
-                    sx={{ marginLeft: 1 }}
+                    sx={{ marginRight: 1 }}
                   >
                     Add selected element
                   </Button>
@@ -431,7 +440,6 @@ export default function ProcessWorkflow() {
       <div>
         <Modal
           open={openWorkItems}
-          onClose={handleCloseWorkItems}
           aria-labelledby="modal-modal-title"
           aria-describedby="modal-modal-description"
         >
@@ -469,7 +477,7 @@ export default function ProcessWorkflow() {
                   <Button
                     onClick={selectWorkItem}
                     variant="contained"
-                    sx={{ marginLeft: 1 }}
+                    sx={{ marginRight: 1 }}
                   >
                     Add selected work item
                   </Button>

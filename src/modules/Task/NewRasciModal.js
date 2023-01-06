@@ -64,7 +64,9 @@ export default function NewRasciModal() {
   const userId = sessionStorage.getItem("userId");
 
   useEffect(() => {
-    fetch(config.serverURL + "roles/templatesCanEdit?userId=" + userId)
+    fetch(
+      config.serverURL + "roles/forTask?userId=" + userId + "&taskId=" + taskId
+    )
       .then((res) => res.json())
       .then(
         (result) => {
@@ -74,7 +76,7 @@ export default function NewRasciModal() {
           alert(error);
         }
       );
-  }, [userId]);
+  }, [taskId, userId]);
 
   return (
     <>

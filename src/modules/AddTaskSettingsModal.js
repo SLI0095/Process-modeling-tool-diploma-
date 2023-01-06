@@ -83,7 +83,7 @@ export default function AddTaskSettingsModal(props) {
   const { userId } = useParams();
 
   useEffect(() => {
-    fetch(config.serverURL + "tasks/templatesCanEdit?userId=" + userId)
+    fetch(config.serverURL + "tasks/allCanEdit?userId=" + userId)
       .then((res) => res.json())
       .then(
         (result) => {

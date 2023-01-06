@@ -21,7 +21,7 @@ export default function Processes() {
   const { userId } = useParams();
 
   useEffect(() => {
-    fetch(config.serverURL + "processes/templates?userId=" + userId)
+    fetch(config.serverURL + "processes/all?userId=" + userId)
       .then((res) => res.json())
       .then(
         (result) => {
@@ -35,7 +35,7 @@ export default function Processes() {
 
   function loadRequiredData(nonTemplates, templates) {
     if (templates && nonTemplates) {
-      fetch(config.serverURL + "processes/templates?userId=" + userId)
+      fetch(config.serverURL + "processes/all?userId=" + userId)
         .then((res) => res.json())
         .then(
           (result) => {

@@ -82,7 +82,13 @@ export default function AddInputOutputModal(props) {
   const userId = sessionStorage.getItem("userId");
 
   useEffect(() => {
-    fetch(config.serverURL + "workItems/templatesCanEdit?userId=" + userId)
+    fetch(
+      config.serverURL +
+        "workItems/forTask?userId=" +
+        userId +
+        "&taskId=" +
+        taskId
+    )
       .then((res) => res.json())
       .then(
         (result) => {
@@ -92,7 +98,7 @@ export default function AddInputOutputModal(props) {
           alert(error);
         }
       );
-  }, [userId]);
+  }, [taskId, userId]);
 
   return (
     <>
