@@ -92,7 +92,7 @@ export default function ProcessBasicInformation() {
   const changDate = useRef();
   const changeDescription = useRef();
 
-  function downloadHtml() {
+  function downloadHtml(processName) {
     fetch(config.serverURL + "processes/" + processId + "/generateHTML")
       .then((response) => {
         if (response.ok) {
@@ -102,7 +102,7 @@ export default function ProcessBasicInformation() {
       .then((data) => {
         var a = document.getElementById("downloadLink");
         a.setAttribute("href", URL.createObjectURL(data));
-        a.setAttribute("download", "processHtml.zip");
+        a.setAttribute("download", processName + ".zip");
         a.click();
       });
   }
@@ -282,7 +282,7 @@ export default function ProcessBasicInformation() {
               <Button
                 startIcon={<Download />}
                 sx={{ marginLeft: 2 }}
-                onClick={downloadHtml}
+                onClick={() => downloadHtml(process.name)}
                 variant="contained"
               >
                 Download as HTML

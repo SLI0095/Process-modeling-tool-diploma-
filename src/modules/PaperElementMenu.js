@@ -50,9 +50,9 @@ export default function PaperElementMenu(props) {
           },
         }}
       >
-        <MenuItem key={"newVersion"} onClick={handleTemplate}>
+        {/*<MenuItem key={"newVersion"} onClick={handleTemplate}>
           Use as template
-        </MenuItem>
+        </MenuItem>*/}
         <DeleteModal type={props.type} element={props.element} />
       </Menu>
     </div>
