@@ -20,26 +20,48 @@ export default function NewProcess() {
   const [checked, setChecked] = React.useState(false);
   let navigate = useNavigate();
   const userId = sessionStorage.getItem("userId");
+  const projectId = sessionStorage.getItem("projectId");
 
   const handleChange = (event) => {
     setChecked(event.target.checked);
   };
 
   const saveProcess = () => {
-    const process = {
-      name: name.current.value,
-      briefDescription: briefDescription.current.value,
-      mainDescription: mainDescription.current.getEditor().root.innerHTML,
-      purpose: purpose.current.getEditor().root.innerHTML,
-      scope: scope.current.getEditor().root.innerHTML,
-      usageNotes: usageNotes.current.getEditor().root.innerHTML,
-      alternatives: alternatives.current.getEditor().root.innerHTML,
-      howToStaff: howToStaff.current.getEditor().root.innerHTML,
-      keyConsiderations: keyConsiderations.current.getEditor().root.innerHTML,
-      version: version.current.value,
-      changeDate: changDate.current.value,
-      changeDescription: changeDescription.current.getEditor().root.innerHTML,
-    };
+    let process;
+    if (projectId == -1) {
+      process = {
+        name: name.current.value,
+        briefDescription: briefDescription.current.value,
+        mainDescription: mainDescription.current.getEditor().root.innerHTML,
+        purpose: purpose.current.getEditor().root.innerHTML,
+        scope: scope.current.getEditor().root.innerHTML,
+        usageNotes: usageNotes.current.getEditor().root.innerHTML,
+        alternatives: alternatives.current.getEditor().root.innerHTML,
+        howToStaff: howToStaff.current.getEditor().root.innerHTML,
+        keyConsiderations: keyConsiderations.current.getEditor().root.innerHTML,
+        version: version.current.value,
+        changeDate: changDate.current.value,
+        changeDescription: changeDescription.current.getEditor().root.innerHTML,
+        project: null,
+      };
+    } else {
+      process = {
+        name: name.current.value,
+        briefDescription: briefDescription.current.value,
+        mainDescription: mainDescription.current.getEditor().root.innerHTML,
+        purpose: purpose.current.getEditor().root.innerHTML,
+        scope: scope.current.getEditor().root.innerHTML,
+        usageNotes: usageNotes.current.getEditor().root.innerHTML,
+        alternatives: alternatives.current.getEditor().root.innerHTML,
+        howToStaff: howToStaff.current.getEditor().root.innerHTML,
+        keyConsiderations: keyConsiderations.current.getEditor().root.innerHTML,
+        version: version.current.value,
+        changeDate: changDate.current.value,
+        changeDescription: changeDescription.current.getEditor().root.innerHTML,
+        project: { id: projectId },
+      };
+    }
+
     if (checked) {
       const file = document.getElementById("fileInput").files[0];
       const fileReader = new FileReader();

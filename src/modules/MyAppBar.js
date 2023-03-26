@@ -192,7 +192,9 @@ const MyAppBar = () => {
                 onClick={handleOpenUserMenu}
                 sx={{ my: 2, color: "white" }}
               >
-                {sessionStorage.getItem("userName")}
+                {sessionStorage.getItem("userName") +
+                  " | " +
+                  sessionStorage.getItem("projectName")}
               </Button>
             </Tooltip>
             <Menu

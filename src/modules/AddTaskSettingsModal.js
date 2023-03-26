@@ -81,9 +81,16 @@ export default function AddTaskSettingsModal(props) {
   const { workItemId } = useParams();
   const { roleId } = useParams();
   const { userId } = useParams();
+  const projectId = sessionStorage.getItem("projectId");
 
   useEffect(() => {
-    fetch(config.serverURL + "tasks/allCanEdit?userId=" + userId)
+    fetch(
+      config.serverURL +
+        "tasks/allCanEdit?userId=" +
+        userId +
+        "&projectId=" +
+        projectId
+    )
       .then((res) => res.json())
       .then(
         (result) => {

@@ -54,6 +54,7 @@ export default function ProcessWorkflow() {
   const selectedElement = useRef();
   const { processId } = useParams();
   const userId = sessionStorage.getItem("userId");
+  const projectId = sessionStorage.getItem("projectId");
 
   function getElement(id) {
     var result;
@@ -115,7 +116,9 @@ export default function ProcessWorkflow() {
         "elements/forProcess?userId=" +
         userId +
         "&processId=" +
-        processId
+        processId +
+        "&projectId=" +
+        projectId
     )
       .then((res) => res.json())
       .then(
@@ -137,7 +140,9 @@ export default function ProcessWorkflow() {
         "workItems/forProcess?userId=" +
         userId +
         "&processId=" +
-        processId
+        processId +
+        "&projectId=" +
+        projectId
     )
       .then((res) => res.json())
       .then(

@@ -19,9 +19,16 @@ export default function Processes() {
   const [templates, setTemplates] = useState(true);
   const [nonTemplates, setNonTemplates] = useState(true);
   const { userId } = useParams();
+  const projectId = sessionStorage.getItem("projectId");
 
   useEffect(() => {
-    fetch(config.serverURL + "processes/all?userId=" + userId)
+    fetch(
+      config.serverURL +
+        "processes/all?userId=" +
+        userId +
+        "&projectId=" +
+        projectId
+    )
       .then((res) => res.json())
       .then(
         (result) => {
@@ -35,7 +42,13 @@ export default function Processes() {
 
   function loadRequiredData(nonTemplates, templates) {
     if (templates && nonTemplates) {
-      fetch(config.serverURL + "processes/all?userId=" + userId)
+      fetch(
+        config.serverURL +
+          "processes/all?userId=" +
+          userId +
+          "&projectId=" +
+          projectId
+      )
         .then((res) => res.json())
         .then(
           (result) => {
@@ -51,7 +64,9 @@ export default function Processes() {
         config.serverURL +
           "processes/isTemplate?userId=" +
           userId +
-          "&isTemplate=true"
+          "&isTemplate=true" +
+          "&projectId=" +
+          projectId
       )
         .then((res) => res.json())
         .then(
@@ -68,7 +83,9 @@ export default function Processes() {
         config.serverURL +
           "processes/isTemplate?userId=" +
           userId +
-          "&isTemplate=false"
+          "&isTemplate=false" +
+          "&projectId=" +
+          projectId
       )
         .then((res) => res.json())
         .then(

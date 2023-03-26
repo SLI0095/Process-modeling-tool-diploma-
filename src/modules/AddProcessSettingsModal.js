@@ -105,9 +105,16 @@ export default function AddProcessSettingsModal(props) {
   const { taskId } = useParams();
   const { processId } = useParams();
   const { userId } = useParams();
+  const projectId = sessionStorage.getItem("projectId");
 
   useEffect(() => {
-    fetch(config.serverURL + "processes/allCanEdit?userId=" + userId)
+    fetch(
+      config.serverURL +
+        "processes/allCanEdit?userId=" +
+        userId +
+        "&projectId=" +
+        projectId
+    )
       .then((res) => res.json())
       .then(
         (result) => {

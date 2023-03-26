@@ -41,6 +41,7 @@ export default function ElementSettings(props) {
   const { roleId } = useParams();
   const { processId } = useParams();
   const { userId } = useParams();
+  const projectId = sessionStorage.getItem("projectId");
 
   const [openSnack, setOpenSnack] = React.useState(false);
   const handleCloseSnack = (event, reason) => {
@@ -386,6 +387,87 @@ export default function ElementSettings(props) {
     }
   }
 
+  function getUsersPart() {
+    if (projectId == -1) {
+      return (
+        <>
+          <Typography variant={"h7"} component={"h3"} marginTop={3}>
+            Owner of the item
+          </Typography>
+          <List
+            sx={{
+              backgroundColor: "background.paper",
+            }}
+          >
+            <UserListItem
+              type="owner"
+              name={item.owner !== null ? item.owner.username : ""}
+            />
+          </List>
+          <Typography variant={"h7"} component={"h3"} marginTop={3}>
+            Who can edit item
+          </Typography>
+          <List
+            sx={{
+              backgroundColor: "background.paper",
+            }}
+          >
+            {item.canEdit.map((userType) => (
+              <UserListItem
+                user={userType}
+                name={
+                  userType.username !== undefined
+                    ? userType.username
+                    : userType.groupName
+                }
+                id={userType.id}
+                key={userType.id}
+                type="userEdit"
+                elementType={props.type}
+                elementId={item.id}
+              />
+            ))}
+          </List>
+          <Typography variant={"h7"} component={"h3"} marginTop={3}>
+            Who can view item
+          </Typography>
+          <List
+            sx={{
+              backgroundColor: "background.paper",
+            }}
+          >
+            {item.hasAccess.map((userType) => (
+              <UserListItem
+                user={userType}
+                name={
+                  userType.username !== undefined
+                    ? userType.username
+                    : userType.groupName
+                }
+                id={userType.id}
+                key={userType.id}
+                type="userAccess"
+                elementType={props.type}
+                elementId={item.id}
+              />
+            ))}
+          </List>
+          <AddUserModal type={props.type} itemId={item.id} />
+          <ChangeOwnerModal />
+        </>
+      );
+    } else {
+      return (
+        <>
+          <Typography variant={"body2"} fontStyle={"italic"} marginY={2}>
+            In projects other than DEFAULT, user settings are same as projects
+            settings
+          </Typography>
+        </>
+      );
+    }
+  }
+
   return (
     <>
       <MyAppBar />
@@ -417,69 +499,7 @@ export default function ElementSettings(props) {
         <Typography variant={"h4"} component={"h2"} marginTop={5}>
           User settings
         </Typography>
-        <Typography variant={"h7"} component={"h3"} marginTop={3}>
-          Owner of the item
-        </Typography>
-        <List
-          sx={{
-            backgroundColor: "background.paper",
-          }}
-        >
-          <UserListItem
-            type="owner"
-            name={item.owner !== null ? item.owner.username : ""}
-          />
-        </List>
-
-        <Typography variant={"h7"} component={"h3"} marginTop={3}>
-          Who can edit item
-        </Typography>
-        <List
-          sx={{
-            backgroundColor: "background.paper",
-          }}
-        >
-          {item.canEdit.map((userType) => (
-            <UserListItem
-              user={userType}
-              name={
-                userType.username !== undefined
-                  ? userType.username
-                  : userType.groupName
-              }
-              id={userType.id}
-              key={userType.id}
-              type="userEdit"
-              elementType={props.type}
-              elementId={item.id}
-            />
-          ))}
-        </List>
-
-        <Typography variant={"h7"} component={"h3"} marginTop={3}>
-          Who can view item
-        </Typography>
-        <List
-          sx={{
-            backgroundColor: "background.paper",
-          }}
-        >
-          {item.hasAccess.map((userType) => (
-            <UserListItem
-              user={userType}
-              name={
-                userType.username !== undefined
-                  ? userType.username
-                  : userType.groupName
-              }
-              id={userType.id}
-              key={userType.id}
-              type="userAccess"
-              elementType={props.type}
-              elementId={item.id}
-            />
-          ))}
-        </List>
+        {getUsersPart()}
         <Snackbar
           open={openSnack}
           autoHideDuration={3000}
@@ -493,8 +513,6 @@ export default function ElementSettings(props) {
             Changes saved.
           </Alert>
         </Snackbar>
-        <AddUserModal type={props.type} itemId={item.id} />
-        <ChangeOwnerModal />
       </Container>
       {getFooter(props.type)}
     </>

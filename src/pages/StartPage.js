@@ -45,6 +45,8 @@ export default function StartPage() {
           sessionStorage.setItem("userId", userId);
           sessionStorage.setItem("userName", user.username);
           sessionStorage.setItem("isLoggedIn", true);
+          sessionStorage.setItem("projectName", "DEFAULT");
+          sessionStorage.setItem("projectId", -1);
           navigate("/user/" + userId + "/processes");
           console.log(data);
         });
