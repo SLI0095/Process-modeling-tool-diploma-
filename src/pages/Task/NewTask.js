@@ -9,18 +9,36 @@ import config from "../../resources/config.json";
 
 export default function NewTask() {
   let navigate = useNavigate();
+  const projectId = sessionStorage.getItem("projectId");
 
   const saveTask = () => {
-    const task = {
-      name: name.current.value,
-      briefDescription: briefDescription.current.value,
-      mainDescription: mainDescription.current.getEditor().root.innerHTML,
-      purpose: purpose.current.getEditor().root.innerHTML,
-      keyConsiderations: keyConsiderations.current.getEditor().root.innerHTML,
-      version: version.current.value,
-      changeDate: changDate.current.value,
-      changeDescription: changeDescription.current.getEditor().root.innerHTML,
-    };
+    let task;
+    // eslint-disable-next-line eqeqeq
+    if (projectId == -1) {
+      task = {
+        name: name.current.value,
+        briefDescription: briefDescription.current.value,
+        mainDescription: mainDescription.current.getEditor().root.innerHTML,
+        purpose: purpose.current.getEditor().root.innerHTML,
+        keyConsiderations: keyConsiderations.current.getEditor().root.innerHTML,
+        version: version.current.value,
+        changeDate: changDate.current.value,
+        changeDescription: changeDescription.current.getEditor().root.innerHTML,
+        project: null,
+      };
+    } else {
+      task = {
+        name: name.current.value,
+        briefDescription: briefDescription.current.value,
+        mainDescription: mainDescription.current.getEditor().root.innerHTML,
+        purpose: purpose.current.getEditor().root.innerHTML,
+        keyConsiderations: keyConsiderations.current.getEditor().root.innerHTML,
+        version: version.current.value,
+        changeDate: changDate.current.value,
+        changeDescription: changeDescription.current.getEditor().root.innerHTML,
+        project: { id: projectId },
+      };
+    }
     const requestOptions = {
       method: "POST",
       headers: { "Content-Type": "application/json" },

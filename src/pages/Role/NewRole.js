@@ -10,19 +10,38 @@ import config from "../../resources/config.json";
 export default function NewRole() {
   let navigate = useNavigate();
   const userId = sessionStorage.getItem("userId");
+  const projectId = sessionStorage.getItem("projectId");
 
   const saveRole = () => {
-    const role = {
-      name: name.current.value,
-      briefDescription: briefDescription.current.value,
-      mainDescription: mainDescription.current.getEditor().root.innerHTML,
-      skills: skills.current.getEditor().root.innerHTML,
-      assignmentApproaches:
-        assignmentApproaches.current.getEditor().root.innerHTML,
-      version: version.current.value,
-      changeDate: changDate.current.value,
-      changeDescription: changeDescription.current.getEditor().root.innerHTML,
-    };
+    let role;
+    // eslint-disable-next-line eqeqeq
+    if (projectId == -1) {
+      role = {
+        name: name.current.value,
+        briefDescription: briefDescription.current.value,
+        mainDescription: mainDescription.current.getEditor().root.innerHTML,
+        skills: skills.current.getEditor().root.innerHTML,
+        assignmentApproaches:
+          assignmentApproaches.current.getEditor().root.innerHTML,
+        version: version.current.value,
+        changeDate: changDate.current.value,
+        changeDescription: changeDescription.current.getEditor().root.innerHTML,
+        project: null,
+      };
+    } else {
+      role = {
+        name: name.current.value,
+        briefDescription: briefDescription.current.value,
+        mainDescription: mainDescription.current.getEditor().root.innerHTML,
+        skills: skills.current.getEditor().root.innerHTML,
+        assignmentApproaches:
+          assignmentApproaches.current.getEditor().root.innerHTML,
+        version: version.current.value,
+        changeDate: changDate.current.value,
+        changeDescription: changeDescription.current.getEditor().root.innerHTML,
+        project: { id: projectId },
+      };
+    }
     const requestOptions = {
       method: "POST",
       headers: { "Content-Type": "application/json" },

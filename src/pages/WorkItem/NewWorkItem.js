@@ -10,26 +10,52 @@ import config from "../../resources/config.json";
 export default function NewWorkItem() {
   let navigate = useNavigate();
   const userId = sessionStorage.getItem("userId");
+  const projectId = sessionStorage.getItem("projectId");
 
   const saveWorkItem = () => {
-    const workItem = {
-      name: name.current.value,
-      briefDescription: briefDescription.current.value,
-      mainDescription: mainDescription.current.getEditor().root.innerHTML,
-      workItemType: workItemType.current.value,
-      urlAdress: urlAddress.current.value,
-      purpose: purpose.current.getEditor().root.innerHTML,
-      keyConsiderations: keyConsiderations.current.getEditor().root.innerHTML,
-      briefOutline: briefOutline.current.getEditor().root.innerHTML,
-      notation: notation.current.getEditor().root.innerHTML,
-      impactOfNotHaving: impactOfNotHaving.current.getEditor().root.innerHTML,
-      reasonForNotNeeding:
-        reasonForNotNeeding.current.getEditor().root.innerHTML,
-      version: version.current.value,
-      changeDate: changDate.current.value,
-      templateText: templateText.current.getEditor().root.innerHTML,
-      changeDescription: changeDescription.current.getEditor().root.innerHTML,
-    };
+    let workItem;
+    // eslint-disable-next-line eqeqeq
+    if (projectId == -1) {
+      workItem = {
+        name: name.current.value,
+        briefDescription: briefDescription.current.value,
+        mainDescription: mainDescription.current.getEditor().root.innerHTML,
+        workItemType: workItemType.current.value,
+        urlAdress: urlAddress.current.value,
+        purpose: purpose.current.getEditor().root.innerHTML,
+        keyConsiderations: keyConsiderations.current.getEditor().root.innerHTML,
+        briefOutline: briefOutline.current.getEditor().root.innerHTML,
+        notation: notation.current.getEditor().root.innerHTML,
+        impactOfNotHaving: impactOfNotHaving.current.getEditor().root.innerHTML,
+        reasonForNotNeeding:
+          reasonForNotNeeding.current.getEditor().root.innerHTML,
+        version: version.current.value,
+        changeDate: changDate.current.value,
+        templateText: templateText.current.getEditor().root.innerHTML,
+        changeDescription: changeDescription.current.getEditor().root.innerHTML,
+        project: null,
+      };
+    } else {
+      workItem = {
+        name: name.current.value,
+        briefDescription: briefDescription.current.value,
+        mainDescription: mainDescription.current.getEditor().root.innerHTML,
+        workItemType: workItemType.current.value,
+        urlAdress: urlAddress.current.value,
+        purpose: purpose.current.getEditor().root.innerHTML,
+        keyConsiderations: keyConsiderations.current.getEditor().root.innerHTML,
+        briefOutline: briefOutline.current.getEditor().root.innerHTML,
+        notation: notation.current.getEditor().root.innerHTML,
+        impactOfNotHaving: impactOfNotHaving.current.getEditor().root.innerHTML,
+        reasonForNotNeeding:
+          reasonForNotNeeding.current.getEditor().root.innerHTML,
+        version: version.current.value,
+        changeDate: changDate.current.value,
+        templateText: templateText.current.getEditor().root.innerHTML,
+        changeDescription: changeDescription.current.getEditor().root.innerHTML,
+        project: { id: projectId },
+      };
+    }
     const requestOptions = {
       method: "POST",
       headers: { "Content-Type": "application/json" },

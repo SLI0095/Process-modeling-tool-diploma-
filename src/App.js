@@ -27,6 +27,8 @@ import WorkItemStates from "./pages/WorkItem/WorkItemStates";
 import HistoryPage from "./pages/HistoryPage";
 import UserGroupsView from "./pages/Groups/UserGroupsView";
 import GroupDetail from "./pages/Groups/GroupDetail";
+import MainProjects from "./pages/Projects/MainProjects";
+import ProjectDetail from "./pages/Projects/ProjectDetail";
 
 function App() {
   return (
@@ -137,6 +139,10 @@ function App() {
             path="/user/:userId/groups/:groupId"
             element={<GroupDetail />}
           />
+
+          <Route path="/user/:userId/projects" element={<MainProjects />} />
+
+          <Route path="/projects/:projectId" element={<ProjectDetail />} />
 
           <Route path="/test" element={<ProcessWorkflow />} />
         </Route>

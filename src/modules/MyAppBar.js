@@ -34,6 +34,10 @@ const MyAppBar = () => {
     navigate("/user/" + sessionStorage.getItem("userId") + "/groups");
   };
 
+  const handleOpenProjects = () => {
+    navigate("/user/" + sessionStorage.getItem("userId") + "/projects");
+  };
+
   const openProcesses = () => {
     navigate("/user/" + sessionStorage.getItem("userId") + "/processes");
   };
@@ -213,11 +217,11 @@ const MyAppBar = () => {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              <MenuItem key={"profile"} onClick={handleCloseUserMenu}>
-                <Typography textAlign="center">Main dashboard</Typography>
-              </MenuItem>
               <MenuItem key={"account"} onClick={handleOpenGroups}>
                 <Typography textAlign="center">User groups</Typography>
+              </MenuItem>
+              <MenuItem key={"account"} onClick={handleOpenProjects}>
+                <Typography textAlign="center">Projects</Typography>
               </MenuItem>
               <MenuItem key={"logout"} onClick={handleLogout}>
                 <Typography textAlign="center">Logout</Typography>

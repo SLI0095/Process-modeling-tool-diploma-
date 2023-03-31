@@ -52,8 +52,8 @@ export default function UserListItem(props) {
         <>
           <IconButton
             edge={"end"}
-            aria-label="remove"
-            id="remove-button"
+            aria-label="Detail"
+            id="detail-button"
             onClick={() => openGroupDetail()}
             sx={{
               marginLeft: 2,
