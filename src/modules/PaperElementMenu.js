@@ -1,9 +1,9 @@
 import * as React from "react";
 import IconButton from "@mui/material/IconButton";
 import Menu from "@mui/material/Menu";
-import MenuItem from "@mui/material/MenuItem";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import DeleteModal from "./DeleteModal";
+import NewConfigurationModal from "./NewConfigurationModal";
 
 const ITEM_HEIGHT = 48;
 
@@ -14,9 +14,6 @@ export default function PaperElementMenu(props) {
     setAnchorEl(event.currentTarget);
   };
   const handleClose = () => {
-    setAnchorEl(null);
-  };
-  const handleTemplate = () => {
     setAnchorEl(null);
   };
 
@@ -53,7 +50,12 @@ export default function PaperElementMenu(props) {
         {/*<MenuItem key={"newVersion"} onClick={handleTemplate}>
           Use as template
         </MenuItem>*/}
-        <DeleteModal type={props.type} element={props.element} />
+        <NewConfigurationModal type={props.type} element={props.element} />
+        <DeleteModal
+          type={props.type}
+          element={props.element}
+          parentClose={handleClose}
+        />
       </Menu>
     </div>
   );

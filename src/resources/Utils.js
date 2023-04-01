@@ -11,4 +11,7 @@ export function getPath(type) {
   if (type === "workItem") {
     return "workItems/";
   }
+  if (type === "project") {
+    return "projects/";
+  }
 }
