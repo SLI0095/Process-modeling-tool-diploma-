@@ -29,6 +29,7 @@ import UserGroupsView from "./pages/Groups/UserGroupsView";
 import GroupDetail from "./pages/Groups/GroupDetail";
 import MainProjects from "./pages/Projects/MainProjects";
 import ProjectDetail from "./pages/Projects/ProjectDetail";
+import Configurations from "./pages/Configurations";
 
 function App() {
   return (
@@ -66,6 +67,10 @@ function App() {
             element={<HistoryPage type={"process"} />}
           />
           <Route
+            path="/user/:userId/processes/:processId/configurations"
+            element={<Configurations type={"process"} />}
+          />
+          <Route
             path="/user/:userId/processes/:processId/settings"
             element={<ElementSettings type="process" />}
           />
@@ -93,6 +98,10 @@ function App() {
             element={<HistoryPage type={"task"} />}
           />
           <Route
+            path="/user/:userId/tasks/:taskId/configurations"
+            element={<Configurations type="task" />}
+          />
+          <Route
             path="/user/:userId/tasks/:taskId/settings"
             element={<ElementSettings type="task" />}
           />
@@ -115,6 +124,10 @@ function App() {
             element={<HistoryPage type={"workItem"} />}
           />
           <Route
+            path="/user/:userId/workItems/:workItemId/configurations"
+            element={<Configurations type="workItem" />}
+          />
+          <Route
             path="/user/:userId/workItems/:workItemId/settings"
             element={<ElementSettings type="workItem" />}
           />
@@ -128,6 +141,10 @@ function App() {
           <Route
             path="/user/:userId/roles/:roleId/history"
             element={<HistoryPage type="role" />}
+          />
+          <Route
+            path="/user/:userId/roles/:roleId/configurations"
+            element={<Configurations type="role" />}
           />
           <Route
             path="/user/:userId/roles/:roleId/settings"

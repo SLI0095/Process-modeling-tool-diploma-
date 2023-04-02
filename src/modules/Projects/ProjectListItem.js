@@ -53,7 +53,7 @@ export default function ProjectListItem(props) {
           <IconButton
             edge={"end"}
             aria-label="Switch project"
-            id="remove-button"
+            id="switch-button"
             onClick={() => switchToSelectedProject()}
             sx={{
               marginLeft: 2,

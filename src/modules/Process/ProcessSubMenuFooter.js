@@ -8,6 +8,7 @@ import {
   Info,
   People,
   Settings,
+  Shuffle,
   Straighten,
 } from "@mui/icons-material";
 import { Paper } from "@mui/material";
@@ -37,6 +38,11 @@ export default function ProcessSubMenuFooter(props) {
     }
     if (newValue === "history") {
       navigate("/user/" + userId + "/processes/" + processId + "/history");
+    }
+    if (newValue === "configurations") {
+      navigate(
+        "/user/" + userId + "/processes/" + processId + "/configurations"
+      );
     }
     if (newValue === "settings") {
       navigate("/user/" + userId + "/processes/" + processId + "/settings");
@@ -78,6 +84,11 @@ export default function ProcessSubMenuFooter(props) {
           label="History"
           value="history"
           icon={<History />}
+        />
+        <BottomNavigationAction
+          label="Configurations"
+          value="configurations"
+          icon={<Shuffle />}
         />
         <BottomNavigationAction
           label="Settings"

@@ -8,6 +8,7 @@ import {
   Info,
   People,
   Settings,
+  Shuffle,
 } from "@mui/icons-material";
 import { Paper } from "@mui/material";
 import { useNavigate, useParams } from "react-router";
@@ -33,6 +34,9 @@ export default function TaskSubMenuFooter(props) {
     }
     if (newValue === "history") {
       navigate("/user/" + userId + "/tasks/" + taskId + "/history");
+    }
+    if (newValue === "configurations") {
+      navigate("/user/" + userId + "/tasks/" + taskId + "/configurations");
     }
     if (newValue === "settings") {
       navigate("/user/" + userId + "/tasks/" + taskId + "/settings");
@@ -65,6 +69,11 @@ export default function TaskSubMenuFooter(props) {
           label="History"
           value="history"
           icon={<History />}
+        />
+        <BottomNavigationAction
+          label="Configurations"
+          value="configurations"
+          icon={<Shuffle />}
         />
         <BottomNavigationAction
           label="Settings"

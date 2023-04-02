@@ -1,7 +1,7 @@
 import * as React from "react";
 import BottomNavigation from "@mui/material/BottomNavigation";
 import BottomNavigationAction from "@mui/material/BottomNavigationAction";
-import { History, Info, Settings } from "@mui/icons-material";
+import { History, Info, Settings, Shuffle } from "@mui/icons-material";
 import { Paper } from "@mui/material";
 import { useNavigate, useParams } from "react-router";
 
@@ -17,6 +17,9 @@ export default function RoleSubMenuFooter(props) {
     }
     if (newValue === "history") {
       navigate("/user/" + userId + "/roles/" + roleId + "/history");
+    }
+    if (newValue === "configurations") {
+      navigate("/user/" + userId + "/roles/" + roleId + "/configurations");
     }
     if (newValue === "settings") {
       navigate("/user/" + userId + "/roles/" + roleId + "/settings");
@@ -38,6 +41,11 @@ export default function RoleSubMenuFooter(props) {
           label="History"
           value="history"
           icon={<History />}
+        />
+        <BottomNavigationAction
+          label="Configurations"
+          value="configurations"
+          icon={<Shuffle />}
         />
         <BottomNavigationAction
           label="Settings"

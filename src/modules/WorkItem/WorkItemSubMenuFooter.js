@@ -1,7 +1,13 @@
 import * as React from "react";
 import BottomNavigation from "@mui/material/BottomNavigation";
 import BottomNavigationAction from "@mui/material/BottomNavigationAction";
-import { History, Info, MultipleStop, Settings } from "@mui/icons-material";
+import {
+  History,
+  Info,
+  MultipleStop,
+  Settings,
+  Shuffle,
+} from "@mui/icons-material";
 import { Paper } from "@mui/material";
 import { useNavigate, useParams } from "react-router";
 
@@ -20,6 +26,11 @@ export default function WorkItemSubMenuFooter(props) {
     }
     if (newValue === "history") {
       navigate("/user/" + userId + "/workItems/" + workItemId + "/history");
+    }
+    if (newValue === "configurations") {
+      navigate(
+        "/user/" + userId + "/workItems/" + workItemId + "/configurations"
+      );
     }
     if (newValue === "settings") {
       navigate("/user/" + userId + "/workItems/" + workItemId + "/settings");
@@ -46,6 +57,11 @@ export default function WorkItemSubMenuFooter(props) {
           label="History"
           value="history"
           icon={<History />}
+        />
+        <BottomNavigationAction
+          label="Configurations"
+          value="configurations"
+          icon={<Shuffle />}
         />
         <BottomNavigationAction
           label="Settings"

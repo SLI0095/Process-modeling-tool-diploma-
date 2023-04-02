@@ -1,6 +1,5 @@
 import MyAppBar from "../modules/MyAppBar";
 import Container from "@mui/material/Container";
-import ProcessSubMenuFooter from "../modules/Process/ProcessSubMenuFooter";
 import Typography from "@mui/material/Typography";
 import * as React from "react";
 import {
@@ -16,13 +15,11 @@ import AddUserModal from "../modules/Users/AddUserModal";
 import MyListItem from "../modules/MyListItem";
 import AddProcessSettingsModal from "../modules/AddProcessSettingsModal";
 import ChangeOwnerModal from "../modules/Users/ChangeOwnerModal";
-import TaskSubMenuFooter from "../modules/Task/TaskSubMenuFooter";
-import WorkItemSubMenuFooter from "../modules/WorkItem/WorkItemSubMenuFooter";
-import RoleSubMenuFooter from "../modules/Role/RoleSubMenuFooter";
 import AddTaskSettingsModal from "../modules/AddTaskSettingsModal";
 import { useParams } from "react-router";
 import { useEffect, useState } from "react";
 import config from "../resources/config.json";
+import { getFooter } from "../resources/Utils";
 
 export default function ElementSettings(props) {
   const [item, setItem] = useState({
@@ -239,21 +236,6 @@ export default function ElementSettings(props) {
         });
     }
   };
-
-  function getFooter(type) {
-    if (type === "process") {
-      return <ProcessSubMenuFooter state="settings" />;
-    }
-    if (type === "task") {
-      return <TaskSubMenuFooter state="settings" />;
-    }
-    if (type === "workItem") {
-      return <WorkItemSubMenuFooter state="settings" />;
-    }
-    if (type === "role") {
-      return <RoleSubMenuFooter state="settings" />;
-    }
-  }
 
   function getUsableIn(type) {
     if (type === "process") {
@@ -514,7 +496,7 @@ export default function ElementSettings(props) {
           </Alert>
         </Snackbar>
       </Container>
-      {getFooter(props.type)}
+      {getFooter(props.type, "settings")}
     </>
   );
 }
