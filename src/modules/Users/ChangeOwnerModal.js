@@ -4,9 +4,11 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import { FormControl, Grid, InputLabel, Select } from "@mui/material";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Container from "@mui/material/Container";
 import MenuItem from "@mui/material/MenuItem";
+import config from "../../resources/config.json";
+import { getPath } from "../../resources/Utils";
 
 const style = {
   position: "absolute",
@@ -20,12 +22,54 @@ const style = {
   p: 4,
 };
 
-export default function ChangeOwnerModal() {
+export default function ChangeOwnerModal(props) {
   const [open, setOpen] = React.useState(false);
-  const changeOwner = () => setOpen(false);
+  const [users, setUsers] = useState([]);
+  const changeOwner = () => {
+    let newOwnerId =
+      selectedUser.current.getElementsByTagName("input")[0].value;
+    const requestOptions = {
+      method: "PUT",
+    };
+    fetch(
+      config.serverURL +
+        getPath(props.type) +
+        props.itemId +
+        "/changeOwner?userId=" +
+        userId +
+        "&newOwnerId=" +
+        newOwnerId,
+      requestOptions
+    )
+      .then((response) => {
+        if (response.ok) {
+          setOpen(false);
+        }
+        return response.json();
+      })
+      .then((data) => {
+        if (data !== undefined) {
+          alert(data.message);
+        }
+      });
+  };
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const selectedUser = useRef();
+  const userId = sessionStorage.getItem("userId");
+
+  useEffect(() => {
+    fetch(config.serverURL + "users")
+      .then((res) => res.json())
+      .then(
+        (result) => {
+          setUsers(result);
+        },
+        (error) => {
+          alert(error);
+        }
+      );
+  }, [userId]);
 
   return (
     <>
@@ -61,10 +105,11 @@ export default function ChangeOwnerModal() {
                         label="User"
                         ref={selectedUser}
                       >
-                        <MenuItem value={"A"}>User A</MenuItem>
-                        <MenuItem value={"B"}>User B</MenuItem>
-                        <MenuItem value={"C"}>User C</MenuItem>
-                        <MenuItem value={"D"}>User D</MenuItem>
+                        {users.map((user) => (
+                          <MenuItem key={user.id} value={user.id}>
+                            {user.username}
+                          </MenuItem>
+                        ))}
                       </Select>
                     </FormControl>
                   </Grid>

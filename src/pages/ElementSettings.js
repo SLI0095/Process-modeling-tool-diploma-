@@ -368,6 +368,12 @@ export default function ElementSettings(props) {
       );
     }
   }
+  const getChangeOwnerButton = () => {
+    if (item.owner.id != null && item.owner.id == userId) {
+      return <ChangeOwnerModal type={props.type} itemId={item.id} />;
+    }
+    return <></>;
+  };
 
   function getUsersPart() {
     if (projectId == -1) {
@@ -435,7 +441,7 @@ export default function ElementSettings(props) {
             ))}
           </List>
           <AddUserModal type={props.type} itemId={item.id} />
-          <ChangeOwnerModal />
+          {getChangeOwnerButton}
         </>
       );
     } else {

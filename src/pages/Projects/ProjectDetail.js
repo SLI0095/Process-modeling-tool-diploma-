@@ -1,7 +1,6 @@
 //TODO - name and description editable, plus save button and owner plus list of users and right same as in element settings with add user right button
 import { useEffect, useRef, useState } from "react";
 import MyAppBar from "../../modules/MyAppBar";
-import ProcessSubMenuFooter from "../../modules/Process/ProcessSubMenuFooter";
 import {
   Alert,
   Button,
@@ -75,11 +74,18 @@ export default function ProjectDetail() {
       });
   };
 
+  const getDeleteButton = () => {
+    if (project.projectOwner != null && project.projectOwner.id == userId) {
+      //TODO modal for delete, inform that every item in project will be deleted
+      return <></>;
+    }
+    return <></>;
+  };
+
   if (project === null) {
     return (
       <>
         <MyAppBar />
-        <ProcessSubMenuFooter state="main" />
       </>
     );
   } else {
@@ -129,6 +135,7 @@ export default function ProjectDetail() {
               >
                 Save
               </Button>
+              {getDeleteButton}
             </Grid>
           </Grid>
 
