@@ -17,6 +17,7 @@ import config from "../../resources/config.json";
 import { useParams } from "react-router";
 import UserListItem from "../../modules/UserListItem";
 import AddUserModal from "../../modules/Users/AddUserModal";
+import DeleteProjectModal from "../../modules/Projects/DeleteProjectModal";
 
 export default function ProjectDetail() {
   const [project, setProject] = useState(null);
@@ -76,8 +77,7 @@ export default function ProjectDetail() {
 
   const getDeleteButton = () => {
     if (project.projectOwner != null && project.projectOwner.id == userId) {
-      //TODO modal for delete, inform that every item in project will be deleted
-      return <></>;
+      return <DeleteProjectModal />;
     }
     return <></>;
   };
@@ -135,7 +135,7 @@ export default function ProjectDetail() {
               >
                 Save
               </Button>
-              {getDeleteButton}
+              {getDeleteButton()}
             </Grid>
           </Grid>
 

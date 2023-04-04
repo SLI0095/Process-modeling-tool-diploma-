@@ -36,3 +36,8 @@ export function getFooter(type, setState) {
     return <RoleSubMenuFooter state={setState} />;
   }
 }
+
+export function setDefaultProject() {
+  sessionStorage.setItem("projectName", "DEFAULT");
+  sessionStorage.setItem("projectId", -1);
+}

@@ -159,7 +159,10 @@ function App() {
 
           <Route path="/user/:userId/projects" element={<MainProjects />} />
 
-          <Route path="/projects/:projectId" element={<ProjectDetail />} />
+          <Route
+            path="/user/:userId/projects/:projectId"
+            element={<ProjectDetail />}
+          />
 
           <Route path="/test" element={<ProcessWorkflow />} />
         </Route>

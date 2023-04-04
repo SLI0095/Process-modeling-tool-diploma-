@@ -11,9 +11,10 @@ import * as React from "react";
 
 export default function ProjectListItem(props) {
   let navigate = useNavigate();
+  const userId = sessionStorage.getItem("userId");
 
   const openProjectDetail = () => {
-    navigate("/projects/" + props.projectId);
+    navigate("/user/" + userId + "/projects/" + props.projectId);
   };
 
   const switchToSelectedProject = () => {

@@ -13,6 +13,7 @@ import * as React from "react";
 import { useRef } from "react";
 import config from "../resources/config.json";
 import { useNavigate } from "react-router";
+import { setDefaultProject } from "../resources/Utils";
 
 export default function StartPage() {
   const [openSnack, setOpenSnack] = React.useState(false);
@@ -45,8 +46,7 @@ export default function StartPage() {
           sessionStorage.setItem("userId", userId);
           sessionStorage.setItem("userName", user.username);
           sessionStorage.setItem("isLoggedIn", true);
-          sessionStorage.setItem("projectName", "DEFAULT");
-          sessionStorage.setItem("projectId", -1);
+          setDefaultProject();
           navigate("/user/" + userId + "/processes");
           console.log(data);
         });
