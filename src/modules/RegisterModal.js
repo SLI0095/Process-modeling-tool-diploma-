@@ -5,7 +5,7 @@ import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import { Alert, Grid, Snackbar, TextField } from "@mui/material";
 import { useRef } from "react";
-import config from "../resources/config.json";
+import config from "../config.json";
 
 const style = {
   position: "absolute",

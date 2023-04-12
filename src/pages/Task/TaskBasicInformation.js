@@ -13,7 +13,7 @@ import ReactQuill from "react-quill";
 import * as React from "react";
 import TaskSubMenuFooter from "../../modules/Task/TaskSubMenuFooter";
 import { Save } from "@mui/icons-material";
-import config from "../../resources/config.json";
+import config from "../../config.json";
 import { useParams } from "react-router";
 
 export default function TaskBasicInformation() {

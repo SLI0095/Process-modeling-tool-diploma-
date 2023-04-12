@@ -8,7 +8,7 @@ import { useRef } from "react";
 import { Add } from "@mui/icons-material";
 import Container from "@mui/material/Container";
 import { useParams } from "react-router";
-import config from "../../resources/config.json";
+import config from "../../config.json";
 
 //TODO form required fields stopped working find out why, try React 17
 const style = {

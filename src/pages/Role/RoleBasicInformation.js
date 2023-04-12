@@ -15,7 +15,7 @@ import RoleSubMenuFooter from "../../modules/Role/RoleSubMenuFooter";
 import { Save } from "@mui/icons-material";
 import TaskSubMenuFooter from "../../modules/Task/TaskSubMenuFooter";
 import { useParams } from "react-router";
-import config from "../../resources/config.json";
+import config from "../../config.json";
 
 export default function RoleBasicInformation() {
   const name = useRef();

@@ -13,7 +13,7 @@ import {
 import Typography from "@mui/material/Typography";
 import { Save } from "@mui/icons-material";
 import * as React from "react";
-import config from "../../resources/config.json";
+import config from "../../config.json";
 import { useParams } from "react-router";
 import UserListItem from "../../modules/UserListItem";
 import AddUserModal from "../../modules/Users/AddUserModal";

@@ -7,7 +7,7 @@ import { List } from "@mui/material";
 import CreateGroupModal from "../../modules/Groups/CreateGroupModal";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
-import config from "../../resources/config.json";
+import config from "../../config.json";
 
 export default function UserGroupsView() {
   const [user, setUser] = useState({ isCreator: [], groups: [] });

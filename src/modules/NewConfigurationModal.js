@@ -12,7 +12,7 @@ import {
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import * as React from "react";
-import config from "../resources/config.json";
+import config from "../config.json";
 import { useEffect, useRef } from "react";
 
 const style = {

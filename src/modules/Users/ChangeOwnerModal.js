@@ -7,7 +7,7 @@ import { FormControl, Grid, InputLabel, Select } from "@mui/material";
 import { useEffect, useRef, useState } from "react";
 import Container from "@mui/material/Container";
 import MenuItem from "@mui/material/MenuItem";
-import config from "../../resources/config.json";
+import config from "../../config.json";
 import { getPath } from "../../resources/Utils";
 
 const style = {

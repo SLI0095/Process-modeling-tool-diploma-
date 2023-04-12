@@ -15,7 +15,7 @@ import WorkItemSubMenuFooter from "../../modules/WorkItem/WorkItemSubMenuFooter"
 import { Save } from "@mui/icons-material";
 import TaskSubMenuFooter from "../../modules/Task/TaskSubMenuFooter";
 import { useParams } from "react-router";
-import config from "../../resources/config.json";
+import config from "../../config.json";
 
 export default function WorkItemBasicInformation() {
   const name = useRef();

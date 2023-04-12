@@ -5,7 +5,7 @@ import { List } from "@mui/material";
 import MyListItem from "../../modules/MyListItem";
 import NewMetricModal from "../../modules/Process/NewMetricModal";
 import { useEffect, useState } from "react";
-import config from "../../resources/config.json";
+import config from "../../config.json";
 import { useParams } from "react-router";
 
 export default function ProcessMetrics() {

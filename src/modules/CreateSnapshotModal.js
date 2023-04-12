@@ -4,7 +4,7 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import { Grid, TextField } from "@mui/material";
-import config from "../resources/config.json";
+import config from "../config.json";
 import { useNavigate } from "react-router";
 import { useRef } from "react";
 import { Add } from "@mui/icons-material";

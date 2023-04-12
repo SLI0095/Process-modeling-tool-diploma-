@@ -1,5 +1,5 @@
 import * as React from "react";
-import config from "../../resources/config.json";
+import config from "../../config.json";
 import { useRef } from "react";
 import Button from "@mui/material/Button";
 import { Add } from "@mui/icons-material";

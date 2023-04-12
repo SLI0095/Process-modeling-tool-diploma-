@@ -9,7 +9,7 @@ import { FormControl, Grid, InputLabel, Select } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import MenuItem from "@mui/material/MenuItem";
 import { useParams } from "react-router";
-import config from "../../resources/config.json";
+import config from "../../config.json";
 
 const style = {
   position: "absolute",

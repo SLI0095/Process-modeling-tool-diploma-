@@ -7,7 +7,7 @@ import CreateProjectModal from "../../modules/Projects/CreateProjectModal";
 import ProjectListItem from "../../modules/Projects/ProjectListItem";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
-import config from "../../resources/config.json";
+import config from "../../config.json";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 

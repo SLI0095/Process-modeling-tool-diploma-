@@ -13,7 +13,7 @@ import * as React from "react";
 import ReactQuill from "react-quill";
 import ProcessSubMenuFooter from "../../modules/Process/ProcessSubMenuFooter";
 import { Download, Save } from "@mui/icons-material";
-import config from "../../resources/config.json";
+import config from "../../config.json";
 import { useParams } from "react-router";
 
 export default function ProcessBasicInformation() {

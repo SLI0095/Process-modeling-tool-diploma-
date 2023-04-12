@@ -2,7 +2,7 @@ import MyAppBar from "../../modules/MyAppBar";
 import Container from "@mui/material/Container";
 import ProcessSubMenuFooter from "../../modules/Process/ProcessSubMenuFooter";
 import { useEffect, useState } from "react";
-import config from "../../resources/config.json";
+import config from "../../config.json";
 import { useParams } from "react-router";
 import Box from "@mui/material/Box";
 import * as React from "react";

@@ -18,7 +18,7 @@ import ChangeOwnerModal from "../modules/Users/ChangeOwnerModal";
 import AddTaskSettingsModal from "../modules/AddTaskSettingsModal";
 import { useParams } from "react-router";
 import { useEffect, useState } from "react";
-import config from "../resources/config.json";
+import config from "../config.json";
 import { getFooter } from "../resources/Utils";
 
 export default function ElementSettings(props) {

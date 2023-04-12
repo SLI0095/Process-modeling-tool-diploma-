@@ -1,5 +1,5 @@
 import * as React from "react";
-import config from "../../resources/config.json";
+import config from "../../config.json";
 import { useNavigate, useParams } from "react-router";
 import Button from "@mui/material/Button";
 import { Delete } from "@mui/icons-material";

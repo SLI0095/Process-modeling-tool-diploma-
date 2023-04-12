@@ -7,7 +7,7 @@ import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import { Grid, TextField } from "@mui/material";
 import Typography from "@mui/material/Typography";
-import config from "../../resources/config.json";
+import config from "../../config.json";
 import { useParams } from "react-router";
 
 const style = {

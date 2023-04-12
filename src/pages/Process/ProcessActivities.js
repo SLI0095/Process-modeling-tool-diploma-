@@ -4,7 +4,7 @@ import ProcessSubMenuFooter from "../../modules/Process/ProcessSubMenuFooter";
 import DraggableActivityList from "../../modules/Process/DraggableActivityList";
 import { Alert, Button, Snackbar } from "@mui/material";
 import { useEffect, useState } from "react";
-import config from "../../resources/config.json";
+import config from "../../config.json";
 import { useParams } from "react-router";
 import * as React from "react";
 

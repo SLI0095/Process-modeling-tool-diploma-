@@ -8,7 +8,7 @@ import { useRef } from "react";
 import { Edit } from "@mui/icons-material";
 import Container from "@mui/material/Container";
 import IconButton from "@mui/material/IconButton";
-import config from "../../resources/config.json";
+import config from "../../config.json";
 
 const style = {
   position: "absolute",

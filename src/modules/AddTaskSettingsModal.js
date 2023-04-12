@@ -9,7 +9,7 @@ import { Add } from "@mui/icons-material";
 import Container from "@mui/material/Container";
 import MenuItem from "@mui/material/MenuItem";
 import { useParams } from "react-router";
-import config from "../resources/config.json";
+import config from "../config.json";
 
 const style = {
   position: "absolute",

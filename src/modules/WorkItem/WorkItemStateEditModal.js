@@ -8,7 +8,7 @@ import Container from "@mui/material/Container";
 import { Grid, TextField } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
-import config from "../../resources/config.json";
+import config from "../../config.json";
 
 const style = {
   position: "absolute",

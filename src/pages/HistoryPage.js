@@ -17,7 +17,7 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import { useParams } from "react-router";
 import { useEffect, useState } from "react";
-import config from "../resources/config.json";
+import config from "../config.json";
 import CreateSnapshotModal from "../modules/CreateSnapshotModal";
 import { WorkItemSnapshotDetail } from "../modules/History/WorkItemSnapshotDetail";
 import { RoleSnapshotDetail } from "../modules/History/RoleSnapshotDetail";

@@ -6,7 +6,7 @@ import WorkItemSubMenuFooter from "../../modules/WorkItem/WorkItemSubMenuFooter"
 import NewWorkItemStateModal from "../../modules/WorkItem/NewWorkItemStateModal";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
-import config from "../../resources/config.json";
+import config from "../../config.json";
 
 export default function WorkItemStates() {
   const [workItem, setWorkItem] = useState({ workItemStates: [] });

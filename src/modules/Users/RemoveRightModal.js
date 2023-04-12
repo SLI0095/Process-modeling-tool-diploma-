@@ -6,7 +6,7 @@ import Modal from "@mui/material/Modal";
 import { Grid } from "@mui/material";
 import { Delete } from "@mui/icons-material";
 import IconButton from "@mui/material/IconButton";
-import config from "../../resources/config.json";
+import config from "../../config.json";
 import { getPath } from "../../resources/Utils";
 
 const style = {

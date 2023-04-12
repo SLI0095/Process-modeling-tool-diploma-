@@ -6,7 +6,7 @@ import NewStepModal from "../../modules/Task/NewStepModal";
 import TaskSubMenuFooter from "../../modules/Task/TaskSubMenuFooter";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
-import config from "../../resources/config.json";
+import config from "../../config.json";
 
 export default function TaskSteps() {
   const [task, setTask] = useState({ steps: [] });

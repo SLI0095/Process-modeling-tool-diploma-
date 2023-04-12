@@ -4,7 +4,7 @@ import { Alert, List, Snackbar } from "@mui/material";
 import * as React from "react";
 import { getFooter, getPath } from "../resources/Utils";
 import { useEffect, useState } from "react";
-import config from "../resources/config.json";
+import config from "../config.json";
 import ConfigurationListItem from "../modules/Configurations/ConfigurationListItem";
 import { useNavigate, useParams } from "react-router";
 

@@ -10,7 +10,7 @@ import PaperElement from "../../modules/PaperElement";
 import NewElementButton from "../../modules/NewElementButton";
 import Typography from "@mui/material/Typography";
 import * as React from "react";
-import config from "../../resources/config.json";
+import config from "../../config.json";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 

@@ -11,7 +11,7 @@ import {
 import RegisterModal from "../modules/RegisterModal";
 import * as React from "react";
 import { useRef } from "react";
-import config from "../resources/config.json";
+import config from "../config.json";
 import { useNavigate } from "react-router";
 import { setDefaultProject } from "../resources/Utils";
 

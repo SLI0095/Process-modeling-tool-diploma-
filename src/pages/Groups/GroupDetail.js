@@ -6,7 +6,7 @@ import UserListItem from "../../modules/UserListItem";
 import * as React from "react";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
-import config from "../../resources/config.json";
+import config from "../../config.json";
 import AddUserToGroupModal from "../../modules/Groups/AddUserToGroupModal";
 
 export default function GroupDetail() {

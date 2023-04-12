@@ -14,7 +14,7 @@ import * as React from "react";
 import ReactQuill from "react-quill";
 import { UploadFile } from "@mui/icons-material";
 import { useNavigate } from "react-router";
-import config from "../../resources/config.json";
+import config from "../../config.json";
 
 export default function NewProcess() {
   const [checked, setChecked] = React.useState(false);

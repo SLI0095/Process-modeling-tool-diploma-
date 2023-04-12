@@ -5,7 +5,7 @@ import Typography from "@mui/material/Typography";
 import * as React from "react";
 import ReactQuill from "react-quill";
 import { useNavigate } from "react-router";
-import config from "../../resources/config.json";
+import config from "../../config.json";
 
 export default function NewRole() {
   let navigate = useNavigate();

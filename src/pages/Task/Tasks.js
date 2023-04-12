@@ -11,7 +11,7 @@ import NewElementButton from "../../modules/NewElementButton";
 import Typography from "@mui/material/Typography";
 import * as React from "react";
 import { useEffect, useState } from "react";
-import config from "../../resources/config.json";
+import config from "../../config.json";
 import { useParams } from "react-router";
 
 export default function Tasks() {
