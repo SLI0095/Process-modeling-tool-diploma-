@@ -10,6 +10,7 @@ import Typography from "@mui/material/Typography";
 import MenuItem from "@mui/material/MenuItem";
 import { useParams } from "react-router";
 import config from "../../config.json";
+import { useSnackbar } from "notistack";
 
 const style = {
   position: "absolute",
@@ -24,6 +25,7 @@ const style = {
 };
 //TODO add check if none selected
 export default function AddInputOutputModal(props) {
+  const { enqueueSnackbar } = useSnackbar();
   const [open, setOpen] = useState(false);
   const [workItems, setWorkItems] = useState([]);
   const addWorkItem = () => {
@@ -53,7 +55,7 @@ export default function AddInputOutputModal(props) {
         })
         .then((data) => {
           if (data !== undefined) {
-            alert(data.message);
+            enqueueSnackbar(data.message, { variant: "error" });
           }
         });
     } else if (props.type === "output") {
@@ -80,6 +82,7 @@ export default function AddInputOutputModal(props) {
   const selectedWorkItem = useRef();
   const { taskId } = useParams();
   const userId = sessionStorage.getItem("userId");
+  const projectId = sessionStorage.getItem("projectId");
 
   useEffect(() => {
     fetch(
@@ -87,7 +90,9 @@ export default function AddInputOutputModal(props) {
         "workItems/forTask?userId=" +
         userId +
         "&taskId=" +
-        taskId
+        taskId +
+        "&projectId=" +
+        projectId
     )
       .then((res) => res.json())
       .then(
@@ -98,7 +103,7 @@ export default function AddInputOutputModal(props) {
           alert(error);
         }
       );
-  }, [taskId, userId]);
+  }, [projectId, taskId, userId]);
 
   return (
     <>

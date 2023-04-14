@@ -10,6 +10,7 @@ import Container from "@mui/material/Container";
 import MenuItem from "@mui/material/MenuItem";
 import config from "../config.json";
 import { useParams } from "react-router";
+import { useSnackbar } from "notistack";
 
 const style = {
   position: "absolute",
@@ -24,6 +25,7 @@ const style = {
 };
 
 export default function AddProcessSettingsModal(props) {
+  const { enqueueSnackbar } = useSnackbar();
   const [open, setOpen] = React.useState(false);
   const [processes, setProcesses] = React.useState([]);
   const addProcess = () => {
@@ -54,7 +56,7 @@ export default function AddProcessSettingsModal(props) {
         })
         .then((data) => {
           if (data !== undefined) {
-            alert(data.message);
+            enqueueSnackbar(data.message, { variant: "error" });
           }
         });
     } else if (props.type === "task") {
@@ -72,7 +74,7 @@ export default function AddProcessSettingsModal(props) {
         })
         .then((data) => {
           if (data !== undefined) {
-            alert(data.message);
+            enqueueSnackbar(data.message, { variant: "error" });
           }
         });
     } else if (props.type === "workItem") {
@@ -93,7 +95,7 @@ export default function AddProcessSettingsModal(props) {
         })
         .then((data) => {
           if (data !== undefined) {
-            alert(data.message);
+            enqueueSnackbar(data.message, { variant: "error" });
           }
         });
     }

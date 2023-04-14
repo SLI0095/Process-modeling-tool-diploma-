@@ -9,6 +9,7 @@ import Container from "@mui/material/Container";
 import MenuItem from "@mui/material/MenuItem";
 import config from "../../config.json";
 import { getPath } from "../../resources/Utils";
+import { useSnackbar } from "notistack";
 
 const style = {
   position: "absolute",
@@ -23,6 +24,7 @@ const style = {
 };
 
 export default function ChangeOwnerModal(props) {
+  const { enqueueSnackbar } = useSnackbar();
   const [open, setOpen] = React.useState(false);
   const [users, setUsers] = useState([]);
   const changeOwner = () => {
@@ -49,7 +51,7 @@ export default function ChangeOwnerModal(props) {
       })
       .then((data) => {
         if (data !== undefined) {
-          alert(data.message);
+          enqueueSnackbar(data.message, { variant: "error" });
         }
       });
   };

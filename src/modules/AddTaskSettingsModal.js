@@ -10,6 +10,7 @@ import Container from "@mui/material/Container";
 import MenuItem from "@mui/material/MenuItem";
 import { useParams } from "react-router";
 import config from "../config.json";
+import { useSnackbar } from "notistack";
 
 const style = {
   position: "absolute",
@@ -24,6 +25,7 @@ const style = {
 };
 
 export default function AddTaskSettingsModal(props) {
+  const { enqueueSnackbar } = useSnackbar();
   const [open, setOpen] = React.useState(false);
   const [tasks, setTasks] = React.useState([]);
   const addTask = () => {
@@ -53,7 +55,7 @@ export default function AddTaskSettingsModal(props) {
         })
         .then((data) => {
           if (data !== undefined) {
-            alert(data.message);
+            enqueueSnackbar(data.message, { variant: "error" });
           }
         });
     } else if (props.type === "role") {
@@ -70,7 +72,7 @@ export default function AddTaskSettingsModal(props) {
         })
         .then((data) => {
           if (data !== undefined) {
-            alert(data.message);
+            enqueueSnackbar(data.message, { variant: "error" });
           }
         });
     }

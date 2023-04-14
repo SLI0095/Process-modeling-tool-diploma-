@@ -8,6 +8,7 @@ import config from "../config.json";
 import { useNavigate } from "react-router";
 import { useRef } from "react";
 import { Add } from "@mui/icons-material";
+import { useSnackbar } from "notistack";
 
 const style = {
   position: "absolute",
@@ -26,12 +27,14 @@ export default function CreateSnapshotModal(props) {
   const userId = sessionStorage.getItem("userId");
   let navigate = useNavigate();
   const snapshotDescription = useRef();
+  const { enqueueSnackbar } = useSnackbar();
 
   const handleOpen = () => {
     setOpen(true);
   };
   const handleClose = () => setOpen(false);
-  const createSnapshot = () => {
+  const createSnapshot = (event) => {
+    event.preventDefault();
     const requestOptions = {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
@@ -49,13 +52,14 @@ export default function CreateSnapshotModal(props) {
         .then((response) => {
           if (response.ok) {
             setOpen(false);
+            enqueueSnackbar("Snapshot created", { variant: "success" });
             navigate(0);
             return;
           }
           return response.json();
         })
         .then((data) => {
-          alert(data.message);
+          enqueueSnackbar(data.message, { variant: "error" });
         });
     }
     if (props.type === "task") {
@@ -76,7 +80,7 @@ export default function CreateSnapshotModal(props) {
           return response.json();
         })
         .then((data) => {
-          alert(data.message);
+          enqueueSnackbar(data.message, { variant: "error" });
         });
     }
     if (props.type === "workItem") {
@@ -97,7 +101,7 @@ export default function CreateSnapshotModal(props) {
           return response.json();
         })
         .then((data) => {
-          alert(data.message);
+          enqueueSnackbar(data.message, { variant: "error" });
         });
     }
     if (props.type === "role") {
@@ -118,7 +122,7 @@ export default function CreateSnapshotModal(props) {
           return response.json();
         })
         .then((data) => {
-          alert(data.message);
+          enqueueSnackbar(data.message, { variant: "error" });
         });
     }
   };
@@ -140,7 +144,7 @@ export default function CreateSnapshotModal(props) {
           aria-labelledby="modal-modal-title"
           aria-describedby="modal-modal-description"
         >
-          <form>
+          <form onSubmit={createSnapshot}>
             <Box sx={style}>
               <Grid container spacing={1}>
                 <Grid textAlign={"center"} item xs={12}>
@@ -160,7 +164,7 @@ export default function CreateSnapshotModal(props) {
                 </Grid>
                 <Grid textAlign={"center"} item xs={12}>
                   <Button
-                    onClick={createSnapshot}
+                    type={"submit"}
                     variant="contained"
                     sx={{ marginRight: 1 }}
                   >
