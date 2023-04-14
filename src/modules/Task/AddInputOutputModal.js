@@ -23,12 +23,11 @@ const style = {
   boxShadow: 24,
   p: 4,
 };
-//TODO add check if none selected
 export default function AddInputOutputModal(props) {
   const { enqueueSnackbar } = useSnackbar();
   const [open, setOpen] = useState(false);
   const [workItems, setWorkItems] = useState([]);
-  const addWorkItem = () => {
+  const addWorkItem = (event) => {
     const workItem = {
       id: selectedWorkItem.current.getElementsByTagName("input")[0].value,
     };
@@ -56,6 +55,7 @@ export default function AddInputOutputModal(props) {
         .then((data) => {
           if (data !== undefined) {
             enqueueSnackbar(data.message, { variant: "error" });
+            event.preventDefault();
           }
         });
     } else if (props.type === "output") {
@@ -72,7 +72,8 @@ export default function AddInputOutputModal(props) {
         })
         .then((data) => {
           if (data !== undefined) {
-            alert(data.message);
+            enqueueSnackbar(data.message, { variant: "error" });
+            event.preventDefault();
           }
         });
     }
@@ -117,7 +118,7 @@ export default function AddInputOutputModal(props) {
           aria-labelledby="modal-modal-title"
           aria-describedby="modal-modal-description"
         >
-          <form>
+          <form onSubmit={addWorkItem}>
             <Box sx={style}>
               <Container sx={{ width: "50%" }}>
                 <Grid container spacing={1}>
@@ -135,6 +136,7 @@ export default function AddInputOutputModal(props) {
                         label="Work item"
                         ref={selectedWorkItem}
                         defaultValue={""}
+                        required
                       >
                         {workItems.map((workItem) => (
                           <MenuItem key={workItem.id} value={workItem.id}>
@@ -147,14 +149,12 @@ export default function AddInputOutputModal(props) {
                   <Grid textAlign={"center"} item xs={12}>
                     <Button
                       type="submit"
-                      onClick={addWorkItem}
                       variant="contained"
                       sx={{ marginRight: 1 }}
                     >
                       Save
                     </Button>
                     <Button
-                      type="submit"
                       onClick={handleClose}
                       variant="contained"
                       sx={{ marginRight: 1 }}

@@ -27,7 +27,6 @@ export default function NewWorkItemStateModal() {
   const { enqueueSnackbar } = useSnackbar();
   const [open, setOpen] = React.useState(false);
   const addState = (event) => {
-    event.preventDefault();
     const state = {
       stateName: stateName.current.value,
       stateDescription: stateDescription.current.value,
@@ -55,6 +54,7 @@ export default function NewWorkItemStateModal() {
       .then((data) => {
         if (data !== undefined) {
           enqueueSnackbar(data.message, { variant: "error" });
+          event.preventDefault();
         }
       });
   };

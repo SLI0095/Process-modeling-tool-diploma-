@@ -27,7 +27,6 @@ export default function MetricEditModal(props) {
   const { enqueueSnackbar } = useSnackbar();
   const [open, setOpen] = React.useState(false);
   const saveMetric = (event) => {
-    event.preventDefault();
     const metric = {
       name: metricName.current.value,
       description: metricDescription.current.value,
@@ -51,6 +50,7 @@ export default function MetricEditModal(props) {
       .then((data) => {
         if (data !== undefined) {
           enqueueSnackbar(data.message, { variant: "error" });
+          event.preventDefault();
         }
       });
   };

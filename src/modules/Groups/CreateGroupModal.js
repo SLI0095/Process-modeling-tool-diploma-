@@ -27,7 +27,6 @@ export default function CreateGroupModal() {
   const { enqueueSnackbar } = useSnackbar();
   const [open, setOpen] = React.useState(false);
   const createGroup = (event) => {
-    event.preventDefault();
     const group = {
       groupName: groupName.current.value,
     };
@@ -47,6 +46,7 @@ export default function CreateGroupModal() {
       .then((data) => {
         if (data !== undefined) {
           enqueueSnackbar(data.message, { variant: "error" });
+          event.preventDefault();
         }
       });
   };

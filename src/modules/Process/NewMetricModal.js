@@ -27,7 +27,6 @@ export default function NewMetricModal() {
   const { enqueueSnackbar } = useSnackbar();
   const [open, setOpen] = React.useState(false);
   const addMetric = (event) => {
-    event.preventDefault();
     const metric = {
       name: metricName.current.value,
       description: metricDescription.current.value,
@@ -55,6 +54,7 @@ export default function NewMetricModal() {
       .then((data) => {
         if (data !== undefined) {
           enqueueSnackbar(data.message, { variant: "error" });
+          event.preventDefault();
         }
       });
   };

@@ -30,7 +30,6 @@ export default function NewRasciModal() {
   const { enqueueSnackbar } = useSnackbar();
 
   function addRasci(event) {
-    event.preventDefault();
     const rasci = {
       role: {
         id: selectedRole.current.getElementsByTagName("input")[0].value,
@@ -56,6 +55,7 @@ export default function NewRasciModal() {
       .then((data) => {
         if (data !== undefined) {
           enqueueSnackbar(data.message, { variant: "error" });
+          event.preventDefault();
         }
       });
   }

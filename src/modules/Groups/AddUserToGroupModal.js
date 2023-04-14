@@ -34,7 +34,7 @@ export default function AddUserToGroupModal() {
   const handleClose = () => setOpen(false);
   const selectedUser = useRef();
 
-  const addUser = () => {
+  const addUser = (event) => {
     const user = {
       id: selectedUser.current.getElementsByTagName("input")[0].value,
     };
@@ -57,6 +57,7 @@ export default function AddUserToGroupModal() {
       .then((data) => {
         if (data !== undefined) {
           enqueueSnackbar(data.message, { variant: "error" });
+          event.preventDefault();
         }
       });
   };
@@ -86,7 +87,7 @@ export default function AddUserToGroupModal() {
           aria-labelledby="modal-modal-title"
           aria-describedby="modal-modal-description"
         >
-          <form>
+          <form onSubmit={addUser}>
             <Box sx={style}>
               <Container sx={{ width: "50%" }}>
                 <Grid container spacing={1} lineHeight={4.5}>
@@ -108,6 +109,7 @@ export default function AddUserToGroupModal() {
                         label="User"
                         ref={selectedUser}
                         defaultValue={""}
+                        required
                       >
                         {users.map((user) => (
                           <MenuItem key={user.id} value={user.id}>
@@ -120,14 +122,12 @@ export default function AddUserToGroupModal() {
                   <Grid textAlign={"center"} item xs={12}>
                     <Button
                       type="submit"
-                      onClick={addUser}
                       variant="contained"
                       sx={{ marginRight: 1 }}
                     >
                       Add user
                     </Button>
                     <Button
-                      type="submit"
                       onClick={handleClose}
                       variant="contained"
                       sx={{ marginLeft: 1 }}

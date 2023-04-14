@@ -30,9 +30,9 @@ export default function RegisterModal() {
   const passwordAgain = useRef();
 
   function registerUser(event) {
-    event.preventDefault();
     if (password.current.value !== passwordAgain.current.value) {
       enqueueSnackbar("Passwords not match!", { variant: "error" });
+      event.preventDefault();
       return;
     }
     let currentUsername = username.current.value;
@@ -54,6 +54,7 @@ export default function RegisterModal() {
       }
       if (response.status === 400) {
         enqueueSnackbar("User already exists!", { variant: "error" });
+        event.preventDefault();
       }
     });
   }

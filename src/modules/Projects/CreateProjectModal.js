@@ -26,7 +26,6 @@ export default function CreateProjectModal() {
   const { enqueueSnackbar } = useSnackbar();
   const [open, setOpen] = React.useState(false);
   const createProject = (event) => {
-    event.preventDefault();
     const project = {
       name: projectName.current.value,
       briefDescription: projectDescription.current.value,
@@ -47,6 +46,7 @@ export default function CreateProjectModal() {
       .then((data) => {
         if (data !== undefined) {
           enqueueSnackbar(data.message, { variant: "error" });
+          event.preventDefault();
         }
       });
   };

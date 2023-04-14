@@ -15,7 +15,6 @@ export default function NewWorkItem() {
   const { enqueueSnackbar } = useSnackbar();
 
   const saveWorkItem = (event) => {
-    event.preventDefault();
     let workItem;
     // eslint-disable-next-line eqeqeq
     if (projectId == -1) {
@@ -75,6 +74,7 @@ export default function NewWorkItem() {
       .then((data) => {
         if (data !== undefined) {
           enqueueSnackbar(data.message, { variant: "error" });
+          event.preventDefault();
         }
       });
   };

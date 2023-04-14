@@ -27,7 +27,7 @@ export default function ChangeOwnerModal(props) {
   const { enqueueSnackbar } = useSnackbar();
   const [open, setOpen] = React.useState(false);
   const [users, setUsers] = useState([]);
-  const changeOwner = () => {
+  const changeOwner = (event) => {
     let newOwnerId =
       selectedUser.current.getElementsByTagName("input")[0].value;
     const requestOptions = {
@@ -52,6 +52,7 @@ export default function ChangeOwnerModal(props) {
       .then((data) => {
         if (data !== undefined) {
           enqueueSnackbar(data.message, { variant: "error" });
+          event.preventDefault();
         }
       });
   };
@@ -85,7 +86,7 @@ export default function ChangeOwnerModal(props) {
           aria-labelledby="modal-modal-title"
           aria-describedby="modal-modal-description"
         >
-          <form>
+          <form onSubmit={changeOwner}>
             <Box sx={style}>
               <Container sx={{ width: "50%" }}>
                 <Grid container spacing={1} lineHeight={4.5}>
@@ -106,6 +107,8 @@ export default function ChangeOwnerModal(props) {
                         labelId="label1"
                         label="User"
                         ref={selectedUser}
+                        defaultValue={""}
+                        required
                       >
                         {users.map((user) => (
                           <MenuItem key={user.id} value={user.id}>
@@ -118,14 +121,12 @@ export default function ChangeOwnerModal(props) {
                   <Grid item textAlign={"center"} xs={12}>
                     <Button
                       type="submit"
-                      onClick={changeOwner}
                       variant="contained"
                       sx={{ marginRight: 1 }}
                     >
                       Set owner
                     </Button>
                     <Button
-                      type="submit"
                       onClick={handleClose}
                       variant="contained"
                       sx={{ marginLeft: 1 }}

@@ -28,7 +28,7 @@ export default function AddTaskSettingsModal(props) {
   const { enqueueSnackbar } = useSnackbar();
   const [open, setOpen] = React.useState(false);
   const [tasks, setTasks] = React.useState([]);
-  const addTask = () => {
+  const addTask = (event) => {
     const task = {
       id: selectedTask.current.getElementsByTagName("input")[0].value,
     };
@@ -56,6 +56,7 @@ export default function AddTaskSettingsModal(props) {
         .then((data) => {
           if (data !== undefined) {
             enqueueSnackbar(data.message, { variant: "error" });
+            event.preventDefault();
           }
         });
     } else if (props.type === "role") {
@@ -73,6 +74,7 @@ export default function AddTaskSettingsModal(props) {
         .then((data) => {
           if (data !== undefined) {
             enqueueSnackbar(data.message, { variant: "error" });
+            event.preventDefault();
           }
         });
     }
@@ -116,7 +118,7 @@ export default function AddTaskSettingsModal(props) {
           aria-labelledby="modal-modal-title"
           aria-describedby="modal-modal-description"
         >
-          <form>
+          <form onSubmit={addTask}>
             <Box sx={style}>
               <Container sx={{ width: "50%" }}>
                 <Grid container spacing={1} lineHeight={4.5}>
@@ -137,6 +139,8 @@ export default function AddTaskSettingsModal(props) {
                         labelId="label1"
                         label="Task"
                         ref={selectedTask}
+                        defaultValue={""}
+                        required
                       >
                         {tasks.map((task) => (
                           <MenuItem key={task.id} value={task.id}>
@@ -149,14 +153,12 @@ export default function AddTaskSettingsModal(props) {
                   <Grid item textAlign={"center"} xs={12}>
                     <Button
                       type="submit"
-                      onClick={addTask}
                       variant="contained"
                       sx={{ marginRight: 1 }}
                     >
                       Add
                     </Button>
                     <Button
-                      type="submit"
                       onClick={handleClose}
                       variant="contained"
                       sx={{ marginLeft: 1 }}

@@ -27,7 +27,6 @@ export default function NewStepModal() {
   const { enqueueSnackbar } = useSnackbar();
   const [open, setOpen] = React.useState(false);
   const addStep = (event) => {
-    event.preventDefault();
     const step = {
       name: stepName.current.value,
       description: stepDescription.current.value,
@@ -51,6 +50,7 @@ export default function NewStepModal() {
       .then((data) => {
         if (data !== undefined) {
           enqueueSnackbar(data.message, { variant: "error" });
+          event.preventDefault();
         }
       });
   };
