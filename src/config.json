@@ -1,3 +1,3 @@
 {
-  "serverURL": "$serverURL"
+  "serverURL": "http://localhost:8080/"
 }
