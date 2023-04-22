@@ -44,6 +44,7 @@ export default function CreateSnapshotModal(props) {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(snapshotDetail),
     };
+    event.preventDefault();
     if (props.type === "process") {
       fetch(
         config.serverURL +
@@ -64,7 +65,6 @@ export default function CreateSnapshotModal(props) {
         })
         .then((data) => {
           enqueueSnackbar(data.message, { variant: "error" });
-          event.preventDefault();
         });
     }
     if (props.type === "task") {
@@ -86,7 +86,6 @@ export default function CreateSnapshotModal(props) {
         })
         .then((data) => {
           enqueueSnackbar(data.message, { variant: "error" });
-          event.preventDefault();
         });
     }
     if (props.type === "workItem") {
@@ -108,7 +107,6 @@ export default function CreateSnapshotModal(props) {
         })
         .then((data) => {
           enqueueSnackbar(data.message, { variant: "error" });
-          event.preventDefault();
         });
     }
     if (props.type === "role") {
@@ -130,7 +128,6 @@ export default function CreateSnapshotModal(props) {
         })
         .then((data) => {
           enqueueSnackbar(data.message, { variant: "error" });
-          event.preventDefault();
         });
     }
   };

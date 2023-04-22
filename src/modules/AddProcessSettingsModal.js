@@ -38,6 +38,7 @@ export default function AddProcessSettingsModal(props) {
       body: JSON.stringify(process),
     };
     console.log(process, taskId, props.type);
+    event.preventDefault();
     if (props.type === "process") {
       fetch(
         config.serverURL +
@@ -50,6 +51,7 @@ export default function AddProcessSettingsModal(props) {
         .then((response) => {
           if (response.ok) {
             setOpen(false);
+            window.location.reload(false);
             return;
           }
           return response.json();
@@ -57,7 +59,6 @@ export default function AddProcessSettingsModal(props) {
         .then((data) => {
           if (data !== undefined) {
             enqueueSnackbar(data.message, { variant: "error" });
-            event.preventDefault();
           }
         });
     } else if (props.type === "task") {
@@ -69,6 +70,7 @@ export default function AddProcessSettingsModal(props) {
         .then((response) => {
           if (response.ok) {
             setOpen(false);
+            window.location.reload(false);
             return;
           }
           return response.json();
@@ -76,7 +78,6 @@ export default function AddProcessSettingsModal(props) {
         .then((data) => {
           if (data !== undefined) {
             enqueueSnackbar(data.message, { variant: "error" });
-            event.preventDefault();
           }
         });
     } else if (props.type === "workItem") {
@@ -91,6 +92,7 @@ export default function AddProcessSettingsModal(props) {
         .then((response) => {
           if (response.ok) {
             setOpen(false);
+            window.location.reload(false);
             return;
           }
           return response.json();
@@ -98,7 +100,6 @@ export default function AddProcessSettingsModal(props) {
         .then((data) => {
           if (data !== undefined) {
             enqueueSnackbar(data.message, { variant: "error" });
-            event.preventDefault();
           }
         });
     }

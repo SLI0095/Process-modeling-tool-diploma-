@@ -41,6 +41,7 @@ export default function NewRasciModal() {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(rasci),
     };
+    event.preventDefault();
     fetch(
       config.serverURL + "tasks/" + taskId + "/addRasci?userId=" + userId,
       requestOptions
@@ -48,14 +49,13 @@ export default function NewRasciModal() {
       .then((response) => {
         if (response.ok) {
           setOpen(false);
-          return;
+          window.location.reload(false);
         }
         return response.json();
       })
       .then((data) => {
         if (data !== undefined) {
           enqueueSnackbar(data.message, { variant: "error" });
-          event.preventDefault();
         }
       });
   }
@@ -100,7 +100,7 @@ export default function NewRasciModal() {
           aria-labelledby="modal-modal-title"
           aria-describedby="modal-modal-description"
         >
-          <form onSubmit={addRasci}>
+          <form onSubmit={(event) => addRasci(event)}>
             <Box sx={style}>
               <Container sx={{ width: "50%" }}>
                 <Grid container spacing={1} lineHeight={4.5}>

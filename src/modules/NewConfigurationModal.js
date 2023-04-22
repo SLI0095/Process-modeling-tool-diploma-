@@ -58,6 +58,7 @@ export default function NewConfigurationModal(props) {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
     };
+    event.preventDefault();
     if (props.type === "process") {
       fetch(
         config.serverURL +
@@ -72,6 +73,7 @@ export default function NewConfigurationModal(props) {
         .then((response) => {
           if (response.ok) {
             showSuccess();
+            window.location.reload(false);
             return;
           }
           return response.json();
@@ -95,6 +97,7 @@ export default function NewConfigurationModal(props) {
           if (response.ok) {
             showSuccess();
             setOpen(false);
+            window.location.reload(false);
             return;
           }
           return response.json();
@@ -118,6 +121,7 @@ export default function NewConfigurationModal(props) {
           if (response.ok) {
             showSuccess();
             setOpen(false);
+            window.location.reload(false);
             return;
           }
           return response.json();
@@ -141,6 +145,7 @@ export default function NewConfigurationModal(props) {
           if (response.ok) {
             showSuccess();
             setOpen(false);
+            window.location.reload(false);
             return;
           }
           return response.json();

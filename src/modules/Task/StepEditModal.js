@@ -36,6 +36,7 @@ export default function StepEditModal(props) {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(step),
     };
+    event.preventDefault();
     fetch(
       config.serverURL + "taskSteps/" + props.id + "?userId=" + userId,
       requestOptions
@@ -43,6 +44,7 @@ export default function StepEditModal(props) {
       .then((response) => {
         if (response.ok) {
           setOpen(false);
+          window.location.reload(false);
           return;
         }
         return response.json();
@@ -50,7 +52,6 @@ export default function StepEditModal(props) {
       .then((data) => {
         if (data !== undefined) {
           enqueueSnackbar(data.message, { variant: "error" });
-          event.preventDefault();
         }
       });
   };

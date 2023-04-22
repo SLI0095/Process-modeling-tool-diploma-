@@ -43,6 +43,7 @@ export default function AddUserToGroupModal() {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(user),
     };
+    event.preventDefault();
     fetch(
       config.serverURL + "userGroups/" + groupId + "/addUser?userId=" + userId,
       requestOptions
@@ -50,6 +51,7 @@ export default function AddUserToGroupModal() {
       .then((response) => {
         if (response.ok) {
           setOpen(false);
+          window.location.reload(false);
           return;
         }
         return response.json();
@@ -57,7 +59,6 @@ export default function AddUserToGroupModal() {
       .then((data) => {
         if (data !== undefined) {
           enqueueSnackbar(data.message, { variant: "error" });
-          event.preventDefault();
         }
       });
   };

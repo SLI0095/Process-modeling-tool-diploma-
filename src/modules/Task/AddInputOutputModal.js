@@ -36,6 +36,7 @@ export default function AddInputOutputModal(props) {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(workItem),
     };
+    event.preventDefault();
     if (props.type === "input") {
       fetch(
         config.serverURL +
@@ -48,6 +49,7 @@ export default function AddInputOutputModal(props) {
         .then((response) => {
           if (response.ok) {
             setOpen(false);
+            window.location.reload(false);
             return;
           }
           return response.json();
@@ -55,7 +57,6 @@ export default function AddInputOutputModal(props) {
         .then((data) => {
           if (data !== undefined) {
             enqueueSnackbar(data.message, { variant: "error" });
-            event.preventDefault();
           }
         });
     } else if (props.type === "output") {
@@ -66,6 +67,7 @@ export default function AddInputOutputModal(props) {
         .then((response) => {
           if (response.ok) {
             setOpen(false);
+            window.location.reload(false);
             return;
           }
           return response.json();
@@ -73,7 +75,6 @@ export default function AddInputOutputModal(props) {
         .then((data) => {
           if (data !== undefined) {
             enqueueSnackbar(data.message, { variant: "error" });
-            event.preventDefault();
           }
         });
     }

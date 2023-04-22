@@ -37,6 +37,7 @@ export default function AddTaskSettingsModal(props) {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(task),
     };
+    event.preventDefault();
     if (props.type === "workItem") {
       fetch(
         config.serverURL +
@@ -49,6 +50,7 @@ export default function AddTaskSettingsModal(props) {
         .then((response) => {
           if (response.ok) {
             setOpen(false);
+            window.location.reload(false);
             return;
           }
           return response.json();
@@ -56,7 +58,6 @@ export default function AddTaskSettingsModal(props) {
         .then((data) => {
           if (data !== undefined) {
             enqueueSnackbar(data.message, { variant: "error" });
-            event.preventDefault();
           }
         });
     } else if (props.type === "role") {
@@ -67,6 +68,7 @@ export default function AddTaskSettingsModal(props) {
         .then((response) => {
           if (response.ok) {
             setOpen(false);
+            window.location.reload(false);
             return;
           }
           return response.json();
@@ -74,7 +76,6 @@ export default function AddTaskSettingsModal(props) {
         .then((data) => {
           if (data !== undefined) {
             enqueueSnackbar(data.message, { variant: "error" });
-            event.preventDefault();
           }
         });
     }

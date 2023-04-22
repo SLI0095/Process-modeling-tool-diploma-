@@ -36,6 +36,7 @@ export default function NewWorkItemStateModal() {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(state),
     };
+    event.preventDefault();
     fetch(
       config.serverURL +
         "workItems/" +
@@ -47,6 +48,7 @@ export default function NewWorkItemStateModal() {
       .then((response) => {
         if (response.ok) {
           setOpen(false);
+          window.location.reload(false);
           return;
         }
         return response.json();
@@ -54,7 +56,6 @@ export default function NewWorkItemStateModal() {
       .then((data) => {
         if (data !== undefined) {
           enqueueSnackbar(data.message, { variant: "error" });
-          event.preventDefault();
         }
       });
   };

@@ -35,10 +35,12 @@ export default function CreateGroupModal() {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(group),
     };
+    event.preventDefault();
     fetch(config.serverURL + "userGroups?userId=" + userId, requestOptions)
       .then((response) => {
         if (response.ok) {
           setOpen(false);
+          window.location.reload(false);
           return;
         }
         return response.json();
@@ -46,7 +48,6 @@ export default function CreateGroupModal() {
       .then((data) => {
         if (data !== undefined) {
           enqueueSnackbar(data.message, { variant: "error" });
-          event.preventDefault();
         }
       });
   };

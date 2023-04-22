@@ -33,6 +33,7 @@ export default function ChangeOwnerModal(props) {
     const requestOptions = {
       method: "PUT",
     };
+    event.preventDefault();
     fetch(
       config.serverURL +
         getPath(props.type) +
@@ -46,13 +47,14 @@ export default function ChangeOwnerModal(props) {
       .then((response) => {
         if (response.ok) {
           setOpen(false);
+          window.location.reload(false);
+          return;
         }
         return response.json();
       })
       .then((data) => {
         if (data !== undefined) {
           enqueueSnackbar(data.message, { variant: "error" });
-          event.preventDefault();
         }
       });
   };

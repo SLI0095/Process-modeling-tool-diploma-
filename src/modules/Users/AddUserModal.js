@@ -60,7 +60,7 @@ export default function AddUserModal(props) {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(userType),
     };
-
+    event.preventDefault();
     if (right === "edit") {
       fetch(
         config.serverURL + urlPath + props.itemId + "/addEdit?userId=" + userId,
@@ -69,13 +69,14 @@ export default function AddUserModal(props) {
         .then((response) => {
           if (response.ok) {
             setOpen(false);
+            window.location.reload(false);
+            return;
           }
           return response.json();
         })
         .then((data) => {
           if (data !== undefined) {
             enqueueSnackbar(data.message, { variant: "error" });
-            event.preventDefault();
           }
         });
     }
@@ -91,6 +92,8 @@ export default function AddUserModal(props) {
         .then((response) => {
           if (response.ok) {
             setOpen(false);
+            window.location.reload(false);
+            return;
           }
           return response.json();
         })
