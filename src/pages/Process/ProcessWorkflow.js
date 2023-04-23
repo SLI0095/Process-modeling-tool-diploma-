@@ -239,7 +239,6 @@ export default function ProcessWorkflow() {
         });
         const newElement = replace.replaceElement(element, task);
         task_process.mandatoryInputs.forEach(function (item) {
-          //console.log(newElement);
           const dataObjectBusinessObject = bpmnFactory.create(
             "bpmn:DataObjectReference",
             { name: item.name }

@@ -47,9 +47,6 @@ export default function PaperElementMenu(props) {
           },
         }}
       >
-        {/*<MenuItem key={"newVersion"} onClick={handleTemplate}>
-          Use as template
-        </MenuItem>*/}
         <NewConfigurationModal type={props.type} element={props.element} />
         <DeleteModal
           type={props.type}
