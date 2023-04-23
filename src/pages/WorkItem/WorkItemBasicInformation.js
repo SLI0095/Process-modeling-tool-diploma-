@@ -53,7 +53,7 @@ export default function WorkItemBasicInformation() {
       briefDescription: briefDescription.current.value,
       mainDescription: mainDescription.current.getEditor().root.innerHTML,
       workItemType: workItemType.current.value,
-      urlAdress: urlAddress.current.value,
+      urlAddress: urlAddress.current.value,
       purpose: purpose.current.getEditor().root.innerHTML,
       keyConsiderations: keyConsiderations.current.getEditor().root.innerHTML,
       briefOutline: briefOutline.current.getEditor().root.innerHTML,
@@ -169,7 +169,7 @@ export default function WorkItemBasicInformation() {
                   type={"url"}
                   margin={"normal"}
                   inputRef={urlAddress}
-                  defaultValue={workItem.urlAdress}
+                  defaultValue={workItem.urlAddress}
                   fullWidth
                 />
               </Grid>

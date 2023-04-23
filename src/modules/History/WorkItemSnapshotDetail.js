@@ -106,7 +106,7 @@ export function WorkItemSnapshotDetail(props) {
                     <TextField
                       type={"url"}
                       margin={"normal"}
-                      defaultValue={props.workItem.urlAdress}
+                      defaultValue={props.workItem.urlAddress}
                       fullWidth
                     />
                   </Grid>
